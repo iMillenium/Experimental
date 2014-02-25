@@ -5367,10 +5367,9 @@ void map_helpscreen(bool do_exit)
 void map_versionscreen(bool do_exit) {
 	const char *svn = get_svn_revision();
 	const char *git = get_git_hash();
-	ShowInfo(CL_WHITE"Hercules version: %s" CL_RESET"\n", git[0] != HERC_UNKNOWN_VER ? git : svn[0] != HERC_UNKNOWN_VER ? svn : "Unknown");
-	ShowInfo(CL_GREEN"Website/Forum:"CL_RESET"\thttp://hercules.ws/\n");
-	ShowInfo(CL_GREEN"IRC Channel:"CL_RESET"\tirc://irc.rizon.net/#Hercules\n");
-	ShowInfo("Open "CL_WHITE"readme.txt"CL_RESET" for more information.\n");
+	ShowInfo(CL_WHITE"Versão do Cronus: %s" CL_RESET"\n", git[0] != HERC_UNKNOWN_VER ? git : svn[0] != HERC_UNKNOWN_VER ? svn : "Desconhecida");
+	ShowInfo(CL_GREEN"Website/Forum:"CL_RESET"\thttp://forum.cronus-emulator.com/\n");
+	ShowInfo("Abra o "CL_WHITE"readme.txt"CL_RESET" para mais informações.\n");
 	if( do_exit )
 		exit(EXIT_SUCCESS);
 }
@@ -5455,7 +5454,7 @@ void map_cp_defaults(void) {
 #ifdef CONSOLE_INPUT
 	/* default HCP data */
 	map->cpsd = pc->get_dummy_sd();
-	strcpy(map->cpsd->status.name, "Hercules Console");
+	strcpy(map->cpsd->status.name, "Cronus Console");
 	map->cpsd->bl.x = MAP_DEFAULT_X;
 	map->cpsd->bl.y = MAP_DEFAULT_Y;
 	map->cpsd->bl.m = map->mapname2mapid(MAP_DEFAULT);
