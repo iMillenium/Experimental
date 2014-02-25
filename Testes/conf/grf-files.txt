@@ -1,12 +1,28 @@
-//-----------------------------------------
-// GRF Files
-// Add as many as needed.
-//-----------------------------------------
+//---------------------------------------------------------
+//     _____                           
+//    / ____|                          
+//   | |     _ __ ___  _ __  _   _ ___ 
+//   | |    | '__/ _ \| '_ \| | | / __|
+//   | |____| | | (_) | | | | |_| \__ \
+//    \_____|_|  \___/|_| |_|\__,_|___/
+//
+//----- http://forum.cronus-emulator.com/
+//----- Descrição: ----------------------------------------
+// Arquivo de configuração de GRF/pastas data
+// Traduzido por mkbu95
+//---------------------------------------------------------
+
+//---------------------------------------------------------
+// Lista de GRFs
+// Adicione quantas forem necessárias.
+//---------------------------------------------------------
 //grf: C:\Program Files\Gravity\RO\rdata.grf
 //grf: C:\Program Files\Gravity\RO\data.grf
 
-//-----------------------------------------
-// Data Directory
-// Use the base folder, not the data\ path.
-//-----------------------------------------
+//---------------------------------------------------------
+// Outros (Pastas)
+//---------------------------------------------------------
+// Diretório da pasta data (sem colocá-la no comando data_dir)
+// ex.: -> data_dir: C:\Arquivos de Programas\Gravity\RO\
+// A pasta data tem que estar em \RO\, no exemplo.
 //data_dir: C:\Program Files\Gravity\RO\

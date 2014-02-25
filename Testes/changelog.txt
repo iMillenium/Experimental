@@ -1,0 +1,5 @@
+2014.02.25 » Portalcake
+	- 99% da pasta conf & conf/battle traduzidas.
+	- Tradução parcial da raíz da pasta db.
+		A tradução desta ainda está em andamento.
+	- Sem mudanças na source por enquanto.
