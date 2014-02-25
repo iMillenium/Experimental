@@ -3,3 +3,9 @@
 	- Tradução parcial da raíz da pasta db.
 		A tradução desta ainda está em andamento.
 	- Sem mudanças na source por enquanto.
+	
+2014.02.25 » BOO
+	- Alterando versão padrão pra PRE-RE
+	- Aplicando SIstema de Nome dos Npcs do Raizen
+	- Alterando nome no Console
+	
