@@ -17,7 +17,7 @@
                BlueprintIdentifier = "A56CC6721856434D009EB79C"
                BuildableName = "char-server"
                BlueprintName = "char-server"
-               ReferencedContainer = "container:Hercules.xcodeproj">
+               ReferencedContainer = "container:Cronus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "A56CC6721856434D009EB79C"
             BuildableName = "char-server"
             BlueprintName = "char-server"
-            ReferencedContainer = "container:Hercules.xcodeproj">
+            ReferencedContainer = "container:Cronus.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -54,7 +54,7 @@
             BlueprintIdentifier = "A56CC6721856434D009EB79C"
             BuildableName = "char-server"
             BlueprintName = "char-server"
-            ReferencedContainer = "container:Hercules.xcodeproj">
+            ReferencedContainer = "container:Cronus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -72,7 +72,7 @@
             BlueprintIdentifier = "A56CC6721856434D009EB79C"
             BuildableName = "char-server"
             BlueprintName = "char-server"
-            ReferencedContainer = "container:Hercules.xcodeproj">
+            ReferencedContainer = "container:Cronus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

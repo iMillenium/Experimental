@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A58A5A1E185801FF0099683E"
-               BuildableName = "HPMHooking.dylib"
-               BlueprintName = "HPMHooking"
-               ReferencedContainer = "container:Hercules.xcodeproj">
+               BlueprintIdentifier = "A56CC66918564315009EB79C"
+               BuildableName = "login-server"
+               BlueprintName = "login-server"
+               ReferencedContainer = "container:Cronus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,6 +29,15 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "A56CC66918564315009EB79C"
+            BuildableName = "login-server"
+            BlueprintName = "login-server"
+            ReferencedContainer = "container:Cronus.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -39,6 +48,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "A56CC66918564315009EB79C"
+            BuildableName = "login-server"
+            BlueprintName = "login-server"
+            ReferencedContainer = "container:Cronus.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -48,6 +66,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "A56CC66918564315009EB79C"
+            BuildableName = "login-server"
+            BlueprintName = "login-server"
+            ReferencedContainer = "container:Cronus.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

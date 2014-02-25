@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A5380CCC1856CE180090CBC4"
-               BuildableName = "mapcache"
-               BlueprintName = "mapcache"
-               ReferencedContainer = "container:Hercules.xcodeproj">
+               BlueprintIdentifier = "A5AA94E61857956100C940C8"
+               BuildableName = "sample.dylib"
+               BlueprintName = "sample"
+               ReferencedContainer = "container:Cronus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,15 +29,6 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A5380CCC1856CE180090CBC4"
-            BuildableName = "mapcache"
-            BlueprintName = "mapcache"
-            ReferencedContainer = "container:Hercules.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -48,15 +39,6 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A5380CCC1856CE180090CBC4"
-            BuildableName = "mapcache"
-            BlueprintName = "mapcache"
-            ReferencedContainer = "container:Hercules.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -66,15 +48,6 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A5380CCC1856CE180090CBC4"
-            BuildableName = "mapcache"
-            BlueprintName = "mapcache"
-            ReferencedContainer = "container:Hercules.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

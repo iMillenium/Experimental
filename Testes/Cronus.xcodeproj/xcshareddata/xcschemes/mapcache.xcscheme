@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A56CC67B18564356009EB79C"
-               BuildableName = "map-server"
-               BlueprintName = "map-server"
-               ReferencedContainer = "container:Hercules.xcodeproj">
+               BlueprintIdentifier = "A5380CCC1856CE180090CBC4"
+               BuildableName = "mapcache"
+               BlueprintName = "mapcache"
+               ReferencedContainer = "container:Cronus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A56CC67B18564356009EB79C"
-            BuildableName = "map-server"
-            BlueprintName = "map-server"
-            ReferencedContainer = "container:Hercules.xcodeproj">
+            BlueprintIdentifier = "A5380CCC1856CE180090CBC4"
+            BuildableName = "mapcache"
+            BlueprintName = "mapcache"
+            ReferencedContainer = "container:Cronus.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -51,10 +51,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A56CC67B18564356009EB79C"
-            BuildableName = "map-server"
-            BlueprintName = "map-server"
-            ReferencedContainer = "container:Hercules.xcodeproj">
+            BlueprintIdentifier = "A5380CCC1856CE180090CBC4"
+            BuildableName = "mapcache"
+            BlueprintName = "mapcache"
+            ReferencedContainer = "container:Cronus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -69,10 +69,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A56CC67B18564356009EB79C"
-            BuildableName = "map-server"
-            BlueprintName = "map-server"
-            ReferencedContainer = "container:Hercules.xcodeproj">
+            BlueprintIdentifier = "A5380CCC1856CE180090CBC4"
+            BuildableName = "mapcache"
+            BlueprintName = "mapcache"
+            ReferencedContainer = "container:Cronus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

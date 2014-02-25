@@ -37,11 +37,11 @@ Thumbs.db
 
 #OSX Xcode project user-sensitive-stuff
 /DerivedData
-/Hercules
+/Cronus
 /build
-/Hercules.xcodeproj/xcuserdata
-/Hercules.xcodeproj/project.xcworkspace/xcuserdata/
-/Hercules.xcodeproj/project.xcworkspace/xcshareddata/Hercules.xccheckout
+/Cronus.xcodeproj/xcuserdata
+/Cronus.xcodeproj/project.xcworkspace/xcuserdata/
+/Cronus.xcodeproj/project.xcworkspace/xcshareddata/Cronus.xccheckout
 
 # /3rdparty/libconfig/
 /3rdparty/libconfig/Makefile

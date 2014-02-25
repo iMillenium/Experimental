@@ -17,7 +17,7 @@
                BlueprintIdentifier = "A56CC67B18564356009EB79C"
                BuildableName = "map-server"
                BlueprintName = "map-server"
-               ReferencedContainer = "container:Hercules.xcodeproj">
+               ReferencedContainer = "container:Cronus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "A5AA94F2185799B700C940C8"
                BuildableName = "db2sql.dylib"
                BlueprintName = "db2sql"
-               ReferencedContainer = "container:Hercules.xcodeproj">
+               ReferencedContainer = "container:Cronus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -66,7 +66,7 @@
                      BlueprintIdentifier = "A56CC67B18564356009EB79C"
                      BuildableName = "map-server"
                      BlueprintName = "map-server"
-                     ReferencedContainer = "container:Hercules.xcodeproj">
+                     ReferencedContainer = "container:Cronus.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
             </ActionContent>
@@ -85,7 +85,7 @@
                      BlueprintIdentifier = "A56CC67B18564356009EB79C"
                      BuildableName = "map-server"
                      BlueprintName = "map-server"
-                     ReferencedContainer = "container:Hercules.xcodeproj">
+                     ReferencedContainer = "container:Cronus.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
             </ActionContent>
@@ -97,7 +97,7 @@
             BlueprintIdentifier = "A56CC67B18564356009EB79C"
             BuildableName = "map-server"
             BlueprintName = "map-server"
-            ReferencedContainer = "container:Hercules.xcodeproj">
+            ReferencedContainer = "container:Cronus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
