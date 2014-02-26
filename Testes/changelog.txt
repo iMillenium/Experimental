@@ -9,3 +9,9 @@
 	- Aplicando SIstema de Nome dos Npcs do Raizen
 	- Alterando nome no Console
 	
+2014.02.26 » BOO
+	- Pequena Tradução faltante no Arquivo Misc.conf
+	- Iniciando Traduções na Pasta Npcs
+		Aeroportos e Battleground Aplicados.
+	- Verificando as traduções existentes para aplica-las.
+	
