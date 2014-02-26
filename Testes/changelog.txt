@@ -14,6 +14,10 @@
 	- Iniciando Traduções na Pasta Npcs
 		Aeroportos e Battleground Aplicados.
 	- Verificando as traduções existentes para aplica-las.
+	- Aplicando Traduções
+	* Kafras
+	* Classes
+	* Iniciando Tradução da Nomenclatura ( Script de leitura não funcional)
 
 2014.02.26 » Portalcake
 	- Tradução do arquivo job_db2.txt concluída.
