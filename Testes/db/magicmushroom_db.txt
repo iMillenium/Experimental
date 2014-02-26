@@ -1,6 +1,17 @@
-// Magic Mushroom DB.
-// Database for skills that are randomly used through Magic Mushroom status change.
-// Format: SkillID
+//---------------------------------------------------------
+//     _____                           
+//    / ____|                          
+//   | |     _ __ ___  _ __  _   _ ___ 
+//   | |    | '__/ _ \| '_ \| | | / __|
+//   | |____| | | (_) | | | | |_| \__ \
+//    \_____|_|  \___/|_| |_|\__,_|___/
+//
+//----- http://forum.cronus-emulator.com/
+//----- Descrição: ----------------------------------------
+/ Banco de Dados do Status 'Magic Mushroom'
+//---------------------------------------------------------
+// Formato: SkillID
+//---------------------------------------------------------
 
 7	//SM_MAGNUM
 8	//SM_ENDURE

@@ -14,4 +14,8 @@
 	- Iniciando Traduções na Pasta Npcs
 		Aeroportos e Battleground Aplicados.
 	- Verificando as traduções existentes para aplica-las.
-	
+
+2014.02.26 » Portalcake
+	- Tradução do arquivo job_db2.txt concluída.
+	- Outros pequenos arquivos também foram traduzidos:
+		magicmushroom_db.txt e map_index.txt
