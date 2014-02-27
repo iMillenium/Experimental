@@ -4321,6 +4321,7 @@ void do_init_script(bool minimal) {
 
 	script->parse_builtin();
 	script->read_constdb();
+	script->hardcoded_constants();
 
 	if (minimal)
 		return;
@@ -5059,7 +5060,7 @@ BUILDIN(warp)
 	else if(strcmp(str,"SavePoint")==0 || strcmp(str,"Save")==0)
 		ret = pc->setpos(sd,sd->status.save_point.map,sd->status.save_point.x,sd->status.save_point.y,CLR_TELEPORT);
 	else
-		ret = pc->setpos(sd,mapindex->name2id(str),x,y,CLR_OUTSIGHT);
+		ret = pc->setpos(sd,script->mapindexname2id(st,str),x,y,CLR_OUTSIGHT);
 
 	if( ret ) {
 		ShowError("buildin_warp: moving player '%s' to \"%s\",%d,%d failed.\n", sd->status.name, str, x, y);
@@ -5136,7 +5137,7 @@ BUILDIN(areawarp)
 
 	if( strcmp(str,"Random") == 0 )
 		index = 0;
-	else if( !(index=mapindex->name2id(str)) )
+	else if( !(index=script->mapindexname2id(st,str)) )
 		return true;
 
 	map->foreachinarea(script->buildin_areawarp_sub, m,x0,y0,x1,y1, BL_PC, index,x2,y2,x3,y3);
@@ -5200,7 +5201,7 @@ BUILDIN(warpchar) {
 		if(strcmp(str, "SavePoint") == 0)
 			pc->setpos(sd, sd->status.save_point.map,sd->status.save_point.x, sd->status.save_point.y, CLR_TELEPORT);
 		else
-			pc->setpos(sd, mapindex->name2id(str), x, y, CLR_TELEPORT);
+			pc->setpos(sd, script->mapindexname2id(st,str), x, y, CLR_TELEPORT);
 
 	return true;
 }
@@ -5248,7 +5249,7 @@ BUILDIN(warpparty)
 			y = pl_sd->bl.y;
 			break;
 		case 4:
-			map_index = mapindex->name2id(str);
+			map_index = script->mapindexname2id(st,str);
 			break;
 		case 2:
 			//"SavePoint" uses save point of the currently attached player
@@ -5346,7 +5347,7 @@ BUILDIN(warpguild)
 				break;
 			case 3: // m,x,y
 				if(!map->list[pl_sd->bl.m].flag.noreturn && !map->list[pl_sd->bl.m].flag.nowarp)
-					pc->setpos(pl_sd,mapindex->name2id(str),x,y,CLR_TELEPORT);
+					pc->setpos(pl_sd,script->mapindexname2id(st,str),x,y,CLR_TELEPORT);
 				break;
 		}
 	}
@@ -8546,7 +8547,7 @@ BUILDIN(savepoint) {
 	str   = script_getstr(st,2);
 	x     = script_getnum(st,3);
 	y     = script_getnum(st,4);
-	mapid = mapindex->name2id(str);
+	mapid = script->mapindexname2id(st,str);
 	if( mapid )
 		pc->setsavepoint(sd, mapid, x, y);
 
@@ -10629,7 +10630,7 @@ BUILDIN(warpwaitingpc) {
 		else if( strcmp(map_name,"SavePoint") == 0 )
 			pc->setpos(sd, sd->status.save_point.map, sd->status.save_point.x, sd->status.save_point.y, CLR_TELEPORT);
 		else
-			pc->setpos(sd, mapindex->name2id(map_name), x, y, CLR_OUTSIGHT);
+			pc->setpos(sd, script->mapindexname2id(st,map_name), x, y, CLR_OUTSIGHT);
 	}
 	mapreg->setreg(script->add_str("$@warpwaitingpcnum"), i);
 	return true;
@@ -10699,7 +10700,7 @@ BUILDIN(setmapflagnosave) {
 	x=script_getnum(st,4);
 	y=script_getnum(st,5);
 	m = map->mapname2mapid(str);
-	map_index = mapindex->name2id(str2);
+	map_index = script->mapindexname2id(st,str2);
 
 	if(m >= 0 && map_index) {
 		map->list[m].flag.nosave=1;
@@ -11541,7 +11542,7 @@ BUILDIN(mapwarp) {
 	if((m=map->mapname2mapid(mapname))< 0)
 		return true;
 
-	if(!(index=mapindex->name2id(str)))
+	if(!(index=script->mapindexname2id(st,str)))
 		return true;
 
 	switch(check_val) {
@@ -11727,7 +11728,7 @@ BUILDIN(warppartner)
 	x=script_getnum(st,3);
 	y=script_getnum(st,4);
 
-	map_index = mapindex->name2id(str);
+	map_index = script->mapindexname2id(st,str);
 	if (map_index) {
 		pc->setpos(p_sd,map_index,x,y,CLR_OUTSIGHT);
 		script_pushint(st,1);
@@ -15688,7 +15689,7 @@ BUILDIN(warpportal) {
 
 	spx = script_getnum(st,2);
 	spy = script_getnum(st,3);
-	map_index = mapindex->name2id(script_getstr(st, 4));
+	map_index = script->mapindexname2id(st,script_getstr(st, 4));
 	tpx = script_getnum(st,5);
 	tpy = script_getnum(st,6);
 
@@ -16141,7 +16142,7 @@ BUILDIN(waitingroom2bg) {
 	map_name = script_getstr(st,2);
 	if( strcmp(map_name,"-") != 0 )
 	{
-		map_index = mapindex->name2id(map_name);
+		map_index = script->mapindexname2id(st,map_name);
 		if( map_index == 0 )
 		{ // Invalid Map
 			script_pushint(st,0);
@@ -16183,7 +16184,7 @@ BUILDIN(waitingroom2bg_single) {
 
 	bg_id = script_getnum(st,2);
 	map_name = script_getstr(st,3);
-	if( (map_index = mapindex->name2id(map_name)) == 0 )
+	if( (map_index = script->mapindexname2id(st,map_name)) == 0 )
 		return true; // Invalid Map
 
 	x = script_getnum(st,4);
@@ -16228,7 +16229,7 @@ BUILDIN(bg_warp)
 
 	bg_id = script_getnum(st,2);
 	map_name = script_getstr(st,3);
-	if( (map_index = mapindex->name2id(map_name)) == 0 )
+	if( (map_index = script->mapindexname2id(st,map_name)) == 0 )
 		return true; // Invalid Map
 	x = script_getnum(st,4);
 	y = script_getnum(st,5);
@@ -18006,7 +18007,7 @@ BUILDIN(bg_create_team) {
 
 	map_name = script_getstr(st,2);
 	if( strcmp(map_name,"-") != 0 ) {
-		map_index = mapindex->name2id(map_name);
+		map_index = script->mapindexname2id(st,map_name);
 		if( map_index == 0 ) { // Invalid Map
 			script_pushint(st,0);
 			return true;
@@ -19057,6 +19058,67 @@ void script_label_add(int key, int pos) {
 	script->label_count++;
 }
 
+/**
+* Sets source-end constants for scripts to play with
+**/
+void script_hardcoded_constants(void) {
+
+	/* server defines */
+	script->set_constant("PACKETVER", PACKETVER, false);
+	script->set_constant("MAX_LEVEL", MAX_LEVEL, false);
+	script->set_constant("MAX_STORAGE", MAX_STORAGE, false);
+	script->set_constant("MAX_GUILD_STORAGE", MAX_GUILD_STORAGE, false);
+	script->set_constant("MAX_CART", MAX_INVENTORY, false);
+	script->set_constant("MAX_INVENTORY", MAX_INVENTORY, false);
+	script->set_constant("MAX_ZENY", MAX_ZENY, false);
+	script->set_constant("MAX_BG_MEMBERS", MAX_BG_MEMBERS, false);
+	script->set_constant("MAX_CHAT_USERS", MAX_CHAT_USERS, false);
+
+	/* status options */
+	script->set_constant("Option_Nothing", OPTION_NOTHING, false);
+	script->set_constant("Option_Sight", OPTION_SIGHT, false);
+	script->set_constant("Option_Hide", OPTION_HIDE, false);
+	script->set_constant("Option_Cloak", OPTION_CLOAK, false);
+	script->set_constant("Option_Falcon", OPTION_FALCON, false);
+	script->set_constant("Option_Riding", OPTION_RIDING, false);
+	script->set_constant("Option_Invisible", OPTION_INVISIBLE, false);
+	script->set_constant("Option_Orcish", OPTION_ORCISH, false);
+	script->set_constant("Option_Wedding", OPTION_WEDDING, false);
+	script->set_constant("Option_Chasewalk", OPTION_CHASEWALK, false);
+	script->set_constant("Option_Flying", OPTION_FLYING, false);
+	script->set_constant("Option_Xmas", OPTION_XMAS, false);
+	script->set_constant("Option_Transform", OPTION_TRANSFORM, false);
+	script->set_constant("Option_Summer", OPTION_SUMMER, false);
+	script->set_constant("Option_Dragon1", OPTION_DRAGON1, false);
+	script->set_constant("Option_Wug", OPTION_WUG, false);
+	script->set_constant("Option_Wugrider", OPTION_WUGRIDER, false);
+	script->set_constant("Option_Madogear", OPTION_MADOGEAR, false);
+	script->set_constant("Option_Dragon2", OPTION_DRAGON2, false);
+	script->set_constant("Option_Dragon3", OPTION_DRAGON3, false);
+	script->set_constant("Option_Dragon4", OPTION_DRAGON4, false);
+	script->set_constant("Option_Dragon5", OPTION_DRAGON5, false);
+	script->set_constant("Option_Hanbok", OPTION_HANBOK, false);
+	script->set_constant("Option_Oktoberfest", OPTION_OKTOBERFEST, false);
+
+	/* status option compounds */
+	script->set_constant("Option_Dragon", OPTION_DRAGON, false);
+	script->set_constant("Option_Costume", OPTION_COSTUME, false);
+}
+
+/**
+* a mapindex_name2id wrapper meant to help with invalid name handling
+**/
+unsigned short script_mapindexname2id(struct script_state *st, const char* name) {
+	unsigned short index;
+
+	if (!(index = mapindex->name2id(name))) {
+		script->reportsrc(st);
+		return 0;
+	}
+	return index;
+}
+
+
 void script_defaults(void) {
 	// aegis->athena slot position conversion table
 	unsigned int equip[SCRIPT_EQUIP_TABLE_SIZE] = {EQP_HEAD_TOP,EQP_ARMOR,EQP_HAND_L,EQP_HAND_R,EQP_GARMENT,EQP_SHOES,EQP_ACC_L,EQP_ACC_R,EQP_HEAD_MID,EQP_HEAD_LOW,EQP_COSTUME_HEAD_LOW,EQP_COSTUME_HEAD_MID,EQP_COSTUME_HEAD_TOP,EQP_COSTUME_GARMENT,EQP_SHADOW_ARMOR, EQP_SHADOW_WEAPON, EQP_SHADOW_SHIELD, EQP_SHADOW_SHOES, EQP_SHADOW_ACC_R, EQP_SHADOW_ACC_L};
@@ -19308,5 +19370,9 @@ void script_defaults(void) {
 	/* */
 	script->generic_ui_array_expand = script_generic_ui_array_expand;
 	script->array_cpy_list = script_array_cpy_list;
-	
+
+	/* */
+	script->hardcoded_constants = script_hardcoded_constants;
+	script->mapindexname2id = script_mapindexname2id;
+
 }

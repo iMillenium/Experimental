@@ -818,7 +818,7 @@ void clif_clearunit_delayed(struct block_list* bl, clr_type type, int64 tick) {
 /// Gets weapon view info from sd's inventory_data and points (*rhand,*lhand)
 void clif_get_weapon_view(struct map_session_data* sd, unsigned short *rhand, unsigned short *lhand)
 {
-	if(sd->sc.option&(OPTION_WEDDING|OPTION_XMAS|OPTION_SUMMER|OPTION_HANBOK|OPTION_OKTOBERFEST)) {
+	if(sd->sc.option&OPTION_COSTUME) {
 		*rhand = *lhand = 0;
 		return;
 	}
@@ -3209,7 +3209,7 @@ void clif_changelook(struct block_list *bl,int type,int val)
 			case LOOK_BASE:
 				if( !sd ) break;
 
-				if( sd->sc.option&(OPTION_WEDDING|OPTION_XMAS|OPTION_SUMMER|OPTION_HANBOK|OPTION_OKTOBERFEST) )
+				if (sd->sc.option&OPTION_COSTUME)
 					vd->weapon = vd->shield = 0;
 
 				if( !vd->cloth_color )
@@ -5920,17 +5920,20 @@ void clif_wis_message(int fd, const char* nick, const char* mes, size_t mes_len)
 ///     1 = target character is not loged in
 ///     2 = ignored by target
 ///     3 = everyone ignored by target
-void clif_wis_end(int fd, int flag)
-{
+void clif_wis_end(int fd, int flag) {
+	struct map_session_data *sd = session_isValid(fd) ? session[fd]->session_data : NULL;
+	struct packet_wis_end p;
+
+	if (!sd)
+		return;
+
+	p.PacketType = wisendType;
+	p.result = (char)flag;
 #if PACKETVER >= 20131223
-	const int cmd = 0x9df;
-#else
-	const int cmd = 0x98;
+	p.unknown = 0;
 #endif
-	WFIFOHEAD(fd,packet_len(cmd));
-	WFIFOW(fd,0) = cmd;
-	WFIFOW(fd,2) = flag;
-	WFIFOSET(fd,packet_len(cmd));
+
+	clif->send(&p, sizeof(p), &sd->bl, SELF);
 }
 
 
@@ -10086,7 +10089,7 @@ void clif_parse_ActionRequest_sub(struct map_session_data *sd, int action_type, 
 			if( pc_cant_act(sd) || sd->sc.option&OPTION_HIDE )
 				return;
 
-			if( sd->sc.option&(OPTION_WEDDING|OPTION_XMAS|OPTION_SUMMER|OPTION_HANBOK|OPTION_OKTOBERFEST) )
+			if (sd->sc.option&OPTION_COSTUME)
 				return;
 
 			if( sd->sc.data[SC_BASILICA] || sd->sc.data[SC__SHADOWFORM] ||
@@ -11331,7 +11334,7 @@ void clif_parse_UseSkillToId(int fd, struct map_session_data *sd)
 		}
 	}
 
-	if( sd->sc.option&(OPTION_WEDDING|OPTION_XMAS|OPTION_SUMMER|OPTION_HANBOK|OPTION_OKTOBERFEST) )
+	if (sd->sc.option&OPTION_COSTUME)
 		return;
 
 	if( sd->sc.data[SC_BASILICA] && (skill_id != HP_BASILICA || sd->sc.data[SC_BASILICA]->val4 != sd->bl.id) )
@@ -11423,7 +11426,7 @@ void clif_parse_UseSkillToPosSub(int fd, struct map_session_data *sd, uint16 ski
 		}
 	}
 
-	if( sd->sc.option&(OPTION_WEDDING|OPTION_XMAS|OPTION_SUMMER|OPTION_HANBOK|OPTION_OKTOBERFEST) )
+	if (sd->sc.option&OPTION_COSTUME)
 		return;
 
 	if( sd->sc.data[SC_BASILICA] && (skill_id != HP_BASILICA || sd->sc.data[SC_BASILICA]->val4 != sd->bl.id) )

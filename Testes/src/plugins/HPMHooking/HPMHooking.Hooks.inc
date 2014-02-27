@@ -210,14 +210,14 @@ AtCommandInfo* HP_atcommand_exists(const char *name) {
 	}
 	return retVal___;
 }
-bool HP_atcommand_msg_read(const char *cfgName) {
+bool HP_atcommand_msg_read(const char *cfg_name, bool allow_override) {
 	int hIndex = 0;
 	bool retVal___ = false;
 	if( HPMHooks.count.HP_atcommand_msg_read_pre ) {
-		bool (*preHookFunc) (const char *cfgName);
+		bool (*preHookFunc) (const char *cfg_name, bool *allow_override);
 		for(hIndex = 0; hIndex < HPMHooks.count.HP_atcommand_msg_read_pre; hIndex++ ) {
 			preHookFunc = HPMHooks.list.HP_atcommand_msg_read_pre[hIndex].func;
-			retVal___ = preHookFunc(cfgName);
+			retVal___ = preHookFunc(cfg_name, &allow_override);
 		}
 		if( *HPMforce_return ) {
 			*HPMforce_return = false;
@@ -225,13 +225,13 @@ bool HP_atcommand_msg_read(const char *cfgName) {
 		}
 	}
 	{
-		retVal___ = HPMHooks.source.atcommand.msg_read(cfgName);
+		retVal___ = HPMHooks.source.atcommand.msg_read(cfg_name, allow_override);
 	}
 	if( HPMHooks.count.HP_atcommand_msg_read_post ) {
-		bool (*postHookFunc) (bool retVal___, const char *cfgName);
+		bool (*postHookFunc) (bool retVal___, const char *cfg_name, bool *allow_override);
 		for(hIndex = 0; hIndex < HPMHooks.count.HP_atcommand_msg_read_post; hIndex++ ) {
 			postHookFunc = HPMHooks.list.HP_atcommand_msg_read_post[hIndex].func;
-			retVal___ = postHookFunc(retVal___, cfgName);
+			retVal___ = postHookFunc(retVal___, cfg_name, &allow_override);
 		}
 	}
 	return retVal___;
@@ -55176,6 +55176,57 @@ unsigned int* HP_script_array_cpy_list(struct script_array *sa) {
 		for(hIndex = 0; hIndex < HPMHooks.count.HP_script_array_cpy_list_post; hIndex++ ) {
 			postHookFunc = HPMHooks.list.HP_script_array_cpy_list_post[hIndex].func;
 			retVal___ = postHookFunc(retVal___, sa);
+		}
+	}
+	return retVal___;
+}
+void HP_script_hardcoded_constants(void) {
+	int hIndex = 0;
+	if( HPMHooks.count.HP_script_hardcoded_constants_pre ) {
+		void (*preHookFunc) (void);
+		for(hIndex = 0; hIndex < HPMHooks.count.HP_script_hardcoded_constants_pre; hIndex++ ) {
+			preHookFunc = HPMHooks.list.HP_script_hardcoded_constants_pre[hIndex].func;
+			preHookFunc();
+		}
+		if( *HPMforce_return ) {
+			*HPMforce_return = false;
+			return;
+		}
+	}
+	{
+		HPMHooks.source.script.hardcoded_constants();
+	}
+	if( HPMHooks.count.HP_script_hardcoded_constants_post ) {
+		void (*postHookFunc) (void);
+		for(hIndex = 0; hIndex < HPMHooks.count.HP_script_hardcoded_constants_post; hIndex++ ) {
+			postHookFunc = HPMHooks.list.HP_script_hardcoded_constants_post[hIndex].func;
+			postHookFunc();
+		}
+	}
+	return;
+}
+unsigned short HP_script_mapindexname2id(struct script_state *st, const char *name) {
+	int hIndex = 0;
+	unsigned short retVal___ = 0;
+	if( HPMHooks.count.HP_script_mapindexname2id_pre ) {
+		unsigned short (*preHookFunc) (struct script_state *st, const char *name);
+		for(hIndex = 0; hIndex < HPMHooks.count.HP_script_mapindexname2id_pre; hIndex++ ) {
+			preHookFunc = HPMHooks.list.HP_script_mapindexname2id_pre[hIndex].func;
+			retVal___ = preHookFunc(st, name);
+		}
+		if( *HPMforce_return ) {
+			*HPMforce_return = false;
+			return retVal___;
+		}
+	}
+	{
+		retVal___ = HPMHooks.source.script.mapindexname2id(st, name);
+	}
+	if( HPMHooks.count.HP_script_mapindexname2id_post ) {
+		unsigned short (*postHookFunc) (unsigned short retVal___, struct script_state *st, const char *name);
+		for(hIndex = 0; hIndex < HPMHooks.count.HP_script_mapindexname2id_post; hIndex++ ) {
+			postHookFunc = HPMHooks.list.HP_script_mapindexname2id_post[hIndex].func;
+			retVal___ = postHookFunc(retVal___, st, name);
 		}
 	}
 	return retVal___;
