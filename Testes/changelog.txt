@@ -6,7 +6,7 @@
 	
 2014.02.25 » BOO
 	- Alterando versão padrão pra PRE-RE
-	- Aplicando SIstema de Nome dos Npcs do Raizen
+	- Aplicando Sistema de Nome dos Npcs do Raizen
 	- Alterando nome no Console
 	
 2014.02.26 » BOO
@@ -23,3 +23,8 @@
 	- Tradução do arquivo job_db2.txt concluída.
 	- Outros pequenos arquivos também foram traduzidos:
 		magicmushroom_db.txt e map_index.txt
+
+2014.02.27 » Portalcake
+	- Correção no uso do Sistema de Nome dos NPCs do Raizen.
+		NPC_NAME_LENGTH alterado para MAX_NPC_NAME_LENGTH
+		(Conforme declarado no arquivo mmo.h) nos arquivos npc.c e npc.h
