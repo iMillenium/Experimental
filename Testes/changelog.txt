@@ -32,6 +32,14 @@
 		Exceto o commit '87b6c8f', que será aplicado em breve.
 		http://bit.ly/1o7LHmn
 		A retradução do arquivo messages.conf será necessária.
-		
+	- Aplicação de traduções nos arquivos:
+		mercenary_db.txt
+		mercenary_skill_db.txt
+		mob_avail.txt
+		mob_chat_db.txt
+		mob_classchange.txt
+		mob_item_ratio.txt
+		(Alguns ainda estão em andamento).
+
 2014.02.27 » BOO
 	- Aplicada Atualização Faltante '87b6c8f'.

@@ -1,7 +1,19 @@
-// Red Pouch of Surprise Summonable Monsters Database
+//---------------------------------------------------------
+//     _____                           
+//    / ____|                          
+//   | |     _ __ ___  _ __  _   _ ___ 
+//   | |    | '__/ _ \| '_ \| | | / __|
+//   | |____| | | (_) | | | | |_| \__ \
+//    \_____|_|  \___/|_| |_|\__,_|___/
 //
-// Structure of Database:
-// MobID,DummyName,Rate
+//----- http://forum.cronus-emulator.com/
+//----- Descrição: ----------------------------------------
+// Banco de Dados de Monstros Invocáveis pela Bolsa Vermelha
+// Tradução pendente (Portalcake)
+//---------------------------------------------------------
+// Estrutura do banco de dados:
+// MobID,Nome,Chance
+//---------------------------------------------------------
 
 0,Poring,1002
 1001,Scorpion,214285
