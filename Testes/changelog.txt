@@ -43,3 +43,12 @@
 
 2014.02.27 » BOO
 	- Aplicada Atualização Faltante '87b6c8f'.
+
+2014.03.01 » Portalcake
+	- Correção de erros de digitação nos arquivos:
+		db/castle_db.txt e db/create_arrow_db.txt
+	- Traduções aplicadas:
+		mob_pouch.txt
+		mob_skill_db2.txt
+		pet_db.txt
+		pet_db2.txt

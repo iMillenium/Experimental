@@ -46,7 +46,7 @@
 10,payg_cas01,Palácio do Sol,Agit#payg_cas01,1            // kRO : Mingting
 11,payg_cas02,Palácio do Lago Sagrado,Agit#payg_cas02,1   // kRO : Tiantan
 12,payg_cas03,Palácio da Sombra,Agit#payg_cas03,1         // kRO : Fuying
-13,payg_cas04,Palácio do Escarlate,Agit#payg_cas04,1      // kRO : Honglou
+13,payg_cas04,Palácio Escarlate,Agit#payg_cas04,1         // kRO : Honglou
 14,payg_cas05,Palácio da Colina,Agit#payg_cas05,1         // kRO : Zhulinxian
 
 //================
