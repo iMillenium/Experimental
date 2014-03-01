@@ -52,3 +52,6 @@
 		mob_skill_db2.txt
 		pet_db.txt
 		pet_db2.txt
+	- Correções e atualizações (source):
+		npc.c e npc.h: MAX_NPC_NAME_LENGTH aplicado onde ficou faltando.
+		Correção do Hercules (commit 15a4395) aplicada.
