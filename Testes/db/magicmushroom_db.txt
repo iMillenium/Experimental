@@ -8,7 +8,7 @@
 //
 //----- http://forum.cronus-emulator.com/
 //----- Descrição: ----------------------------------------
-/ Banco de Dados do Status 'Magic Mushroom'
+// Banco de Dados do Status 'Magic Mushroom'
 //---------------------------------------------------------
 // Formato: SkillID
 //---------------------------------------------------------

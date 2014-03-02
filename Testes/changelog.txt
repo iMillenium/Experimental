@@ -60,3 +60,7 @@
 	- status.c
 		Correção de set_sc( RK_DRAGONBREATH      , SC_BURNING );
 		Para add_sc( RK_DRAGONBREATH      , SC_BURNING );
+	- const.txt e magicmushroom_db.txt
+		Correção de erros de inicialização.
+	- Remoção da pasta npc revertida.
+		Não a remova sem prévio consentimento e aprovação da equipe.
