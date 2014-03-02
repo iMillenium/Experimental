@@ -60,17 +60,3 @@
 	- status.c
 		Correção de set_sc( RK_DRAGONBREATH      , SC_BURNING );
 		Para add_sc( RK_DRAGONBREATH      , SC_BURNING );
-		
-2014.03.02 » Axl
-	- Corrigido pequenos erros de inicialização
-		pet_db.txt ( Correção no comando de alguns buffs )
-		const.txt ( Follow up de alguma atualização anterior )
-	- Remoção da leitura dos scripts de npc
-		Foco da branch experimental é atualização da source/db e tradução.
-	- Alteração no nome dos arquivos de inicialização do Cronus
-		Linux: cronus-linux ( arquivo traduzido )
-		Windows: cronus-windows
-		Mac: cronus-mac
-	- Alterada leitura padrão para renewal.
-		Mais sensato ter a leitura renewal como padrão já que é o ragnarok de hoje.
-	

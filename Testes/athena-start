@@ -1,6 +1,6 @@
 #!/bin/sh
-# Script inciiado por rowla
-# Modificado por shazeya@syafi.com (NL101541)
+# athena starting script by rowla
+# modified by shazeya@syafi.com (NL101541)
 
 PATH=./:$PATH
 
@@ -10,10 +10,14 @@ M_SRV=map-server
 
 print_start() {
 #    more << EOF
-echo "Iniciando Cronus..."
-echo "            (c) 2005 - 2014 Projeto Cronus"
+echo "Athena Starting..."
+echo "            (c) 2003 Athena Project"
+echo "              modified by shazeya@syafi.com"
 echo ""
-echo "checando..."
+#echo "Debug informations will appear,"
+#echo "since this is a test release."
+#echo ""
+echo "checking..."
 #EOF
 }
 
@@ -22,21 +26,21 @@ check_files() {
     for i in ${L_SRV} ${C_SRV} ${M_SRV}
     do
         if [ ! -f ./$i ]; then
-            echo "$i não existe, ou não pode ser executado."
-            echo "Tivemos problemas. Por favor, cheque o seus compilador."
+            echo "$i does not exist, or can't run."
+            echo "Stop. Check your compile."
             exit 1;
         fi
     done
 
 #    more << EOF
-echo "Checagem completa!"
-echo "Iniciando, aproveite o Cronus."
+echo "Check complete."
+echo "Looks good, a nice Athena!"
 #EOF
 }
 
 
 case $1 in
-    'ligar')
+    'start')
         print_start
         check_files
 
@@ -47,9 +51,9 @@ case $1 in
         exec ./${M_SRV}&
 	echo $! > .${M_SRV}.pid
 
-        echo "Cronus iniciado!"
+        echo "Now Started Athena."
 ;;
-    'desligar')
+    'stop')
 	for i in .${L_SRV}.pid .${C_SRV}.pid .${M_SRV}.pid
 	    do
 		if [ -e ./$i ]; then
@@ -58,11 +62,11 @@ case $1 in
 		fi
 	    done
 ;;
-    'reiniciar')
-        $0 desligar
-        $0 ligar
+    'restart')
+        $0 stop
+        $0 start
 ;;
     *)
-        echo "Use: cronus-linux { ligar | desligar | reiniciar }"
+        echo "Usage: athena-start { start | stop | restart }"
 ;;
 esac
