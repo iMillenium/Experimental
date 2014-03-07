@@ -82,3 +82,5 @@
 		Commit 'd30ceb11e5'.
 	- Script configuração atualizado para o suporte de plataformas não-x86.
 		Atualização do Hercules, commit: '66c40e84fe'
+	- Checagem de plataforma, para suporte do ARMv6+
+		Atualização do Hercules, commit: '3289aad8bd'
