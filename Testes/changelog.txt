@@ -84,3 +84,6 @@
 		Atualização do Hercules, commit: '66c40e84fe'
 	- Checagem de plataforma, para suporte do ARMv6+
 		Atualização do Hercules, commit: '3289aad8bd'
+	- Correção de pequenos warnings no ARM.
+		Agora o Cronus oficialmente pode ser compilado e executado no Raspberry Pi.
+		Atualização do Hercules, commit: '60fcda1dc9'
