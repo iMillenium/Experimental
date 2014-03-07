@@ -51,7 +51,7 @@ aldeba_in,96,181,4	script	Kafra Service	4_F_KAFRA5,{
 		close2;
 		break;
 	case 2:
-		if (zeny < 20) {
+		if (Zeny < 20) {
 			mes "[Funcionária Kafra]";
 			mes "Me perdoe, mas parece";
 			mes "que você não possui os 20";

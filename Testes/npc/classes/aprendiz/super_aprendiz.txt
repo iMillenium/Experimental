@@ -103,7 +103,7 @@ aldeba_in,223,167,3	script	Tzerero#sn	709,{
 		mes "^FF000030 Resina^000000.";
 		close;
 	}
-	if (BaseJob == Job_Novice && upper != 1) {
+	if (BaseJob == Job_Novice && Upper != 1) {
 		mes "[Tzerero]";
 		mes "...Hmm?";
 		mes "Pare.";
@@ -346,7 +346,7 @@ aldeba_in,216,169,5	script	Esseray#sn	86,{
 		mes "é claro!";
 		close;
 	}
-	if (BaseJob == Job_Novice && upper != 1) {
+	if (BaseJob == Job_Novice && Upper != 1) {
 		mes "[Esseray]";
 		mes "Hah ~ você não sabe nada";
 		mes "sobre ser uma pessoa normal ainda!";

@@ -27,7 +27,7 @@ bat_room,133,178,5	script	Oficial de Flavius#01a	4_M_KY_KNT,{
 	next;
 	switch(select("Quero entrar em seu exército!:Terminar Conversa")) {
 	case 1:
-		if ((Class == job_Novice) || (BaseClass == Job_Supernovice)) {
+		if ((Class == Job_Novice) || (BaseClass == Job_SuperNovice)) {
 			mes "[Oficial de Guillaume]";
 			mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Croix, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
 		}
@@ -94,7 +94,7 @@ bat_room,133,121,1	script	Oficial de Flavius#01b	4_M_CRU_KNT,{
 	next;
 	switch(select("Quero entrar em seu exército!:Terminar Conversa")) {
 	case 1:
-		if ((Class == job_Novice) || (BaseClass == Job_Supernovice)) {
+		if ((Class == Job_Novice) || (BaseClass == Job_SuperNovice)) {
 			mes "[Oficial de Croix]";
 			mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Guillaume, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
 		}
@@ -251,7 +251,7 @@ bat_room,148,178,5	script	Oficial de Flavius#02a	4_M_KY_KNT,{
 	next;
 	switch(select("Quero entrar em seu exército!:Terminar Conversa")) {
 	case 1:
-		if ((Class == job_Novice) || (BaseClass == Job_Supernovice)) {
+		if ((Class == Job_Novice) || (BaseClass == Job_SuperNovice)) {
 			mes "[Oficial de Guillaume]";
 			mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Croix, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
 		}
@@ -318,7 +318,7 @@ bat_room,148,121,1	script	Oficial de Flavius#02b	4_M_CRU_KNT,{
 	next;
 	switch(select("Quero entrar em seu exército!:Terminar Conversa")) {
 	case 1:
-		if ((Class == job_Novice) || (BaseClass == Job_Supernovice)) {
+		if ((Class == Job_Novice) || (BaseClass == Job_SuperNovice)) {
 			mes "[Oficial de Croix]";
 			mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Guillaume, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
 		}

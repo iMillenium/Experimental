@@ -97,18 +97,18 @@ OnInit:
 	end;
 
 OnEnable:
-	donpcevent "OBJ#bat_a02_a::OnKill";
+	donpcevent "OBJ#bat_a02_a::Onkill";
 	donpcevent "OBJ#bat_a02_a::OnEnable";
-	donpcevent "OBJ#bat_a02_b::OnKill";
+	donpcevent "OBJ#bat_a02_b::Onkill";
 	donpcevent "OBJ#bat_a02_b::OnEnable";
-	donpcevent "barricade#bat_a02_a::OnKill";
+	donpcevent "barricade#bat_a02_a::Onkill";
 	donpcevent "barricade#bat_a02_a::OnEnable";
-	donpcevent "barricade#bat_a02_b::OnKill";
+	donpcevent "barricade#bat_a02_b::Onkill";
 	donpcevent "barricade#bat_a02_b::OnEnable";
-	donpcevent "OBJ#bat_a02_n::OnKill";
+	donpcevent "OBJ#bat_a02_n::Onkill";
 	donpcevent "OBJ#bat_a02_n::OnEnable";
-	donpcevent "NOBJ_mob#bat_a02_a::OnKill";
-	donpcevent "NOBJ_mob#bat_a02_b::OnKill";
+	donpcevent "NOBJ_mob#bat_a02_a::Onkill";
+	donpcevent "NOBJ_mob#bat_a02_b::Onkill";
 	donpcevent "Battle Therapist#a02_a::OnEnable";
 	donpcevent "Battle Therapist#a02_b::OnEnable";
 	donpcevent "countdown#bat_a02::OnEnable";
@@ -154,7 +154,7 @@ OnEnable:
 	bg_monster $@TierraBG2_id1,"bat_a02",177,345,"Food Storage",1909,"OBJ#bat_a02_a::OnMyMobDead";
 	end;
 
-OnKill:
+Onkill:
 	killmonster "bat_a02","OBJ#bat_a02_a::OnMyMobDead";
 	end;
 
@@ -177,7 +177,7 @@ OnEnable:
 	bg_monster $@TierraBG2_id2,"bat_a02",167,50,"Food Depot",1910,"OBJ#bat_a02_b::OnMyMobDead";
 	end;
 
-OnKill:
+Onkill:
 	killmonster "bat_a02","OBJ#bat_a02_b::OnMyMobDead";
 	end;
 
@@ -202,7 +202,7 @@ OnEnable:
 	setwall "bat_a02",186,266,16,6,1,"bat_a02_c1";
 	end;
 
-OnKill:
+Onkill:
 	killmonster "bat_a02","barricade#bat_a02_a::OnMyMobDead";
 	delwall "bat_a02_c1";
 	end;
@@ -224,7 +224,7 @@ OnEnable:
 	setwall "bat_a02",170,129,16,6,1,"bat_a02_g1";
 	end;
 
-OnKill:
+Onkill:
 	killmonster "bat_a02","barricade#bat_a02_b::OnMyMobDead";
 	delwall "bat_a02_g1";
 	end;
@@ -244,7 +244,7 @@ OnEnable:
 	monster "bat_a02",273,203,"Neutrality Flag",1911,1,"OBJ#bat_a02_n::OnMyMobDead";
 	end;
 
-OnKill:
+Onkill:
 	killmonster "bat_a02","OBJ#bat_a02_n::OnMyMobDead";
 	end;
 
@@ -265,13 +265,13 @@ OnMyMobDead:
 
 bat_a02,15,21,3	script	NOBJ_mob#bat_a02_a	CLEAR_NPC,{
 OnEnable:
-	donpcevent "NOBJ_mob#bat_a02_b::OnKill";
+	donpcevent "NOBJ_mob#bat_a02_b::Onkill";
 	bg_monster $@TierraBG2_id1,"bat_a02",272,204,"Guillaume Camp Guardian",1949,"NOBJ_mob#bat_a02_a::OnMyMobDead";
 	bg_monster $@TierraBG2_id1,"bat_a02",272,213,"Guillaume Camp Guardian",1949,"NOBJ_mob#bat_a02_a::OnMyMobDead";
 	bg_monster $@TierraBG2_id1,"bat_a02",273,197,"Guillaume Camp Guardian",1950,"NOBJ_mob#bat_a02_a::OnMyMobDead";
 	end;
 
-OnKill:
+Onkill:
 	killmonster "bat_a02","NOBJ_mob#bat_a02_a::OnMyMobDead";
 	end;
 
@@ -281,13 +281,13 @@ OnMyMobDead:
 
 bat_a02,15,22,3	script	NOBJ_mob#bat_a02_b	CLEAR_NPC,{
 OnEnable:
-	donpcevent "NOBJ_mob#bat_a02_a::OnKill";
+	donpcevent "NOBJ_mob#bat_a02_a::Onkill";
 	bg_monster $@TierraBG2_id2,"bat_a02",272,204,"Croix Camp Guardian",1949,"NOBJ_mob#bat_a02_a::OnMyMobDead";
 	bg_monster $@TierraBG2_id2,"bat_a02",272,213,"Croix Camp Guardian",1949,"NOBJ_mob#bat_a02_a::OnMyMobDead";
 	bg_monster $@TierraBG2_id2,"bat_a02",273,197,"Croix Camp Guardian",1950,"NOBJ_mob#bat_a02_a::OnMyMobDead";
 	end;
 
-OnKill:
+Onkill:
 	killmonster "bat_a02","NOBJ_mob#bat_a02_b::OnMyMobDead";
 	end;
 

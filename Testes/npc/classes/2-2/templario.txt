@@ -124,7 +124,7 @@ prt_castle,45,169,5	script	Lider dos Templários	752,{
 					mes "Treine mais como um Espadachim e espere você ser chamado. Eu entendo sua intenção, mas no momento, você não pode se juntar a nós.";
 					close;
 				} 
-				if (Skillpoint) {
+				if (SkillPoint) {
 					mes "[Michael Halig]";
 					mes "Você não terminou de aprender tudo como Espadachim. Use todos os seus pontos de habilidade sobrando e retorne a mim.";
 					close;
@@ -204,7 +204,7 @@ prt_castle,45,169,5	script	Lider dos Templários	752,{
 			close;
 		}
 		mes "[Michael Halig]";
-		if (sex) mes "Se você tambem é um homem da espada, treinar constantemente e preparar-se. Ninguém sabe quando a Guerra Santa começará.";
+		if (Sex) mes "Se você tambem é um homem da espada, treinar constantemente e preparar-se. Ninguém sabe quando a Guerra Santa começará.";
 		else mes "Como uma mulher de espada, você deve treinar constantemente. Prepare-se, pois ninguém sabe quando a Guerra Santa irá começar.";
 		close;
 	}
@@ -218,13 +218,13 @@ prt_castle,45,169,5	script	Lider dos Templários	752,{
 			set @item3, 1099;
 			set @item4, 901;
 			break;
-		Case 2:
+		case 2:
 			set @item1, 932;
 			set @item2, 1043;
 			set @item3, 1098;
 			set @item4, 1094;
 			break;
-		Case 3:
+		case 3:
 			set @item1, 958;
 			set @item2, 930;
 			set @item3, 1041;
@@ -292,10 +292,10 @@ prt_castle,45,169,5	script	Lider dos Templários	752,{
 		mes "[Michael Halig]";
 		mes "Agora você é";
 		mes "um de nós!";
-		if (sex) mes "...Irmão.";
+		if (Sex) mes "...Irmão.";
 		else mes "...Irmã.";
 		next;
-		if(.@JobLevel != 50) getitem 504, 6;
+		if(.@Joblevel != 50) getitem 504, 6;
 		else getitem 504, 12;
 		mes "[Michael Halig]";
 		mes "E use isso quando você estiver em perigo. Ele te dará forças quando seus ferimentos forem graves.";
@@ -343,7 +343,7 @@ prt_castle,164,32,1	script	Homem Angustiado	733,{
 	else if(CRUS_Q == 4) {
 		mes "O que é isto...?";
 		mes "Você tem negocios aqui";
-		if (sex) mes "comigo, homem da espada?";
+		if (Sex) mes "comigo, homem da espada?";
 		else mes "comigo, mulher da espada?";
 		next;
 		if (select("Eu gostaria de fazer o teste de Templário.:Nada.") == 1) {
@@ -1106,7 +1106,7 @@ OnInit:
 	monster "job_cru",98,80,"Greatest General",1277,1,"Summoner#cr3::OnDead";
 	monster "job_cru",92,90,"Greatest General",1277,1,"Summoner#cr3::OnDead";
 	monster "job_cru",104,90,"Greatest General",1277,1,"Summoner#cr3::OnDead";
-	Initnpctimer;
+	initnpctimer;
 	end;
 
 OnStart:
@@ -1119,7 +1119,7 @@ OnStart:
 	monster "job_cru",98,80,"Greatest General",1277,1,"Summoner#cr3::OnDead";
 	monster "job_cru",92,90,"Greatest General",1277,1,"Summoner#cr3::OnDead";
 	monster "job_cru",104,90,"Greatest General",1277,1,"Summoner#cr3::OnDead";
-	Initnpctimer;
+	initnpctimer;
 	end;
 
 OnReset:

@@ -58,7 +58,7 @@ bat_room,151,144,3	script	Negociante de KVM#a	4_M_JOB_KNIGHT2,{
 		mes "10 e 1.200 pontos. Portanto, tenha";
 		mes "cuidado ao escolher uma recompensa.";
 		close2;
-		ReadBook 11017,1;
+		readbook 11017,1;
 		end;
 	case 2:
 		mes "[Negociante de KVM]";

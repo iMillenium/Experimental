@@ -131,7 +131,7 @@ job_duncer,43,93,4	script	Aile#da	724,{
 		cutin "",255;
 		end;
 	}
-	if (DANC_Q == 0 && sex == 0 && BaseJob == Job_Archer) {
+	if (DANC_Q == 0 && Sex == 0 && BaseJob == Job_Archer) {
 		cutin "job_dancer_eir01",2;
 		mes "[Aire]";
 		mes "Bem-Vindo!";
@@ -207,7 +207,7 @@ job_duncer,43,93,4	script	Aile#da	724,{
 		cutin "",255;
 		end;
 	}
-	else if (sex == 1) {
+	else if (Sex == 1) {
 		cutin "job_dancer_eir03",2;
 		mes "[Aire]";
 		mes "Bem-Vin...Hm?";
@@ -216,7 +216,7 @@ job_duncer,43,93,4	script	Aile#da	724,{
 		mes "[Aire]";
 		mes "Nem todos os Arqueiros";
 		mes "podem se tornar Odaliscas.";
-		mes "Pelo menos, não sem uma troca de sexo...";
+		mes "Pelo menos, não sem uma troca de Sexo...";
 		close2;
 		cutin "",255;
 		end;
@@ -1322,14 +1322,14 @@ job_duncer,63,110,4	script	Dançarina#1::BackDancer	724,{
 	end;
 
 OnSmile:
-	Emotion e_no1;
+	emotion e_no1;
 	donpcevent "Dançarina#2::OnSmile";
 	donpcevent "Dançarina#3::OnSmile";
 	donpcevent "Dançarina#4::OnSmile";
 	end;
 
 OnOmg:
-	Emotion e_omg;
+	emotion e_omg;
 	donpcevent "Dançarina#2::OnOmg";
 	donpcevent "Dançarina#3::OnOmg";
 	donpcevent "Dançarina#4::OnOmg";
@@ -1340,11 +1340,11 @@ job_duncer,66,113,4	script	Dançarina#2	724,{
 	end;
 
 OnSmile:
-	Emotion e_no1;
+	emotion e_no1;
 	end;
 
 OnOmg:
-	Emotion e_omg;
+	emotion e_omg;
 	end;
 }
 
@@ -1352,11 +1352,11 @@ job_duncer,72,113,4	script	Dançarina#3	724,{
 	end;
 
 OnSmile:
-	Emotion e_no1;
+	emotion e_no1;
 	end;
 
 OnOmg:
-	Emotion e_omg;
+	emotion e_omg;
 	end;
 }
 
@@ -1364,11 +1364,11 @@ job_duncer,75,110,4	script	Dançarina#4	724,{
 	end;
 
 OnSmile:
-	Emotion e_no1;
+	emotion e_no1;
 	end;
 
 OnOmg:
-	Emotion e_omg;
+	emotion e_omg;
 	end;
 }
 

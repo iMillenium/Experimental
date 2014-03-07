@@ -58,9 +58,16 @@
 
 2014.03.02 » Portalcake
 	- status.c
-		Correção de set_sc( RK_DRAGONBREATH      , SC_BURNING );
-		Para add_sc( RK_DRAGONBREATH      , SC_BURNING );
+		Correção de set_sc( RK_DRAGONBREATH, SC_BURNING );
+		Para add_sc( RK_DRAGONBREATH, SC_BURNING );
 	- const.txt e magicmushroom_db.txt
 		Correção de erros de inicialização.
 	- Remoção da pasta npc revertida.
 		Não a remova sem prévio consentimento e aprovação da equipe.
+
+2014.03.06 » Portalcake
+	- Atualização aplicada: Commit 'd554d61417' do Hercules.
+	- Pasta npc/
+		Nomes das pastas e arquivos de script corrigida.
+		Outras correções nos scripts também foram realizadas.
+	- As demais atualizações do Hercules serão aplicadas também.

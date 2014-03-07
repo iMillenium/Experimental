@@ -15,7 +15,7 @@
 
 schg_dun01,1,1,1	script	Monster Controler#sch_gd	4_DOG01,{
 OnInit:
-	donpcevent "Monster Controler1#sch::OnKill";
+	donpcevent "Monster Controler1#sch::Onkill";
 	initnpctimer;
 	end;
 
@@ -44,7 +44,7 @@ OnEnable:
 	}
 	end;
 
-OnKill:
+Onkill:
 	killmonster "schg_dun01","Monster Controler1#sch::OnMyMobDead";
 	end;
 

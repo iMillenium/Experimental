@@ -15,7 +15,7 @@
 
 arug_dun01,1,1,1	script	Monster Controler#aru_gd	4_DOG01,{
 OnInit:
-	donpcevent "Monster Controler1#aru::OnKill";
+	donpcevent "Monster Controler1#aru::Onkill";
 	initnpctimer;
 	end;
 
@@ -44,7 +44,7 @@ OnEnable:
 	}
 	end;
 
-OnKill:
+Onkill:
 	killmonster "arug_dun01","Monster Controler1#aru::OnMyMobDead";
 	end;
 

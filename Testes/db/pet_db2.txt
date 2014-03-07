@@ -11,9 +11,7 @@
 // Banco de Dados dos Bichinhos de Estimação Adicionais
 //---------------------------------------------------------
 // Estrutura do banco de dados:
-// // MobID,Nome,JNome,CapturaID,OvoID,EquipID,ComidaID,Fullness,DelayFome,R_Hungry,R_Full,
-// LInicial,LMorte,Captura,Velocidade,S_Performance,OpcaoFala,ChanceAtaque,ChanceDefesa,
-// ChanceMudarAlvo,PetScript,LealScript
+// MobID,Nome,JNome,CapturaID,OvoID,EquipID,ComidaID,Fullness,DelayFome,R_Hungry,R_Full,LInicial,LMorte,Captura,Velocidade,S_Performance,OpcaoFala,ChanceAtaque,ChanceDefesa,ChanceMudarAlvo,PetScript,LealScript
 //
 // 01. MobID ID do bicho de estimação.
 // 02. Nome Nome do bichinho a ser definido no banco de dados.
@@ -42,17 +40,16 @@
 //
 // Em teoria, pode-se usar qualquer script, mas é recomendado que se use um destes:
 // petskillattack skillid, skilllv, rate, bonusrate
-// Skill attack that triggers while the pet is attacking. Rate is the base
-// chance of execution per attack. Bonusrate is an additional success rate when
-// intimacy reaches max.
+// Skills que podem ser ativadas quando o pet está atacando. A taxa (rate) é a chance de execução por ataque.
+// Bonusrate é uma chance de sucesso adicional quando a lealdade está no máximo.
 //
 // petskillattack2 skillid, damage, hits, rate, bonusrate
-// Same as petskillattack, but the damage and number of hits is fixed
-// the damage specified is total, not per hit.
+// Igual ao petskillattack, mas o dano e número de hits é fixo.
+// O dano especificado é total e não por hit.
 //
 // petskillsupport skillid, skilllv, delay, hp%, sp%
-// Casts a support skill when the health levels are below the specified hp% and
-// sp%. Delay is the minimum time in seconds before the skill can be cast again
+// Conjura uma skill de suporte quando a saúde (HP) está abaixo da porcentagem de HP/SP especificados.
+// O delay é o tempo minimo em segundos para que a skill possa ser conjurada novamente.
 //
 // petheal amount, delay, hp%, sp%
 // Similar to petskillsupport, but the skill is fixed to heal (28) and the

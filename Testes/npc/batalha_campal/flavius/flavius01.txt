@@ -164,7 +164,7 @@ OnMyMobDead:
 			set $@Croix_ScoreBG1,$@Croix_ScoreBG1+1;
 			enablenpc "Armada de Guillaume#b01_a";
 			enablenpc "Armada de Croix#b01_b";
-			donpcevent "time#bat_b01::Onstop";
+			donpcevent "time#bat_b01::OnStop";
 		}
 		else {
 			set $@Croix_ScoreBG1,1;
@@ -197,7 +197,7 @@ OnMyMobDead:
 			set $@Guill_ScoreBG1,$@Guill_ScoreBG1+1;
 			enablenpc "Armada de Guillaume#b01_a";
 			enablenpc "Armada de Croix#b01_b";
-			donpcevent "time#bat_b01::Onstop";
+			donpcevent "time#bat_b01::OnStop";
 		}
 		else {
 			set $@Guill_ScoreBG1,1;
@@ -279,7 +279,7 @@ OnEnable:
 	donpcevent "Curandeira#b01_b::OnEnable";
 	end;
 
-Onstop:
+OnStop:
 	donpcevent "Curandeira#b01_a::OnStop";
 	donpcevent "Curandeira#b01_b::OnStop";
 	end;
@@ -311,7 +311,7 @@ OnEnable:
 	enablenpc "Curandeira#b01_a";
 	end;
 
-Onstop:
+OnStop:
 	disablenpc "bat_b01_rp1_a_warp";
 	disablenpc "Curandeira#b01_a";
 	stopnpctimer;
@@ -355,7 +355,7 @@ OnEnable:
 	enablenpc "Curandeira#b01_b";
 	end;
 
-Onstop:
+OnStop:
 	disablenpc "bat_b01_rp1_b_warp";
 	disablenpc "Curandeira#b01_b";
 	stopnpctimer;
@@ -501,7 +501,7 @@ OnEnable:
 	initnpctimer;
 	end;
 
-Onstop:
+OnStop:
 	stopnpctimer;
 	end;
 
@@ -534,7 +534,7 @@ OnTimer1825000:
 	end;
 
 OnTimer1830000:
-	donpcevent "time#bat_b01::Onstop";
+	donpcevent "time#bat_b01::OnStop";
 	bg_warp $@FlaviusBG1_id1,"bat_b01",10,290;
 	bg_warp $@FlaviusBG1_id2,"bat_b01",390,10;
 	enablenpc "Armada#bat_b01_aover";
@@ -543,7 +543,7 @@ OnTimer1830000:
 
 OnTimer1900000:
 	mapwarp "bat_b01","bat_room",154,150;
-	donpcevent "countdown#bat_b01::Onstop";
+	donpcevent "countdown#bat_b01::OnStop";
 	end;
 }
 

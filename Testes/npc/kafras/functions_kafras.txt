@@ -94,7 +94,7 @@ function	script	F_Kafra	{
 			// Guild Castle Kafra message
 			set @GID,getcharid(2);
 			mes "[Funcionária Kafra]";
-	 		mes "Bem Vindo. ^ff0000" + GetGuildName(@GID) + "^000000 Membro.";
+	 		mes "Bem Vindo. ^ff0000" + getguildname(@GID) + "^000000 Membro.";
 			mes "A Corporação Kafra estará sempre ao seu lado.";
 			break;
 		case 3:
@@ -130,7 +130,7 @@ function	script	F_Kafra	{
 				case 2:	setarray @K_Menu0$[0],"Usar Armazém","Cancelar"; break;
 				// No Teleport (Common)
 				case 3: setarray @K_Menu0$[0],"Salvar","Usar Armazém","Alugar Carrinho","Checar Outra Informação","Cancelar"; break;
-				// Case 4 is Einbroch no tele message.
+				// case 4 is Einbroch no tele message.
 				// No save, or teleport. (Common)
 				case 5:	setarray @K_Menu0$[0],"Usar Armazém","Alugar Carrinho","Checar Outra Informação","Cancelar"; break;
 				// Storage and Check Other Information only.
@@ -470,7 +470,7 @@ function	script	F_SetKafCode	{
 		mes "Seu Armazém está Protegido com Senha. O que voce quer fazer agora?";
 		next;
 		switch (select("Mudar Senha do Armazém -> 5000z:Remover Senha do Armazém -> 1000z:Cancelar")) {
-			Case 1:
+			case 1:
 				mes getarg(0);
 				mes "mas primeiro, digite sua ^0000FFAntiga Senha^000000.";
 				set @code,callfunc("F_EntKafCode");
@@ -482,7 +482,7 @@ function	script	F_SetKafCode	{
 				next;
 				callsub S_SET,getarg(0),getarg(1);
 				break;
-			Case 2:
+			case 2:
 				mes getarg(0);
 				mes "Por Favor, Digite sua senha antes de removê-la.";
 				set @code,callfunc("F_EntKafCode");
@@ -510,7 +510,7 @@ function	script	F_SetKafCode	{
 					emotion e_sry;
 				}
 				break;
-			Case 3:
+			case 3:
 				break;
 		}
 	} else {
@@ -518,8 +518,8 @@ function	script	F_SetKafCode	{
 		mes "Proteção adicional, Armazém com Senha.";
 		next;
 		switch (select("Colocar uma Nova senha -> 5000z:Cancelar")) {
-			Case 1: callsub S_SET,getarg(0),getarg(1); break;
-			Case 2: break;		
+			case 1: callsub S_SET,getarg(0),getarg(1); break;
+			case 2: break;		
 		}
 	}
 	close2;

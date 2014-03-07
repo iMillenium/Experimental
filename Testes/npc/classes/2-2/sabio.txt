@@ -1313,7 +1313,7 @@ yuno_in03,62,176,2	script	Professor de História#sa	109,{
 				switch(select("É o nome de um item de Cura.:É a fonte da vida no mundo.:Droga, eu menti.")) {
 				case 1:
 					mes "[Saphien Layless]";
-					mes "Errado. "+ Strcharinfo (0) +",você tem -10 pontos.";
+					mes "Errado. "+ strcharinfo (0) +",você tem -10 pontos.";
 					mes "Isso é apenas um dos dons de Yggdrasil.";
 					next;
 					mes "[Saphien Layless]";
