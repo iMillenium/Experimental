@@ -1115,7 +1115,7 @@ int npc_globalmessage(const char* name, const char* mes)
 }
 
 // MvP tomb [GreenBox]
-void run_tomb(struct map_session_data* sd, struct npc_data* nd)	{
+void run_tomb(struct map_session_data* sd, struct npc_data* nd) {
 	char buffer[200];
 	char time[10];
 
@@ -1127,7 +1127,7 @@ void run_tomb(struct map_session_data* sd, struct npc_data* nd)	{
 
 	clif->scriptmes(sd, nd->bl.id, msg_txt(858)); // "Has met its demise"
 
-	snprintf(buffer, sizeof(buffer), msg_txt(859), time);
+	snprintf(buffer, sizeof(buffer), msg_txt(859), time); // "Time of death : ^EE0000%s^000000"
 	clif->scriptmes(sd, nd->bl.id, buffer);
 
 	clif->scriptmes(sd, nd->bl.id, msg_txt(860)); // "Defeated by"
@@ -1402,7 +1402,7 @@ int npc_buylist_sub(struct map_session_data* sd, int n, unsigned short* item_lis
  **/
 void npc_market_fromsql(void) {
 	SqlStmt* stmt = SQL->StmtMalloc(map->mysql_handle);
-	char name[NAME_LENGTH+1];
+	char name[MAX_NPC_NAME_LENGTH+1];
 	int itemid;
 	int amount;
 	
@@ -2353,21 +2353,21 @@ void npc_parsename(struct npc_data* nd, const char* name, const char* start, con
 	p = strstr(name,"::");
 	if( p ) { // <Display name>::<Unique name>
 		size_t len = p-name;
-		if (len > MAX_NPC_NAME_LENGTH ) {
-			ShowWarning("npc_parsename: Display name of '%s' is too long (len=%u) in file '%s', line '%d'. Truncating to %u characters.\n", name, (unsigned int)len, filepath, strline(buffer,start-buffer), MAX_NPC_NAME_LENGTH);
+		if (len > MAX_NPC_NAME_LENGTH) {
+			ShowWarning("npc_parsename: Display name of '%s' is too long (len=%u) in file '%s', line '%d'. Truncating to %u characters.\n", name, (unsigned int)len, filepath, strline(buffer, start - buffer), MAX_NPC_NAME_LENGTH);
 			safestrncpy(nd->name, name, sizeof(nd->name));
 		} else {
 			memcpy(nd->name, name, len);
 			memset(nd->name+len, 0, sizeof(nd->name)-len);
 		}
 		len = strlen(p+2);
-		if (len > MAX_NPC_NAME_LENGTH )
-			ShowWarning("npc_parsename: Unique name of '%s' is too long (len=%u) in file '%s', line '%d'. Truncating to %u characters.\n", name, (unsigned int)len, filepath, strline(buffer,start-buffer), MAX_NPC_NAME_LENGTH);
+		if (len > MAX_NPC_NAME_LENGTH)
+			ShowWarning("npc_parsename: Unique name of '%s' is too long (len=%u) in file '%s', line '%d'. Truncating to %u characters.\n", name, (unsigned int)len, filepath, strline(buffer, start - buffer), MAX_NPC_NAME_LENGTH);
 		safestrncpy(nd->exname, p+2, sizeof(nd->exname));
 	} else {// <Display name>
 		size_t len = strlen(name);
-		if (len > MAX_NPC_NAME_LENGTH )
-			ShowWarning("npc_parsename: Name '%s' is too long (len=%u) in file '%s', line '%d'. Truncating to %u characters.\n", name, (unsigned int)len, filepath, strline(buffer,start-buffer), MAX_NPC_NAME_LENGTH);
+		if (len > MAX_NPC_NAME_LENGTH)
+			ShowWarning("npc_parsename: Name '%s' is too long (len=%u) in file '%s', line '%d'. Truncating to %u characters.\n", name, (unsigned int)len, filepath, strline(buffer, start - buffer), MAX_NPC_NAME_LENGTH);
 		safestrncpy(nd->name, name, sizeof(nd->name));
 		safestrncpy(nd->exname, name, sizeof(nd->exname));
 	}
@@ -3337,11 +3337,10 @@ const char* npc_parse_function(char* w1, char* w2, char* w3, char* w4, const cha
 		return end;
 
 	func_db = script->userfunc_db;
-	if (func_db->put(func_db, DB->str2key(w3), DB->ptr2data(scriptroot), &old_data))
-	{
+	if (func_db->put(func_db, DB->str2key(w3), DB->ptr2data(scriptroot), &old_data)) {
 		struct script_code *oldscript = (struct script_code*)DB->data2ptr(&old_data);
 		ShowWarning("npc_parse_function: Overwriting user function [%s] in file '%s', line '%d'.\n", w3, filepath, strline(buffer,start-buffer));
-		script->free_vars(oldscript->script_vars);
+		script->free_vars(oldscript->local.vars);
 		aFree(oldscript->script_buf);
 		aFree(oldscript);
 	}
@@ -4442,7 +4441,7 @@ int do_init_npc(bool minimal) {
 	if (!minimal) {
 		map->zone_init();
 	
-		npc->motd = npc->name2id("CronusMOTD"); /* [Ind/Hercules] */
+		npc->motd = npc->name2id("HerculesMOTD"); /* [Ind/Hercules] */
 	
 		// set up the events cache
 		memset(script_event, 0, sizeof(script_event));

@@ -71,3 +71,12 @@
 		Nomes das pastas e arquivos de script corrigida.
 		Outras correções nos scripts também foram realizadas.
 	- As demais atualizações do Hercules serão aplicadas também.
+
+2014.03.07 » Portalcake
+	- Atualizações aplicadas, commits:
+		'78bf8d2656, d25cc9b7db e 4f3156b78f' (Ref redesign, partes 1, 2 e 3).
+		'a1918e7e9d, f2a30add19 e 582ca07560' (Correções).
+	- Atualização do HPM aplicada:
+		'88015858e4' (Hercules).
+	- Limpeza do arquivo 'doc/script_commands.txt':
+		Commit 'd30ceb11e5'.
