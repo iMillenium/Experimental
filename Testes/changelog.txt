@@ -80,3 +80,5 @@
 		'88015858e4' (Hercules).
 	- Limpeza do arquivo 'doc/script_commands.txt':
 		Commit 'd30ceb11e5'.
+	- Script configuração atualizado para o suporte de plataformas não-x86.
+		Atualização do Hercules, commit: '66c40e84fe'
