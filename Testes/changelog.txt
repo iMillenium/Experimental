@@ -87,3 +87,7 @@
 	- Correção de pequenos warnings no ARM.
 		Agora o Cronus oficialmente pode ser compilado e executado no Raspberry Pi.
 		Atualização do Hercules, commit: '60fcda1dc9'
+
+2014.03.09 » Portalcake
+	- Correção do HPM.
+		Atualização do Hercules '3dfbf251f5'
