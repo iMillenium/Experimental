@@ -1,0 +1,68 @@
+#!/bin/sh
+# Script inciado por rowla
+# Modificado por shazeya@syafi.com (NL101541)
+
+PATH=./:$PATH
+
+L_SRV=login-server
+C_SRV=char-server
+M_SRV=map-server
+
+print_start() {
+#    more << EOF
+echo "Iniciando Cronus..."
+echo "            (c) 2005 - 2014 Projeto Cronus"
+echo ""
+echo "checando..."
+#EOF
+}
+
+check_files() {
+
+    for i in ${L_SRV} ${C_SRV} ${M_SRV}
+    do
+        if [ ! -f ./$i ]; then
+            echo "$i não existe, ou não pode ser executado."
+            echo "Tivemos problemas. Por favor, cheque o seu compilador."
+            exit 1;
+        fi
+    done
+
+#    more << EOF
+echo "Checagem completa!"
+echo "Iniciando, aproveite o Cronus."
+#EOF
+}
+
+
+case $1 in
+    'ligar')
+        print_start
+        check_files
+
+        exec ./${L_SRV}&
+	echo $! > .${L_SRV}.pid
+        exec ./${C_SRV}&
+	echo $! > .${C_SRV}.pid
+        exec ./${M_SRV}&
+	echo $! > .${M_SRV}.pid
+
+        echo "Cronus iniciado!"
+;;
+    'desligar')
+	for i in .${L_SRV}.pid .${C_SRV}.pid .${M_SRV}.pid
+	    do
+		if [ -e ./$i ]; then
+		    kill $(cat $i)
+		    rm $i
+		fi
+	    done
+;;
+    'reiniciar')
+        $0 desligar
+        $0 ligar
+;;
+    *)
+        echo "Use: cronus-linux { ligar | desligar | reiniciar }"
+;;
+esac
