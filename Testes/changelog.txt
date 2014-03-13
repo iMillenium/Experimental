@@ -91,3 +91,12 @@
 2014.03.09 » Portalcake
 	- Correção do HPM.
 		Atualização do Hercules '3dfbf251f5'
+
+2014.03.13 » Portalcake
+	- Atualizações aplicadas:
+		'set_constant' alterado para 'set_target' (Hercules: 238a4f285e)
+		Erro de compilação no plugin 'sample' corrigido (Hercules: 302ba47df7)
+		Crash no mapserver ao usar @at corrigido (Hercules: 44819f75ab)
+		'getvariableofnpc' corrigido (Hercules: 571d9e2500)
+		Correção da remoção do Mado (Mecha) e Cart (Hercules: 2f9a514a71)
+		Correção da skill Feint Bomb do Shadow Chaser (Hercules: cc01276187)
