@@ -61,7 +61,7 @@
 // Client support for experimental RagexeRE UI present in 2012-04-10 and 2012-04-18
 #if defined(PACKETVER_RE) && ( PACKETVER == 20120410 || PACKETVER == 20120418 )
 #define	PARTY_RECRUIT
-#endif // PACKETVER_RE && (PACKETVER == 20120410 || PACKETVER == 10120418)
+#endif // PACKETVER_RE && (PACKETVER == 20120410 || PACKETVER == 20120418)
 
 // Comment the following line to disable sc_data saving. [Skotlex]
 #define ENABLE_SC_SAVING

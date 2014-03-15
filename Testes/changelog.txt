@@ -100,3 +100,9 @@
 		'getvariableofnpc' corrigido (Hercules: 571d9e2500)
 		Correção da remoção do Mado (Mecha) e Cart (Hercules: 2f9a514a71)
 		Correção da skill Feint Bomb do Shadow Chaser (Hercules: cc01276187)
+
+2014.03.15 » Portalcake
+	- Atualizações do Hercules aplicadas:
+		Commits: '1849d35721', 'f4b1ff7426', '2cc2a97b57';
+			 '7078cb3a0e', '1007f60664', '9589202705';
+			 '8e412fcc26' & '82e5f6d59d'.

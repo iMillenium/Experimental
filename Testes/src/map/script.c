@@ -3208,9 +3208,8 @@ void script_free_vars(struct DBMap* var_storage) {
 
 void script_free_code(struct script_code* code)
 {
-	script->free_vars(code->local.vars);
-	if( code->local.arrays )
-		code->local.arrays->destroy(code->local.arrays,script->array_free_db);
+	if (code->instances)
+		script->stop_instances(code);
 	aFree( code->script_buf );
 	aFree( code );
 }
@@ -3243,6 +3242,13 @@ struct script_state* script_alloc_state(struct script_code* rootscript, int pos,
 	st->sleep.timer = INVALID_TIMER;
 	st->npc_item_flag = battle_config.item_enabled_npc;
 
+	if (st->script->instances != USHRT_MAX)
+		st->script->instances++;
+	else {
+		struct npc_data *nd = map->id2nd(oid);
+		ShowError("over 65k instances of '%s' script are being run\n", nd ? nd->name : "unknown");
+	}
+
 	if( !st->script->local.vars )
 		st->script->local.vars = i64db_alloc(DB_OPT_RELEASE_DATA);
 
@@ -3259,8 +3265,19 @@ struct script_state* script_alloc_state(struct script_code* rootscript, int pos,
 /// @param st Script state
 void script_free_state(struct script_state* st) {
 	if( idb_exists(script->st_db,st->id) ) {
+		struct map_session_data *sd = st->rid ? map->id2sd(st->rid) : NULL;
+
 		if(st->bk_st) {// backup was not restored
 			ShowDebug("script_free_state: Previous script state lost (rid=%d, oid=%d, state=%d, bk_npcid=%d).\n", st->bk_st->rid, st->bk_st->oid, st->bk_st->state, st->bk_npcid);
+		}
+
+		if (sd && sd->st == st) { //Current script is aborted.
+			if (sd->state.using_fake_npc){
+				clif->clearunit_single(sd->npc_id, CLR_OUTSIGHT, sd->fd);
+				sd->state.using_fake_npc = 0;
+			}
+			sd->st = NULL;
+			sd->npc_id = 0;
 		}
 
 		if( st->sleep.timer != INVALID_TIMER )
@@ -3274,7 +3291,7 @@ void script_free_state(struct script_state* st) {
 			ers_free(script->stack_ers, st->stack);
 			st->stack = NULL;
 		}
-		if( st->script ) {
+		if (st->script && st->script->instances != USHRT_MAX && --st->script->instances == 0) {
 			if( st->script->local.vars && !db_size(st->script->local.vars) ) {
 				script->free_vars(st->script->local.vars);
 				st->script->local.vars = NULL;
@@ -12977,7 +12994,7 @@ BUILDIN(message) {
  *------------------------------------------*/
 BUILDIN(npctalk) {
 	const char* str;
-	char name[NAME_LENGTH], message[256];
+	char name[MAX_NPC_NAME_LENGTH], message[256];
 
 	struct npc_data* nd = (struct npc_data *)map->id2bl(st->oid);
 	str = script_getstr(st,2);
@@ -16593,7 +16610,7 @@ BUILDIN(instance_npcname) {
 		instance_id = st->instance_id;
 
 	if( instance_id >= 0 && (nd = npc->name2id(str)) != NULL ) {
-		static char npcname[NAME_LENGTH];
+		static char npcname[MAX_NPC_NAME_LENGTH];
 		snprintf(npcname, sizeof(npcname), "dup_%d_%d", instance_id, nd->bl.id);
 		script_pushconststr(st,npcname);
 	} else {
