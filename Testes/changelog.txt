@@ -106,3 +106,6 @@
 		Commits: '1849d35721', 'f4b1ff7426', '2cc2a97b57';
 			 '7078cb3a0e', '1007f60664', '9589202705';
 			 '8e412fcc26' & '82e5f6d59d'.
+
+2014.03.17 » Portalcake
+	- Aplicação de todas as atualizações do Hercules, até o commit: '42da97d797'

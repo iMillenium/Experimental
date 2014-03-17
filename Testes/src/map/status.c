@@ -445,7 +445,7 @@ void initChangeTables(void) {
 	set_sc( CASH_ASSUMPTIO       , SC_ASSUMPTIO       , SI_ASSUMPTIO       , SCB_NONE );
 
 	set_sc( ALL_PARTYFLEE        , SC_PARTYFLEE       , SI_PARTYFLEE       , SCB_NONE );
-	set_sc( ALL_ODINS_POWER      , SC_ODINS_POWER     , SI_ODINS_POWER     , SCB_WATK|SCB_MATK|SCB_MDEF|SCB_DEF );
+	set_sc( ALL_ODINS_POWER      , SC_ODINS_POWER     , SI_ODINS_POWER     , SCB_WATK | SCB_MATK | SCB_MDEF | SCB_DEF);
 
 	set_sc( CR_SHRINK            , SC_CR_SHRINK       , SI_CR_SHRINK       , SCB_NONE );
 	set_sc( RG_CLOSECONFINE      , SC_RG_CCONFINE_S   , SI_RG_CCONFINE_S   , SCB_NONE );
@@ -1867,6 +1867,9 @@ int status_check_visibility(struct block_list *src, struct block_list *target) {
 	if (src->m != target->m || !check_distance_bl(src, target, view_range))
 		return 0;
 
+	if( src->type == BL_NPC ) /* NPCs don't care for the rest */
+		return 1;
+	
 	if( ( tsc = status->get_sc(target) ) ) {
 		struct status_data *st = status->get_status_data(src);
 
@@ -1987,7 +1990,7 @@ unsigned short status_base_atk(const struct block_list *bl, const struct status_
 
 #ifndef RENEWAL
 static inline unsigned short status_base_matk_min(const struct status_data *st){ return st->int_+(st->int_/7)*(st->int_/7); }
-#endif // Not RENEWAL
+#endif // not RENEWAL
 static inline unsigned short status_base_matk_max(const struct status_data *st){ return st->int_+(st->int_/5)*(st->int_/5); }
 
 unsigned short status_base_matk(const struct status_data *st, int level) {
@@ -7878,7 +7881,6 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 			case SC_TURNKICK_READY:
 			case SC_DODGE_READY:
 			case SC_PUSH_CART:
-			case SC_ALL_RIDING:
 				tick = -1;
 				break;
 
@@ -8733,6 +8735,9 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 				tick_time = 5000; // [GodLesZ] tick time
 				status->change_clear_buffs(bl,3); //Remove buffs/debuffs
 				break;
+			case SC_CRESCENTELBOW:
+				val2 = (sd ? sd->status.job_level : 2) / 2 + 50 + 5 * val1;
+				break;
 			case SC_LIGHTNINGWALK: //  [(Job Level / 2) + (40 + 5 * Skill Level)] %
 				val1 = (sd?sd->status.job_level:2)/2 + 40 + 5 * val1;
 				break;
@@ -8967,6 +8972,10 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 			case SC_MONSTER_TRANSFORM:
 				if( !mob->db_checkid(val1) )
 					val1 = 1002; // default poring
+				break;
+			case SC_ALL_RIDING:
+				unit->stop_attack(bl);
+				tick = -1;
 				break;
 			default:
 				if( calc_flag == SCB_NONE && status->SkillChangeTable[type] == 0 && status->IconChangeTable[type] == 0 )
@@ -9607,7 +9616,7 @@ int status_change_end_(struct block_list* bl, enum sc_type type, int tid, const 
 	if (sce->timer != tid && tid != INVALID_TIMER)
 		return 0;
 
-	if ( sd && sce->timer == INVALID_TIMER && !sd->state.loggingout )
+	if( sd && sce->timer == INVALID_TIMER && !sd->state.loggingout )
 		chrif->del_scdata_single(sd->status.account_id,sd->status.char_id,type);
 	
 	if (tid == INVALID_TIMER) {

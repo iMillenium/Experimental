@@ -112,6 +112,10 @@ const char* script_op2name(int op) {
 	RETURN_OP_NAME(C_SUB_POST);
 	RETURN_OP_NAME(C_ADD_PRE);
 	RETURN_OP_NAME(C_SUB_PRE);
+#ifdef PCRE_SUPPORT
+	RETURN_OP_NAME(C_RE_EQ);
+	RETURN_OP_NAME(C_RE_NE);
+#endif // PCRE_SUPPORT
 
 	default:
 		ShowDebug("script_op2name: unexpected op=%d\n", op);
@@ -1224,6 +1228,10 @@ const char* script_parse_subexpr(const char* p,int limit) {
 	|| (op=C_XOR,    opl=4, len=1,*p=='^')              // ^
 	|| (op=C_EQ,     opl=6, len=2,*p=='=' && p[1]=='=') // ==
 	|| (op=C_NE,     opl=6, len=2,*p=='!' && p[1]=='=') // !=
+#ifdef PCRE_SUPPORT
+	|| (op=C_RE_EQ,  opl=6, len=2,*p=='~' && p[1]=='=') // ~=
+	|| (op=C_RE_NE,  opl=6, len=2,*p=='~' && p[1]=='!') // ~!
+#endif // PCRE_SUPPORT
 	|| (op=C_R_SHIFT,opl=8, len=2,*p=='>' && p[1]=='>') // >>
 	|| (op=C_GE,     opl=7, len=2,*p=='>' && p[1]=='=') // >=
 	|| (op=C_GT,     opl=7, len=1,*p=='>')              // >
@@ -3208,8 +3216,13 @@ void script_free_vars(struct DBMap* var_storage) {
 
 void script_free_code(struct script_code* code)
 {
-	if (code->instances)
+	if( code->instances )
 		script->stop_instances(code);
+	else {
+		script->free_vars(code->local.vars);
+		if( code->local.arrays )
+			code->local.arrays->destroy(code->local.arrays,script->array_free_db);
+	}
 	aFree( code->script_buf );
 	aFree( code );
 }
@@ -3241,12 +3254,12 @@ struct script_state* script_alloc_state(struct script_code* rootscript, int pos,
 	st->oid = oid;
 	st->sleep.timer = INVALID_TIMER;
 	st->npc_item_flag = battle_config.item_enabled_npc;
-
-	if (st->script->instances != USHRT_MAX)
+	
+	if( st->script->instances != USHRT_MAX )
 		st->script->instances++;
 	else {
 		struct npc_data *nd = map->id2nd(oid);
-		ShowError("over 65k instances of '%s' script are being run\n", nd ? nd->name : "unknown");
+		ShowError("over 65k instances of '%s' script are being run\n",nd ? nd->name : "unknown");
 	}
 
 	if( !st->script->local.vars )
@@ -3266,13 +3279,13 @@ struct script_state* script_alloc_state(struct script_code* rootscript, int pos,
 void script_free_state(struct script_state* st) {
 	if( idb_exists(script->st_db,st->id) ) {
 		struct map_session_data *sd = st->rid ? map->id2sd(st->rid) : NULL;
-
+		
 		if(st->bk_st) {// backup was not restored
 			ShowDebug("script_free_state: Previous script state lost (rid=%d, oid=%d, state=%d, bk_npcid=%d).\n", st->bk_st->rid, st->bk_st->oid, st->bk_st->state, st->bk_npcid);
 		}
-
-		if (sd && sd->st == st) { //Current script is aborted.
-			if (sd->state.using_fake_npc){
+		
+		if(sd && sd->st == st) { //Current script is aborted.
+			if(sd->state.using_fake_npc){
 				clif->clearunit_single(sd->npc_id, CLR_OUTSIGHT, sd->fd);
 				sd->state.using_fake_npc = 0;
 			}
@@ -3291,7 +3304,7 @@ void script_free_state(struct script_state* st) {
 			ers_free(script->stack_ers, st->stack);
 			st->stack = NULL;
 		}
-		if (st->script && st->script->instances != USHRT_MAX && --st->script->instances == 0) {
+		if( st->script && st->script->instances != USHRT_MAX && --st->script->instances == 0 ) {
 			if( st->script->local.vars && !db_size(st->script->local.vars) ) {
 				script->free_vars(st->script->local.vars);
 				st->script->local.vars = NULL;
@@ -3400,6 +3413,8 @@ void op_3(struct script_state* st, int op)
 /// s1 GE s2 -> i
 /// s1 LT s2 -> i
 /// s1 LE s2 -> i
+/// s1 RE_EQ s2 -> i
+/// s1 RE_NE s2 -> i
 /// s1 ADD s2 -> s
 void op_2str(struct script_state* st, int op, const char* s1, const char* s2)
 {
@@ -3412,6 +3427,72 @@ void op_2str(struct script_state* st, int op, const char* s1, const char* s2)
 	case C_GE: a = (strcmp(s1,s2) >= 0); break;
 	case C_LT: a = (strcmp(s1,s2) <  0); break;
 	case C_LE: a = (strcmp(s1,s2) <= 0); break;
+#ifdef PCRE_SUPPORT
+	case C_RE_EQ:
+	case C_RE_NE:
+		{
+			int inputlen = (int)strlen(s1);
+			pcre *compiled_regex;
+			pcre_extra *extra_regex;
+			const char *pcre_error, *pcre_match;
+			int pcre_erroroffset, offsetcount, i;
+			int offsets[256*3]; // (max_capturing_groups+1)*3
+
+			compiled_regex = libpcre->compile(s2, 0, &pcre_error, &pcre_erroroffset, NULL);
+
+			if( compiled_regex == NULL ) {
+				ShowError("script:op2_str: Invalid regex '%s'.\n", s2);
+				script->reportsrc(st);
+				script_pushnil(st);
+				st->state = END;
+				return;
+			}
+
+			extra_regex = libpcre->study(compiled_regex, 0, &pcre_error);
+
+			if( pcre_error != NULL ) {
+				libpcre->free(compiled_regex);
+				ShowError("script:op2_str: Unable to optimize the regex '%s': %s\n", s2, pcre_error);
+				script->reportsrc(st);
+				script_pushnil(st);
+				st->state = END;
+				return;
+			}
+
+			offsetcount = libpcre->exec(compiled_regex, extra_regex, s1, inputlen, 0, 0, offsets, 256*3);
+
+			if( offsetcount == 0 ) {
+				offsetcount = 256;
+			} else if( offsetcount == PCRE_ERROR_NOMATCH ) {
+				offsetcount = 0;
+			} else if( offsetcount < 0 ) {
+				libpcre->free(compiled_regex);
+				if( extra_regex != NULL )
+					libpcre->free(extra_regex);
+				ShowWarning("script:op2_str: Unable to process the regex '%s'.\n", s2);
+				script->reportsrc(st);
+				script_pushnil(st);
+				st->state = END;
+				return;
+			}
+
+			if( op == C_RE_EQ ) {
+				for( i = 0; i < offsetcount; i++ ) {
+					libpcre->get_substring(s1, offsets, offsetcount, i, &pcre_match);
+					mapreg->setregstr(reference_uid(script->add_str("$@regexmatch$"), i), pcre_match);
+					libpcre->free_substring(pcre_match);
+				}
+				mapreg->setreg(script->add_str("$@regexmatchcount"), i);
+				a = offsetcount;
+			} else { // C_RE_NE
+				a = (offsetcount == 0);
+			}
+			libpcre->free(compiled_regex);
+			if( extra_regex != NULL )
+				libpcre->free(extra_regex);
+		}
+		break;
+#endif // PCRE_SUPPORT
 	case C_ADD:
 		{
 			char* buf = (char *)aMalloc((strlen(s1)+strlen(s2)+1)*sizeof(char));
@@ -3983,6 +4064,10 @@ void run_script_main(struct script_state *st) {
 			case C_LOR:
 			case C_R_SHIFT:
 			case C_L_SHIFT:
+#ifdef PCRE_SUPPORT
+			case C_RE_EQ:
+			case C_RE_NE:
+#endif // PCRE_SUPPORT
 				script->op_2(st, c);
 				break;
 
@@ -8280,6 +8365,18 @@ BUILDIN(getgroupid)
 /// end
 BUILDIN(end) {
 	st->state = END;
+	
+	/* are we stopping inside a function? */
+	if( st->stack->defsp >= 1 && st->stack->stack_data[st->stack->defsp-1].type == C_RETINFO ) {
+		int i;
+		for(i = 0; i < st->stack->sp; i++) {
+			if( st->stack->stack_data[i].type == C_RETINFO ) {/* grab the first, aka the original */
+				struct script_retinfo *ri = st->stack->stack_data[i].u.ri;
+				st->script = ri->script;
+				break;
+			}
+		}
+	}
 	return true;
 }
 
@@ -9268,7 +9365,10 @@ BUILDIN(addtimer)
 	if( sd == NULL )
 		return true;
 
-	pc->addeventtimer(sd,tick,event);
+	if (!pc->addeventtimer(sd,tick,event)) {
+		ShowWarning("buildin_addtimer: Event timer is full, can't add new event timer. (cid:%d timer:%s)\n",sd->status.char_id,event);
+		return false;
+	}
 	return true;
 }
 /*==========================================
@@ -15308,11 +15408,11 @@ BUILDIN(pcstopfollow)
 // [zBuffer] List of mob control commands --->
 //## TODO always return if the request/whatever was successfull [FlavioJS]
 
-/// Makes the unit walk to target position or map
+/// Makes the unit walk to target position or target id
 /// Returns if it was successfull
 ///
 /// unitwalk(<unit_id>,<x>,<y>) -> <bool>
-/// unitwalk(<unit_id>,<map_id>) -> <bool>
+/// unitwalk(<unit_id>,<target_id>) -> <bool>
 BUILDIN(unitwalk) {
 	struct block_list* bl;
 
@@ -15330,8 +15430,8 @@ BUILDIN(unitwalk) {
 		int y = script_getnum(st,4);
 		script_pushint(st, unit->walktoxy(bl,x,y,0));// We'll use harder calculations.
 	} else {
-		int map_id = script_getnum(st,3);
-		script_pushint(st, unit->walktobl(bl,map->id2bl(map_id),65025,1));
+		int target_id = script_getnum(st,3);
+		script_pushint(st, unit->walktobl(bl,map->id2bl(target_id),1,1));
 	}
 
 	return true;
@@ -15709,9 +15809,9 @@ BUILDIN(getvariableofnpc)
 		return false;
 	}
 
-	if (!nd->u.scr.script->local.vars)
+	if( !nd->u.scr.script->local.vars )
 		nd->u.scr.script->local.vars = i64db_alloc(DB_OPT_RELEASE_DATA);
-
+	
 	script->push_val(st->stack, C_NAME, reference_getuid(data), &nd->u.scr.script->local);
 	return true;
 }
@@ -18480,10 +18580,18 @@ BUILDIN(shopcount) {
 
 // declarations that were supposed to be exported from npc_chat.c
 #ifdef PCRE_SUPPORT
-	BUILDIN(defpattern);
-	BUILDIN(activatepset);
-	BUILDIN(deactivatepset);
-	BUILDIN(deletepset);
+BUILDIN(defpattern);
+BUILDIN(activatepset);
+BUILDIN(deactivatepset);
+BUILDIN(deletepset);
+
+BUILDIN(pcre_match) {
+	const char *input = script_getstr(st, 2);
+	const char *regex = script_getstr(st, 3);
+
+	script->op_2str(st, C_RE_EQ, input, regex);
+	return true;
+}
 #endif
 
 /**
@@ -18847,6 +18955,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(activatepset,"i"), // Activate a pattern set [MouseJstr]
 		BUILDIN_DEF(deactivatepset,"i"), // Deactive a pattern set [MouseJstr]
 		BUILDIN_DEF(deletepset,"i"), // Delete a pattern set [MouseJstr]
+		BUILDIN_DEF(pcre_match,"ss"),
 #endif
 		BUILDIN_DEF(dispbottom,"s"), //added from jA [Lupus]
 		BUILDIN_DEF(getusersname,""),
