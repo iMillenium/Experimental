@@ -115,3 +115,6 @@
 		O script test.txt fora movido para esta pasta. (Hercules: '21aeb5aa1d')
 	- Alterações nos nomes dos scripts da pasta npc também foram realizadas.
 	- Correções e atualizações gerais na source, de acordo com o Hercules.
+	
+2004.03.20 » BOO
+	- Finalizada Estrutura da pasta npc
