@@ -3265,8 +3265,8 @@ int skill_timerskill(int tid, int64 tick, int id, intptr_t data) {
 					break;
 				case LG_OVERBRAND_BRANDISH:
 					skill->area_temp[1] = 0;
-					map->foreachinpath(skill->attack_area, src->m, src->x, src->y, skl->x, skl->y, 4, 2, BL_CHAR,
-						skill->get_type(skl->skill_id), src, src, skl->skill_id, skl->skill_lv, tick, skl->flag, BCT_ENEMY);
+					map->foreachinpath(skill->attack_area,src->m,src->x,src->y,skl->x,skl->y,4,2,BL_CHAR,
+						skill->get_type(skl->skill_id),src,src,skl->skill_id,skl->skill_lv,tick,skl->flag,BCT_ENEMY);
 					break;
 				case GN_CRAZYWEED:
 					if( skl->type >= 0 ) {
@@ -10417,9 +10417,9 @@ int skill_castend_pos2(struct block_list* src, int x, int y, uint16 skill_id, ui
 
 		case LG_OVERBRAND:
 			skill->area_temp[1] = 0;
-			map->foreachinpath(skill->attack_area, src->m, src->x, src->y, x, y, 1, 5, BL_CHAR,
-				skill->get_type(skill_id), src, src, skill_id, skill_lv, tick, flag, BCT_ENEMY);
-			skill->addtimerskill(src, timer->gettick() + status_get_amotion(src), 0, x, y, LG_OVERBRAND_BRANDISH, skill_lv, 0, flag);
+			map->foreachinpath(skill->attack_area,src->m,src->x,src->y,x,y,1,5,BL_CHAR,
+				skill->get_type(skill_id),src,src,skill_id,skill_lv,tick,flag,BCT_ENEMY);
+			skill->addtimerskill(src,timer->gettick() + status_get_amotion(src), 0, x, y, LG_OVERBRAND_BRANDISH, skill_lv, 0, flag);
 			break;
 
 		case LG_BANDING:
@@ -15312,8 +15312,9 @@ bool skill_check_shadowform(struct block_list *bl, int64 damage, int hit){
 		}
 
 		status->damage(bl, src, damage, 0, clif->damage(src, src, 500, 500, damage, hit, (hit > 1 ? 8 : 0), 0), 0);
+
 		/* because damage can cancel it */
-		if (sc->data[SC__SHADOWFORM] && (--sc->data[SC__SHADOWFORM]->val3) <= 0) {
+		if( sc->data[SC__SHADOWFORM] && (--sc->data[SC__SHADOWFORM]->val3) <= 0 ) {
 			status_change_end(bl, SC__SHADOWFORM, INVALID_TIMER);
 			if( src->type == BL_PC )
 				((TBL_PC*)src)->shadowform_id = 0;

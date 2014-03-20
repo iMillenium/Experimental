@@ -13094,7 +13094,7 @@ BUILDIN(message) {
  *------------------------------------------*/
 BUILDIN(npctalk) {
 	const char* str;
-	char name[MAX_NPC_NAME_LENGTH], message[256];
+	char name[NAME_LENGTH], message[256];
 
 	struct npc_data* nd = (struct npc_data *)map->id2bl(st->oid);
 	str = script_getstr(st,2);
@@ -16430,7 +16430,7 @@ BUILDIN(bg_leave)
 	if( sd == NULL || !sd->bg_id )
 		return true;
 
-	bg->team_leave(sd,0);
+	bg->team_leave(sd,BGTL_LEFT);
 	return true;
 }
 
@@ -16710,7 +16710,7 @@ BUILDIN(instance_npcname) {
 		instance_id = st->instance_id;
 
 	if( instance_id >= 0 && (nd = npc->name2id(str)) != NULL ) {
-		static char npcname[MAX_NPC_NAME_LENGTH];
+		static char npcname[NAME_LENGTH];
 		snprintf(npcname, sizeof(npcname), "dup_%d_%d", instance_id, nd->bl.id);
 		script_pushconststr(st,npcname);
 	} else {

@@ -700,7 +700,7 @@ bool chrif_charselectreq(struct map_session_data* sd, uint32 s_ip) {
 	WFIFOL(chrif->fd, 6) = sd->login_id1;
 	WFIFOL(chrif->fd,10) = sd->login_id2;
 	WFIFOL(chrif->fd,14) = htonl(s_ip);
-	WFIFOL(chrif->fd, 18) = sd->group_id;
+	WFIFOL(chrif->fd,18) = sd->group_id;
 	WFIFOSET(chrif->fd,22);
 
 	return true;

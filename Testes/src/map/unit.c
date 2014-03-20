@@ -2331,7 +2331,7 @@ int unit_free(struct block_list *bl, clr_type clrtype) {
 			unsigned int k;
 
 			sd->state.loggingout = 1;
-
+			
 			if( status->isdead(bl) )
 				pc->setrestartvalue(sd,2);
 

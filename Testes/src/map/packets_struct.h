@@ -9,8 +9,8 @@
 #include "../common/mmo.h"
 
 /**
-*
-**/
+ *
+ **/
 enum packet_headers {
 	banking_withdraw_ackType = 0x9aa,
 	banking_deposit_ackType = 0x9a8,
@@ -215,8 +215,8 @@ enum packet_headers {
 #endif // not NetBSD < 6 / Solaris
 
 /**
-* structs for data
-*/
+ * structs for data
+ */
 struct EQUIPSLOTINFO {
 	unsigned short card[4];
 } __attribute__((packed));
@@ -272,10 +272,10 @@ struct EQUIPITEM_INFO {
 	int HireExpireDate;
 #endif
 #if PACKETVER >= 20080102
-	unsigned short bindOnEquipType;
+    unsigned short bindOnEquipType;
 #endif
 #if PACKETVER >= 20100629
-	unsigned short wItemSpriteNumber;
+    unsigned short wItemSpriteNumber;
 #endif
 #if PACKETVER >= 20120925
 	struct {
@@ -626,18 +626,18 @@ struct packet_maptypeproperty2 {
 	short PacketType;
 	short type;
 	struct {
-		unsigned int party : 1;  // Show attack cursor on non-party members (PvP)
-		unsigned int guild : 1;  // Show attack cursor on non-guild members (GvG)
-		unsigned int siege : 1;  // Show emblem over characters' heads when in GvG (WoE castle)
-		unsigned int mineffect : 1;  // Automatically enable /mineffect
-		unsigned int nolockon : 1;  // TODO: What does this do? (shows attack cursor on non-party members)
-		unsigned int countpk : 1;  /// Show the PvP counter
-		unsigned int nopartyformation : 1;  /// Prevent party creation/modification
-		unsigned int bg : 1;  // TODO: What does this do? Probably related to Battlegrounds, but I'm not sure on the effect
+		unsigned int party             : 1;  // Show attack cursor on non-party members (PvP)
+		unsigned int guild             : 1;  // Show attack cursor on non-guild members (GvG)
+		unsigned int siege             : 1;  // Show emblem over characters' heads when in GvG (WoE castle)
+		unsigned int mineffect         : 1;  // Automatically enable /mineffect
+		unsigned int nolockon          : 1;  // TODO: What does this do? (shows attack cursor on non-party members)
+		unsigned int countpk           : 1;  /// Show the PvP counter
+		unsigned int nopartyformation  : 1;  /// Prevent party creation/modification
+		unsigned int bg                : 1;  // TODO: What does this do? Probably related to Battlegrounds, but I'm not sure on the effect
 		unsigned int noitemconsumption : 1;  // TODO: What does this do? (shows a "Nothing found in the selected map" message when set)
-		unsigned int usecart : 1;  /// Allow opening cart inventory
+		unsigned int usecart           : 1;  /// Allow opening cart inventory
 		unsigned int summonstarmiracle : 1;  // TODO: What does this do? Related to Taekwon Masters, but I have no idea.
-		unsigned int SpareBits : 15; /// Currently ignored, reserved for future updates
+		unsigned int SpareBits         : 15; /// Currently ignored, reserved for future updates
 	} flag;
 } __attribute__((packed));
 

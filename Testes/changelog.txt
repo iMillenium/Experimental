@@ -109,3 +109,9 @@
 
 2014.03.17 » Portalcake
 	- Aplicação de todas as atualizações do Hercules, até o commit: '42da97d797'
+
+2014.03.20 » Portalcake
+	- Criada a pasta /npc/dev e o arquivo scripts_dev para desenvolvimento e teste de scripts.
+		O script test.txt fora movido para esta pasta. (Hercules: '21aeb5aa1d')
+	- Alterações nos nomes dos scripts da pasta npc também foram realizadas.
+	- Correções e atualizações gerais na source, de acordo com o Hercules.

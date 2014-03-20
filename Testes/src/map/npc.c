@@ -1197,9 +1197,9 @@ int npc_scriptcont(struct map_session_data* sd, int id, bool closing) {
 		  	nd?(char*)nd->name:"'Unknown NPC'", (int)id);
 		return 1;
 	}
-
+	
 	if(id != npc->fake_nd->bl.id) { // Not item script
-		if ((npc->checknear(sd, target)) == NULL){
+		if ((npc->checknear(sd,target)) == NULL){
 			ShowWarning("npc_scriptcont: failed npc->checknear test.\n");
 			return 1;
 		}
@@ -1219,10 +1219,10 @@ int npc_scriptcont(struct map_session_data* sd, int id, bool closing) {
 	 **/
 	if( sd->progressbar.npc_id && DIFF_TICK(sd->progressbar.timeout,timer->gettick()) > 0 )
 		return 1;
-
-	if ( !sd->st )
+	
+	if( !sd->st )
 		return 1;
-
+	
 	if( closing && sd->st->state == CLOSE )
 		sd->st->state = END;
 
@@ -1405,7 +1405,7 @@ int npc_buylist_sub(struct map_session_data* sd, int n, unsigned short* item_lis
  **/
 void npc_market_fromsql(void) {
 	SqlStmt* stmt = SQL->StmtMalloc(map->mysql_handle);
-	char name[MAX_NPC_NAME_LENGTH+1];
+	char name[NAME_LENGTH+1];
 	int itemid;
 	int amount;
 	
@@ -4289,7 +4289,7 @@ int npc_reload(void) {
 
 	map->zone_init();
 	
-	npc->motd = npc->name2id("HerculesMOTD"); /* [Ind/Hercules] */
+	npc->motd = npc->name2id("CronusMOTD"); /* [Ind/Hercules] */
 	
 	//Re-read the NPC Script Events cache.
 	npc->read_event_script();
@@ -4411,7 +4411,7 @@ int do_init_npc(bool minimal) {
 		npc_viewdb2[i - MAX_NPC_CLASS2_START].class_ = i;
 
 	npc->ev_db = strdb_alloc(DB_OPT_DUP_KEY|DB_OPT_RELEASE_DATA, EVENT_NAME_LENGTH);
-	npc->ev_label_db = strdb_alloc(DB_OPT_DUP_KEY|DB_OPT_RELEASE_DATA, MAX_NPC_NAME_LENGTH);
+	npc->ev_label_db = strdb_alloc(DB_OPT_DUP_KEY | DB_OPT_RELEASE_DATA, MAX_NPC_NAME_LENGTH);
 	npc->name_db = strdb_alloc(DB_OPT_BASE, MAX_NPC_NAME_LENGTH);
 	npc->path_db = strdb_alloc(DB_OPT_DUP_KEY|DB_OPT_RELEASE_DATA, 0);
 

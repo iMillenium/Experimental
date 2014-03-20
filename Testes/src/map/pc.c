@@ -7542,8 +7542,8 @@ int pc_itemheal(struct map_session_data *sd,int itemid, int hp,int sp)
 			}
 		}
 
-		tmp = hp*bonus / 100;
-		if (bonus != 100 && tmp > hp)
+		tmp = hp*bonus/100;
+		if(bonus != 100 && tmp > hp)
 			hp = tmp;
 
 		// Recovery Potion
@@ -7557,10 +7557,9 @@ int pc_itemheal(struct map_session_data *sd,int itemid, int hp,int sp)
 		if (script->potion_flag > 1)
 			bonus += bonus*(script->potion_flag-1)*50/100;
 
-		tmp = sp*bonus / 100;
-		if (bonus != 100 && tmp > sp)
+		tmp = sp*bonus/100;
+		if(bonus != 100 && tmp > sp)
 			sp = tmp;
-
 	}
 	if( sd->sc.count ) {
 		if ( sd->sc.data[SC_CRITICALWOUND] ) {
@@ -10481,14 +10480,13 @@ void pc_autotrade_prepare(struct map_session_data *sd) {
 	char_id = sd->status.char_id;
 	sex = sd->status.sex;
 	safestrncpy(title, sd->message, sizeof(title));
-
+	
 	sd->npc_id = 0;
 	sd->npc_shopid = 0;
 	if (sd->st) {
 		sd->st->state = END;
 		sd->st = NULL;
 	}
-	
 	map->quit(sd);
 	chrif->auth_delete(account_id, char_id, ST_LOGOUT);
 
