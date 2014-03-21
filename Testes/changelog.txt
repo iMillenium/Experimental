@@ -122,3 +122,6 @@
 2014.03.21 » Portalcake
 	- Atualizações do Hercules aplicadas:
 	'a80bfc15cf', '4e73bda7d5', '0100bae77e', '97b2b65cbe' & 'c9310f3ffd'.
+	- scripts_portais.conf
+		'warps/dungeons' alterado para 'portais/cavernas'
+	- Pasta '/npc/re/portais/dungeons' renomeada para '/npc/re/portais/cavernas'
