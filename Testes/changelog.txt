@@ -129,3 +129,13 @@
 	- Novas permissões adicionadas no groups.conf
 	'disable_pickup', 'disable_exp', 'disable_store';
 	'disable_skill_usage' & 'disable_drops'.
+
+2014.03.22 » Portalcake
+	- Adicionada a configuração 'char_aegis_delete':
+		Impede que um personagem seja excluído sem antes sair do clã ou grupo.
+		Padrão do Aegis para evitar entradas "mortas" no banco de dados.
+		Por padrão a opção está desativada;
+		Visto a mesma não ser necessária no emulador.
+			(Hercules 'aa120720ce')
+	- rAthena-main-upgrade.sql atualizado
+	- rathena-logs-database-upgrade.sql renomeado para rAthena-logs-upgrade.sql
