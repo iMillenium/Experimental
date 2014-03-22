@@ -4078,7 +4078,7 @@ int pc_dropitem(struct map_session_data *sd,int n,int amount)
 		)
 		return 0;
 
-	if( map->list[sd->bl.m].flag.nodrop ) {
+	if (map->list[sd->bl.m].flag.nodrop || pc_has_permission(sd, PC_PERM_DISABLE_DROPS)) {
 		clif->message (sd->fd, msg_txt(271));
 		return 0; //Can't drop items in nodrop mapflag maps.
 	}
@@ -4115,6 +4115,9 @@ int pc_takeitem(struct map_session_data *sd,struct flooritem_data *fitem)
 
 	if(!check_distance_bl(&fitem->bl, &sd->bl, 2) && sd->ud.skill_id!=BS_GREED)
 		return 0;	// Distance is too far
+
+	if (pc_has_permission(sd, PC_PERM_DISABLE_PICK_UP))
+		return 0;
 
 	if (sd->status.party_id)
 		p = party->search(sd->status.party_id);
@@ -5985,6 +5988,9 @@ int pc_gainexp(struct map_session_data *sd, struct block_list *src, unsigned int
 
 	if(!battle_config.pvp_exp && map->list[sd->bl.m].flag.pvp)  // [MouseJstr]
 		return 0; // no exp on pvp maps
+
+	if (pc_has_permission(sd, PC_PERM_DISABLE_EXP))
+		return 0;
 
 	if(sd->status.guild_id>0)
 		base_exp-=guild->payexp(sd,base_exp);

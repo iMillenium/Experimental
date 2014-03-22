@@ -10521,7 +10521,7 @@ void clif_parse_TakeItem(int fd, struct map_session_data *sd) {
 			) )
 			break;
 
-		if (pc_cant_act(sd))
+		if (pc_cant_act(sd) || pc_has_permission(sd, PC_PERM_DISABLE_PICK_UP))
 			break;
 
 		if (!pc->takeitem(sd, fitem))
@@ -10840,7 +10840,7 @@ void clif_parse_NpcBuyListSend(int fd, struct map_session_data* sd)
 	unsigned short* item_list = (unsigned short*)RFIFOP(fd,4);
 	int result;
 
-	if( sd->state.trading || !sd->npc_shopid )
+	if (sd->state.trading || !sd->npc_shopid || pc_has_permission(sd,PC_PERM_DISABLE_STORE))
 		result = 1;
 	else
 		result = npc->buylist(sd,n,item_list);
@@ -10876,7 +10876,7 @@ void clif_parse_NpcSellListSend(int fd,struct map_session_data *sd)
 	n = (RFIFOW(fd,2)-4) /4;
 	item_list = (unsigned short*)RFIFOP(fd,4);
 
-	if (sd->state.trading || !sd->npc_shopid)
+	if (sd->state.trading || !sd->npc_shopid || pc_has_permission(sd,PC_PERM_DISABLE_STORE))
 		fail = 1;
 	else
 		fail = npc->selllist(sd,n,item_list);
@@ -12835,7 +12835,7 @@ void clif_parse_OpenVending(int fd, struct map_session_data* sd) {
 
 	if( sd->sc.data[SC_NOCHAT] && sd->sc.data[SC_NOCHAT]->val1&MANNER_NOROOM )
 		return;
-	if( map->list[sd->bl.m].flag.novending ) {
+	if (map->list[sd->bl.m].flag.novending || pc_has_permission(sd, PC_PERM_DISABLE_STORE)) {
 		clif->message (sd->fd, msg_txt(276)); // "You can't open a shop on this map"
 		return;
 	}
@@ -15034,7 +15034,7 @@ void clif_parse_Mail_send(int fd, struct map_session_data *sd)
 		return;
 	}
 
-	if( DIFF_TICK(sd->cansendmail_tick, timer->gettick()) > 0 ) {
+	if (DIFF_TICK(sd->cansendmail_tick, timer->gettick()) > 0 || pc_has_permission(sd, PC_PERM_DISABLE_STORE)) {
 		clif->message(sd->fd,msg_txt(875)); //"Cannot send mails too fast!!."
 		clif->mail_send(fd, true); // fail
 		return;
@@ -15286,7 +15286,7 @@ void clif_parse_Auction_register(int fd, struct map_session_data *sd)
 		return;
 	}
 
-	if( sd->status.zeny < (auction.hours * battle_config.auction_feeperhour) ) {
+	if (sd->status.zeny < (auction.hours * battle_config.auction_feeperhour) || pc_has_permission(sd, PC_PERM_DISABLE_STORE)) {
 		clif_Auction_message(fd, 5); // You do not have enough zeny to pay the Auction Fee.
 		return;
 	}
@@ -15541,7 +15541,7 @@ void clif_parse_cashshop_buy(int fd, struct map_session_data *sd)
     int fail = 0;
     nullpo_retv(sd);
 
-    if( sd->state.trading || !sd->npc_shopid )
+    if (sd->state.trading || !sd->npc_shopid || pc_has_permission(sd,PC_PERM_DISABLE_STORE))
         fail = 1;
     else {
 #if PACKETVER < 20101116

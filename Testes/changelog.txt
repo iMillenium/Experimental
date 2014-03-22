@@ -126,3 +126,6 @@
 		'warps/dungeons' alterado para 'portais/cavernas'
 	- Pasta '/npc/re/portais/dungeons' renomeada para '/npc/re/portais/cavernas'
 	- Correção da codificação em 'npc/re/monstros/campos'
+	- Novas permissões adicionadas no groups.conf
+	'disable_pickup', 'disable_exp', 'disable_store';
+	'disable_skill_usage' & 'disable_drops'.
