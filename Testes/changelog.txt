@@ -142,3 +142,4 @@
 
 2014.03.23 » Portalcake
 	- Corrigido exploit em CR_ACIDDEMONSTRATION. (Hercules: 'd097f2c4b4')
+	- Corrigido bug da Feint Bomb. (Hercules: '9ea7b14319')
