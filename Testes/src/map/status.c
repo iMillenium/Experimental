@@ -10088,8 +10088,12 @@ int status_change_end_(struct block_list* bl, enum sc_type type, int tid, const 
 		case SC_ITEMSCRIPT:
 			if( sd ) {
 				switch( sce->val1 ) {
-				//case ITEMID_PHREEONI_CARD:
-				//case ITEMID_GHOSTRING_CARD:
+				case ITEMID_PHREEONI_CARD:
+					clif->sc_end(&sd->bl, sd->bl.id, SELF, SI_FOOD_BASICHIT);
+					break;
+				case ITEMID_GHOSTRING_CARD:
+					clif->sc_end(&sd->bl, sd->bl.id, SELF, SI_ARMOR_PROPERTY);
+					break;
 				case ITEMID_TAO_GUNKA_CARD:
 					clif->sc_end(&sd->bl, sd->bl.id, SELF, SI_MVPCARD_TAOGUNKA);
 					break;
