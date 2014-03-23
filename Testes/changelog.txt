@@ -143,3 +143,5 @@
 2014.03.23 » Portalcake
 	- Corrigido exploit em CR_ACIDDEMONSTRATION. (Hercules: 'd097f2c4b4')
 	- Corrigido bug da Feint Bomb. (Hercules: '9ea7b14319')
+	- 'afk-kick' timer da Battleground corrigido. (Hercules: '3b0597c7f7')
+	- Ícone de montaria (dragão) corrigido. (Hercules: 'ad354f5d15')
