@@ -9206,20 +9206,24 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 		case SC_ITEMSCRIPT:
 			if( sd ) {
 				switch( val1 ) {
-					//case ITEMID_PHREEONI_CARD:
-					//case ITEMID_GHOSTRING_CARD:
-					case ITEMID_TAO_GUNKA_CARD:
-						clif->status_change(bl,SI_MVPCARD_TAOGUNKA,1,tick,0,0,0);
-						break;
-					case ITEMID_MISTRESS_CARD:
-						clif->status_change(bl,SI_MVPCARD_MISTRESS,1,tick,0,0,0);
-						break;
-					case ITEMID_ORC_HERO_CARD:
-						clif->status_change(bl,SI_MVPCARD_ORCHERO,1,tick,0,0,0);
-						break;
-					case ITEMID_ORC_LOAD_CARD:
-						clif->status_change(bl,SI_MVPCARD_ORCLORD,1,tick,0,0,0);
-						break;
+				case ITEMID_PHREEONI_CARD:
+					clif->status_change(bl, SI_FOOD_BASICHIT, 1, tick, 0, 0, 0);
+					break;
+				case ITEMID_GHOSTRING_CARD:
+					clif->status_change(bl, SI_ARMOR_PROPERTY, 1, tick, 0, 0, 0);
+					break;
+				case ITEMID_TAO_GUNKA_CARD:
+					clif->status_change(bl,SI_MVPCARD_TAOGUNKA,1,tick,0,0,0);
+					break;
+				case ITEMID_MISTRESS_CARD:
+					clif->status_change(bl,SI_MVPCARD_MISTRESS,1,tick,0,0,0);
+					break;
+				case ITEMID_ORC_HERO_CARD:
+					clif->status_change(bl,SI_MVPCARD_ORCHERO,1,tick,0,0,0);
+					break;
+				case ITEMID_ORC_LOAD_CARD:
+					clif->status_change(bl,SI_MVPCARD_ORCLORD,1,tick,0,0,0);
+					break;
 				}
 			}
 			break;

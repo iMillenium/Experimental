@@ -149,3 +149,7 @@
 	- Warning 'skill_castend_nodamage_id' resolvido para o 'SO_ELEMENTAL_SHIELD'
 		skill_castend_nodamage_id: Unknown skill used:5008
 		(Hercules: '4f7e8ea519')
+	- Dano refletido da skill Cotovelada Ascendente (Crescent Elbow) melhorado.
+		(Hercules: 'a830f934d0')
+	- A skill Choque de Carrinho agora sempre irá bater nos alvos na direção oeste.
+		rAthena:1f26499994af9b64aa96d5ed46f6e7cdefdb025b

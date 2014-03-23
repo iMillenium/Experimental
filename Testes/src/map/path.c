@@ -82,21 +82,9 @@ int path_blownpos(int16 m,int16 x0,int16 y0,int16 dx,int16 dy,int count)
 		dy=(dy>0)?1:((dy<0)?-1:0);
 	}
 
-	while( count > 0 && (dx != 0 || dy != 0) ) {
-		if( !md->getcellp(md,x0+dx,y0+dy,CELL_CHKPASS) ) {// attempt partial movement
-			int fx = ( dx != 0 && md->getcellp(md,x0+dx,y0,CELL_CHKPASS) );
-			int fy = ( dy != 0 && md->getcellp(md,x0,y0+dy,CELL_CHKPASS) );
-			if( fx && fy )
-			{
-				if(rnd()&1)
-					dx=0;
-				else
-					dy=0;
-			}
-			if( !fx )
-				dx=0;
-			if( !fy )
-				dy=0;
+	while (count > 0 && (dx != 0 || dy != 0)) {
+		if (!md->getcellp(md, x0 + dx, y0 + dy, CELL_CHKPASS)) {
+			break;
 		}
 
 		x0 += dx;
@@ -104,7 +92,8 @@ int path_blownpos(int16 m,int16 x0,int16 y0,int16 dx,int16 dy,int count)
 		count--;
 	}
 
-	return (x0<<16)|y0; //TODO: use 'struct point' here instead?
+	return (x0 << 16) | y0; //TODO: use 'struct point' here instead?
+
 }
 
 /*==========================================
