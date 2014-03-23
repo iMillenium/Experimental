@@ -139,3 +139,6 @@
 			(Hercules 'aa120720ce')
 	- rAthena-main-upgrade.sql atualizado
 	- rathena-logs-database-upgrade.sql renomeado para rAthena-logs-upgrade.sql
+
+2014.03.23 » Portalcake
+	- Corrigido exploit em CR_ACIDDEMONSTRATION. (Hercules: 'd097f2c4b4')
