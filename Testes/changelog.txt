@@ -145,3 +145,7 @@
 	- Corrigido bug da Feint Bomb. (Hercules: '9ea7b14319')
 	- 'afk-kick' timer da Battleground corrigido. (Hercules: '3b0597c7f7')
 	- Ícone de montaria (dragão) corrigido. (Hercules: 'ad354f5d15')
+	- 'SO_EL_ACTION' corrigido. (Hercules: '17de8408fa')
+	- Warning 'skill_castend_nodamage_id' resolvido para o 'SO_ELEMENTAL_SHIELD'
+		skill_castend_nodamage_id: Unknown skill used:5008
+		(Hercules: '4f7e8ea519')
