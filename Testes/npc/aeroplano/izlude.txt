@@ -1,4 +1,4 @@
-//===== Cronus Script ===========================================
+﻿//===== Cronus Script ===========================================
 //= NPCs do Aeroporto de Izlude
 //===== Por: ====================================================
 //= Hercules Dev Team
@@ -7,26 +7,24 @@
 //===== Comentários Adicionais: =================================
 //= Official NPCs.
 //= Traduzido para pt-BR. [Evanio]
+//= Revisado de acordo com o bRO. [Portalcake]
 //===============================================================
 
 -	script	::Airship_Staff_izlude	-1,{
-	mes "[Funcionário]";
-	mes "Bem-vindo! Gostaria";
-	mes "de embarcar no dirigível que";
-	mes "saíra em vôo com destinos à";
-	mes "Juno e Rachel?";
+	mes "[Assistente do Aeroplano]";
+	mes "Bem-vindo!!";
+	mes "Você gostaria de embarcar no";
+	mes "Aeroplano, ele vai para Juno e";
+	mes "Rachel.";
 	next;
-	if (select("Ebarcar no dirigível para Juno/Rachel.:Cancelar.") == 1) {
-		mes "[Funcionário]";
-		mes "A taxa de embarque é de";
-		mes "1,200 zeny. No entanto, esta";
-		mes "taxa é dispensada se você possuir";
-		mes "o Bilhete para Aeroplano.";
-		mes "Então, gostaria de embarcar?";
+	if (select("Embarcar.:Cancelar.") == 1) {
+		mes "[Assistente do Aeroplano]";
+		mes "A passagem custa 1.200 zeny.";
+		mes "Deseja comprar uma?";
 		next;
 		if (select("Sim:Não") == 1) {
 			if (countitem(7311) > 0) {
-				delitem 7311,1; //Bilhete_para_Aeroplano
+				delitem 7311,1; //Bilhete para Aeroplano
 				warp "airplane_01",244,58;
 				end;
 			}
@@ -35,16 +33,15 @@
 				warp "airplane_01",244,58;
 				end;
 			}
-			mes "[Funcionário]";
-			mes "Sinto muito, mas você não";
-			mes "possui 1,200 zeny para pagar";
-			mes "a taxa de embarque.";
+			mes "[Assistente do Aeroplano]";
+			mes "Me desculpe, mas você não possui";
+			mes "1.200 zeny!";
+			mes "Você não pode embarcar.";
 			close;
 		}
 	}
-	mes "[Funcionário]";
-	mes "Obrigado e pofavor";
-	mes "volte sempre.";
-	mes "Tenha um ótimo dia~";
+	mes "[Assistente do Aeroplano]";
+	mes "Muito obrigada!";
+	mes "Volte sempre.";
 	close;
 }

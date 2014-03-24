@@ -154,3 +154,6 @@
 	- A skill Choque de Carrinho agora sempre irá bater nos alvos na direção oeste.
 		rAthena:1f26499994af9b64aa96d5ed46f6e7cdefdb025b
 	- Atualização do Hercules aplicada: '33c7158531'.
+	- Revisão e tradução de acordo com o bRO dos scripts do aeroplano.
+		Arquivo 'izlude.txt' das seguintes pastas:
+		npc/aeroplano; npc/pre-re/aeroplano e npc/re/aeroplano
