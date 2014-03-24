@@ -157,3 +157,6 @@
 	- Revisão e tradução de acordo com o bRO dos scripts do aeroplano.
 		Arquivo 'izlude.txt' das seguintes pastas:
 		npc/aeroplano; npc/pre-re/aeroplano e npc/re/aeroplano
+		
+2014.03.24  » BOO
+	- Alterado Padrão pra RE
