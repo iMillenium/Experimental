@@ -1,10 +1,10 @@
-ï»¿//===== Cronus Script ===========================================
+//===== Cronus Script ===========================================
 //= NPCs do Aeroporto de Izlude
 //===== Por: ====================================================
 //= Hercules Dev Team
-//===== DescriÃ§Ã£o: ==============================================
+//===== Descrição: ==============================================
 //= NPCs do Aeroporto de Izlude
-//===== ComentÃ¡rios Adicionais: =================================
+//===== Comentários Adicionais: =================================
 //= Official NPCs.
 //= Traduzido para pt-BR. [Evanio]
 //= Revisado de acordo com o bRO. [Portalcake]
@@ -13,7 +13,7 @@
 -	script	::Airship_Staff_izlude	-1,{
 	mes "[Assistente do Aeroplano]";
 	mes "Bem-vindo!!";
-	mes "VocÃª gostaria de embarcar no";
+	mes "Você gostaria de embarcar no";
 	mes "Aeroplano, ele vai para Juno e";
 	mes "Rachel.";
 	next;
@@ -22,7 +22,7 @@
 		mes "A passagem custa 1.200 zeny.";
 		mes "Deseja comprar uma?";
 		next;
-		if (select("Sim:NÃ£o") == 1) {
+		if (select("Sim:Não") == 1) {
 			if (countitem(7311) > 0) {
 				delitem 7311,1; //Bilhete para Aeroplano
 				warp "airplane_01",244,58;
@@ -34,9 +34,9 @@
 				end;
 			}
 			mes "[Assistente do Aeroplano]";
-			mes "Me desculpe, mas vocÃª nÃ£o possui";
+			mes "Me desculpe, mas você não possui";
 			mes "1.200 zeny!";
-			mes "VocÃª nÃ£o pode embarcar.";
+			mes "Você não pode embarcar.";
 			close;
 		}
 	}

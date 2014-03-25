@@ -160,3 +160,6 @@
 		
 2014.03.24  » BOO
 	- Alterado Padrão pra RE
+
+2014.03.24 » Portalcake
+	'npc/aeroplano/', correção de codificação.
