@@ -127,8 +127,8 @@
 	- Pasta '/npc/re/portais/dungeons' renomeada para '/npc/re/portais/cavernas'
 	- Correção da codificação em 'npc/re/monstros/campos'
 	- Novas permissões adicionadas no groups.conf
-	'disable_pickup', 'disable_exp', 'disable_store';
-	'disable_skill_usage' & 'disable_drops'.
+		'disable_pickup', 'disable_exp', 'disable_store';
+		'disable_skill_usage' & 'disable_drops'.
 
 2014.03.22 » Portalcake
 	- Adicionada a configuração 'char_aegis_delete':
@@ -162,4 +162,8 @@
 	- Alterado Padrão pra RE
 
 2014.03.24 » Portalcake
-	'npc/aeroplano/', correção de codificação.
+	- 'npc/aeroplano/', correção de codificação.
+
+2014.03.25 » Portalcake
+	- packets.h
+		Packets dos clients de 2014 adicionados.
