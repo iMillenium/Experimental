@@ -167,3 +167,9 @@
 2014.03.25 » Portalcake
 	- packets.h
 		Packets dos clients de 2014 adicionados.
+
+2014.03.26 » Portalcake
+	- Novos valores ao 'return' em 'make_new_char_sql' adicionados.
+	- Adicionado 'char_id' à tabela charlog. (Hercules: 4b1cc23)
+	- Corrigida checagem do modo RE em 'skill_magic_reflect'.
+		Follow up: d06aee0
