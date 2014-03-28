@@ -173,3 +173,6 @@
 	- Adicionado 'char_id' à tabela charlog. (Hercules: 4b1cc23)
 	- Corrigida checagem do modo RE em 'skill_magic_reflect'.
 		Follow up: d06aee0
+
+2014.03.27 » Portalcake
+	- Continuação das traduções na pasta 'db'.
