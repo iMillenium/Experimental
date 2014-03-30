@@ -174,5 +174,7 @@
 	- Corrigida checagem do modo RE em 'skill_magic_reflect'.
 		Follow up: d06aee0
 
-2014.03.27 » Portalcake
-	- Continuação das traduções na pasta 'db'.
+2014.03.30 » Portalcake
+	- Atualizações do Hercules aplicadas:
+		- 'a43cd2b1c2', '336b818cd4', 'f0fc96a130', '99dcc9da0a';
+		- 'f0229942aa', '7b430a5748' e 'd9f4084d50'.
