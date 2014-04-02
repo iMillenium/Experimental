@@ -181,3 +181,6 @@
 	- Atualizações do Hercules aplicadas:
 		- 'a43cd2b1c2', '336b818cd4', 'f0fc96a130', '99dcc9da0a';
 		- 'f0229942aa', '7b430a5748' e 'd9f4084d50'.
+
+2014.04.02 » Portalcake
+	- Atualizações do Hercules aplicadas: 'a3fecfc4e9' e '53c0e46ed7'.

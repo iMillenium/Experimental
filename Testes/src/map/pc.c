@@ -6225,7 +6225,7 @@ int pc_maxparameterincrease(struct map_session_data* sd, int type) {
 /**
  * Raises a stat by the specified amount.
  * Obeys max_parameter limits.
- * Subtracts stat points.
+ * Does not subtract stat points.
  *
  * @param sd       The target character.
  * @param type     The stat to change (see enum _sp)
@@ -6280,12 +6280,16 @@ bool pc_statusup(struct map_session_data* sd, int type, int increase) {
 	return true;
 }
 
-/// Raises a stat by the specified amount.
-/// Obeys max_parameter limits.
-/// Does not subtract stat points.
-///
-/// @param type The stat to change (see enum _sp)
-/// @param val The stat increase amount.
+/**
+* Raises a stat by the specified amount.
+* Obeys max_parameter limits.
+* Subtracts stat points.
+*
+* @param sd       The target character.
+* @param type     The stat to change (see enum _sp)
+* @param increase The stat increase amount.
+* @return zero if no changes were made, otherwise returns stat increase amount
+*/
 int pc_statusup2(struct map_session_data* sd, int type, int val)
 {
 	int max, need;
@@ -6294,7 +6298,7 @@ int pc_statusup2(struct map_session_data* sd, int type, int val)
 	if( type < SP_STR || type > SP_LUK )
 	{
 		clif->statusupack(sd,type,0,0);
-		return 1;
+		return 0;
 	}
 
 	need = pc->need_status_point(sd,type,1);
@@ -6314,7 +6318,7 @@ int pc_statusup2(struct map_session_data* sd, int type, int val)
 	if( val > 255 )
 		clif->updatestatus(sd,type); // send after the 'ack' to override the truncated value
 
-	return 0;
+	return val;
 }
 
 /*==========================================
