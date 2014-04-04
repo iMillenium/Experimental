@@ -184,3 +184,11 @@
 
 2014.04.02 » Portalcake
 	- Atualizações do Hercules aplicadas: 'a3fecfc4e9' e '53c0e46ed7'.
+
+2014.04.04 » Portalcake
+	- pc.c
+		Edições menores na documentação do 'pc_statusup'.
+		(Hercules: '34658a75ff')
+	- npc.c
+		Adicionada detecção do UTF-8 BOM.
+		(Hercules '694d32a550').
