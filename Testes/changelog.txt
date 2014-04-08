@@ -195,3 +195,7 @@
 
 2014.04.05 » Portalcake
 	- Atualização do Hercules aplicada, '94ef1ee7bb'.
+
+2014.04.07 » Portalcake
+	- status.c
+		Correção da skill Pain Killer.
