@@ -16,9 +16,7 @@
 -	script	::Airship_Staff_izlude	-1,{
 	mes "[Assistente do Aeroplano]";
 	mes "Bem-vindo!!";
-	mes "Você gostaria de embarcar no";
-	mes "Aeroplano, ele vai para Juno e";
-	mes "Rachel.";
+	mes "Você gostaria de embarcar no Aeroplano, ele vai para Juno e Rachel.";
 	next;
 	if (select("Embarcar.:Cancelar.") == 1) {
 		mes "[Assistente do Aeroplano]";
@@ -37,8 +35,7 @@
 				end;
 			}
 			mes "[Assistente do Aeroplano]";
-			mes "Me desculpe, mas você não possui";
-			mes "1.200 zeny!";
+			mes "Me desculpe, mas você não possui 1.200 zeny!";
 			mes "Você não pode embarcar.";
 			close;
 		}

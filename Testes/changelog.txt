@@ -199,3 +199,6 @@
 2014.04.07 » Portalcake
 	- status.c
 		Correção da skill Pain Killer.
+
+2014.04.09 » Portalcake
+	- Tradução dos NPCs do Aeroplano seguindo as falas do bRO.
