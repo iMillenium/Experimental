@@ -207,5 +207,7 @@
 	- Corrigido erro no comando @disguise
 	- Corrigido erro no comando @at:
 		O comando exibia mensagem de falha mesmo ao funcionar.
-	- Remoção de itens vinculados a guild corrigida.
+	- Remoção de itens vinculados a guild corrigida:
 		O item não era removido em alguns casos.
+	- Atualizações do Hercules aplicadas:
+		'b5c2a71ef2' & '7a5f7db21c'.
