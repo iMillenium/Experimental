@@ -211,3 +211,5 @@
 		O item não era removido em alguns casos.
 	- Atualizações do Hercules aplicadas:
 		'b5c2a71ef2' & '7a5f7db21c'.
+	- Correção no comando @changesex:
+		Hercules: '6a27692a32'.
