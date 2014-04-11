@@ -202,3 +202,8 @@
 
 2014.04.09 » Portalcake
 	- Tradução dos NPCs do Aeroplano seguindo as falas do bRO.
+
+2014.04.11 » Portalcake
+	- Corrigido erro no comando @disguise
+	- Corrigido erro no comando @at:
+		O comando exibia mensagem de falha mesmo ao funcionar.
