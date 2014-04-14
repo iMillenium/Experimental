@@ -213,3 +213,7 @@
 		'b5c2a71ef2' & '7a5f7db21c'.
 	- Correção no comando @changesex:
 		Hercules: '6a27692a32'.
+
+2014.04.13 » Portalcake
+	- Atualizações do Hercules aplicadas:
+		'6f6a6b3', 'f4a566f', 'c1f916a' e '7dab561'.

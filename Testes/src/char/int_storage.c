@@ -15,7 +15,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-
 #define STORAGE_MEMINC	16
 
 /// Save storage data to sql
@@ -316,8 +315,17 @@ int mapif_parse_ItemBoundRetrieve_sub(int fd)
 		StrBuf->Printf(&buf, " `id`=%d",items[j].id);
 
 		if( items[j].bound && items[j].equip ) {
-			bound_item[bound_qt] = items[j].equip;
-			bound_qt++;
+			// Only the items that are also stored in `char` `equip`
+			if( items[j].equip&EQP_HAND_R
+			||  items[j].equip&EQP_HAND_L
+			||  items[j].equip&EQP_HEAD_TOP
+			||  items[j].equip&EQP_HEAD_MID
+			||  items[j].equip&EQP_HEAD_LOW
+			||  items[j].equip&EQP_GARMENT
+			) {
+				bound_item[bound_qt] = items[j].equip;
+				bound_qt++;
+			}
 		}
 	}
 
@@ -332,15 +340,16 @@ int mapif_parse_ItemBoundRetrieve_sub(int fd)
 
 	// Removes any view id that was set by an item that was removed
 	if( bound_qt ) {
-	// Verifies equip bitmasks (see item.equip) and handles the sql statement
-#define CHECK_REMOVE(var,mask,token) do {\
-							if((var&mask)) {\
-								if((var) != mask && s) StrBuf->AppendStr((&buf), ",");\
-								StrBuf->AppendStr((&buf),"`"#token"`='0'");\
-								var &= ~mask;\
-								s++;\
-							}\
-						} while(0)
+
+#define CHECK_REMOVE(var,mask,token) do { /* Verifies equip bitmasks (see item.equip) and handles the sql statement */ \
+	if ((var)&(mask)) { \
+		if ((var) != (mask) && s) StrBuf->AppendStr(&buf, ","); \
+		StrBuf->AppendStr(&buf,"`"#token"`='0'"); \
+		(var) &= ~(mask); \
+		s++; \
+	} \
+} while(0)
+
 		StrBuf->Clear(&buf);
 		StrBuf->Printf(&buf, "UPDATE `%s` SET ", char_db);
 		for( j = 0; j < bound_qt; j++ ) {
