@@ -1,85 +1,84 @@
-//===== Hercules Script ======================================
-//= El Dicastes Guide
-//===== By: ==================================================
+//===== Cronus Script ======================================
+//= Guias de El Discates
+//===== Por: ===============================================
 //= Muad_Dib
-//===== Current Version: =====================================
-//= 1.2
-//===== Description: =========================================
-//= [Official Conversion]
-//= Guide for the city of El Dicastes.
-//===== Additional Comments: =================================
-//= 1.0 First version. [Joseph]
-//= 1.1 Fixed viewpoint syntax. [Euphy]
-//= 1.2 Navigation system update. [Euphy]
-//============================================================
+//===== Versão Atual: ======================================
+//= 1.3
+//===== Descrição: =========================================
+//= [Conversação Oficial]
+//= Guias das cidade de El Discates.
+//===== Comentários Adicionais: ============================
+//= 1.0 Primeira versão. [Joseph]
+//= 1.1 Resolvido sintaxe do viewpoint. [Euphy]
+//= 1.2 Atualização no Sistema de Navegação. [Euphy]
+//= 1.3 Traduzido para pt-BR [Eski]
+//==========================================================
 
-dicastes01,181,191,5	script	Traveler Ichack#info	4_M_SHADOWCHASER,2,2,{
-	mes "[Traveler Ichack]";
-	mes "Oh!! You are a stranger!";
-	mes "I'm Ichack, the first adventurer that arrived here in El Dicastes!";
+dicastes01,181,191,5	script	Viajante Ichack#info	4_M_SHADOWCHASER,2,2,{
+	mes "[Viajante Ichack]";
+	mes " Oh!! Você é um"+((Sex) ? " estrangeiro":"a estrangeira")+"!";
+	mes "Sou Ichack, o primeiro aventureiro que chegou aqui em El Dicastes!";
 	next;
-	mes "[Traveler Ichack]";
-	mes "There was someone in the expedition team claiming that he was the first, but it WAS me. That's right.";
+	mes "[Viajante Ichack]";
+	mes "Havia alguém na equipe de expedição alegando que foi o primeiro a chegar aqui, mas fui eu. Certo!?";
 	next;
-	mes "[Traveler Ichack]";
-	mes "That's why I will provide a service to guide adventurers from Rune-Midgard.";
-	mes "What would you like to know?";
-	F_Navi("[Traveler Ichack]");
+	mes "[Viajante Ichack]";
+	mes "É por isso que eu presto um serviço orientação para aventureiros de Rune-Midgard.";
+	mes "O que você gostaria de saber?";
+	F_Navi("[Viajante Ichack]");
 	next;
-	switch(select("Dicastes Diel:Residential Area:Training Room:Factory:Pub:Cat Hand Caravan")) {
+	switch(select("Diel:Área Residencial:Sala de Treinamento:Mineradora:Bar:Agência Pata de Gato")) {
 	case 1:
-		mes "[Traveler Ichack]";
-		mes "Ah~ That's a beautiful building.";
-		mes "It's said they discuss important things...";
+		mes "[Viajante Ichack]";
+		mes "Ah~ É uma linda construção.";
+		mes "Lá são discutidas coisas muito importantes...";
 		next;
-		mes "[Traveler Ichack]";
-		mes "Please make sure you signed in at the "+F_Navi("Diel","dicastes01,198,351")+", otherwise you'll get in trouble.";
-		mes "Go directly north from here and you can't miss it.";
+		mes "[Viajante Ichack]";
+		mes "Por favor, certifique-se de estar registrado no "+F_Navi("Diel","dicastes01,198,351")+", caso contrário você estará em apuros.";
+		mes "Vá diretamente para o norte e lá você encontrará o Diel.";
 		viewpoint 1,198,351,0,0x00FF00;
 		close;
 	case 2:
-		mes "[Traveler Ichack]";
-		mes "The Sapha tribe is so weird. How can they sleep in there?";
+		mes "[Viajante Ichack]";
+		mes "A tribo Sapha é tão estranha. Como podem dormir lá?";
 		next;
-		mes "[Traveler Ichack]";
-		mes "You don't understand?";
-		mes "You won't believe me until you see it! Go see it for yourself!";
+		mes "[Viajante Ichack]";
+		mes "Você não está entendendo?";
+		mes "Você não vão acreditar até ver! Vá e veja você mesmo!";
 		next;
-		mes "[Traveler Ichack]";
-		mes "The residential area is divided into 2 areas.";
-		mes "The "+F_Navi("lower residential area","dicastes01,136,106")+" is around 7 o'clock, and the ";
-		mes F_Navi("upper area","dicastes01,280,283")+" is around 1 o'clock.";
+		mes "[Viajante Ichack]";
+		mes "A área residencial é divivida em 2 áreas.";
+		mes "A "+F_Navi("área da residência inferior","dicastes01,136,106")+" têm como referência o ponteiro 7 do relógio, e a "+F_Navi("área superior","dicastes01,280,283")+" tem como referência o ponteiro 1 do relógio.";
 		viewpoint 1,280,283,1,0x01FF01;
 		viewpoint 1,136,106,2,0x0066FF;
 		close;
 	case 3:
-		mes "[Traveler Ichack]";
-		mes "Because of the dangers here, we need better security...";
-		mes "Have you ever been to the ";
-		mes F_Navi("training room","dicastes01,255,172")+"? The training guards seem to never sleep!";
+		mes "[Viajante Ichack]";
+		mes "Devido aos perigos, precisamos de mais segurança...";
+		mes "Você já foi a "+F_Navi("sala de treinamento","dicastes01,255,172")+"? Os guardas parecem que nunca dormem!";
 		viewpoint 1,255,172,3,0xFFCCCC;
 		close;
 	case 4:
-		mes "[Traveler Ichack]";
-		mes "This is one of the most important reasons why they live here.";
-		mes "If you go to the "+F_Navi("factory","dicastes01,97,256")+", you can see the recently refined Bradium.";
+		mes "[Viajante Ichack]";
+		mes "Esta é uma das razões mais importantes pelas quais eles vivem aqui.";
+		mes "Se você for para a "+F_Navi("Mineradora","dicastes01,97,256")+", você poderá ver o Brádium recentemente refinado.";
 		viewpoint 1,97,256,4,0x0066FF;
 		close;
 	case 5:
-		mes "[Traveler Ichack]";
-		mes "Although I arrived here as the first adventurer, the owner of the pub was the first person here.";
-		mes F_Navi("Bumen Florine's pub","dicastes01,136,106")+" is located underground in the lower residential area.";
-		mes "He might have some valuable information for you.";
+		mes "[Viajante Ichack]";
+		mes "Embora eu tenha chegado aqui como o primeiro aventureiro, o dono do Bar foi o primeiro habitante de El Dicastes.";
+		mes "O "+F_Navi("Bar de Bumen Florine","dicastes01,136,106")+" está localizado abaixo da área residencial inferior.";
+		mes "Ele pode ter algumas informações valiosas para você.";
 		viewpoint 1,136,106,5,0xFF3300;
 		close;
 	case 6:
-		mes "[Traveler Ichack]";
-		mes "The "+F_Navi("cats","dicastes01,199,39")+" don't seem to have a good relationship with the Sapha like we do.";
-		mes "Perhaps it's because trading is involved.";
-		mes "Poor cats. They must be shivering from the cold out there.";
+		mes "[Viajante Ichack]";
+		mes "Os "+F_Navi("gatos","dicastes01,199,39")+" parecem não possuir um bom relacionamento com os Sapha, assim como nós.";
+		mes "Talvez seja porque uma negociação esteja ocorrendo.";
+		mes "Pobres gatos. Eles devem estar tremendo de frio lá.";
 		next;
-		mes "[Traveler Ichack]";
-		mes "You can find their caravan just outside the gates.";
+		mes "[Viajante Ichack]";
+		mes "Você pode encontrar a agência do lado externo dos portões.";
 		viewpoint 1,199,39,6,0x9933FF;
 		close;
 	}
