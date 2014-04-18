@@ -6,6 +6,7 @@
 #include "../common/showmsg.h"
 #include "../common/core.h"
 #include "../config/core.h"
+#include "../common/sysinfo.h"
 #include "console.h"
 
 #ifndef MINICORE
@@ -41,8 +42,7 @@ struct console_interface console_s;
  *	CORE : Display title
  *--------------------------------------*/
 void display_title(void) {
-	const char* svn = get_svn_revision();
-	const char* git = get_git_hash();
+	const char *vcstype = sysinfo->vcstype();
 
 	ShowMessage("\n");
 	ShowMessage (""CL_WTBL"          (=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=)"CL_CLL""CL_NORMAL"\n");
@@ -58,10 +58,13 @@ void display_title(void) {
 	ShowMessage (""CL_XXBL"          ("CL_BOLD"                                                         "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
 	ShowMessage (""CL_WTBL"          (=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=)"CL_CLL""CL_NORMAL"\n\n\a");
 
-	if( git[0] != HERC_UNKNOWN_VER )
-		ShowInfo("Git Hash: '"CL_WHITE"%s"CL_RESET"'\n", git);
-	else if( svn[0] != HERC_UNKNOWN_VER )
-		ShowInfo("Revisão SVN: '"CL_WHITE"%s"CL_RESET"'\n", svn);
+	ShowInfo("Cronus %d-bit para %s\n", sysinfo->is64bit() ? 64 : 32, sysinfo->platform());
+	ShowInfo("%s revision (src): '"CL_WHITE"%s"CL_RESET"'\n", vcstype, sysinfo->vcsrevision_src());
+	ShowInfo("%s revision (scripts): '"CL_WHITE"%s"CL_RESET"'\n", vcstype, sysinfo->vcsrevision_scripts());
+	ShowInfo("Sistema Operacional: '"CL_WHITE"%s"CL_RESET" [%s]'\n", sysinfo->osversion(), sysinfo->arch());
+	ShowInfo("CPU: '"CL_WHITE"%s [%d]"CL_RESET"'\n", sysinfo->cpu(), sysinfo->cpucores());
+	ShowInfo("Compilado com %s\n", sysinfo->compiler());
+	ShowInfo("Compile Flags: %s\n", sysinfo->cflags());
 }
 #ifdef CONSOLE_INPUT
 #if defined(WIN32)

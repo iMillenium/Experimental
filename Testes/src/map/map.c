@@ -5373,9 +5373,6 @@ void map_helpscreen(bool do_exit)
  * Map-Server Version Screen [MC Cameri]
  *------------------------------------------------------*/
 void map_versionscreen(bool do_exit) {
-	const char *svn = get_svn_revision();
-	const char *git = get_git_hash();
-	ShowInfo(CL_WHITE"Versão do Cronus: %s" CL_RESET"\n", git[0] != HERC_UNKNOWN_VER ? git : svn[0] != HERC_UNKNOWN_VER ? svn : "Desconhecida");
 	ShowInfo(CL_GREEN"Website/Forum:"CL_RESET"\thttp://forum.cronus-emulator.com/\n");
 	ShowInfo("Abra o "CL_WHITE"readme.txt"CL_RESET" para mais informações.\n");
 	if( do_exit )
