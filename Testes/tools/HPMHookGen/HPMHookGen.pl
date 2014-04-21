@@ -138,7 +138,7 @@ sub parse($$) {
 				}
 				last; # No other modifiers
 			}
-			if ($current =~ /^\s*(\w+)([*\s]*)(\w*)\s*((?:\[\])?)$/) { # Variable type and name
+			if ($current =~ /^\s*(\w+)((?:const|[*\s])*)(\w*)\s*((?:\[\])?)$/) { # Variable type and name
 				$type1 .= trim($1);
 				$indir = trim($2 // '');
 				$var = trim($3 // '');
@@ -147,7 +147,7 @@ sub parse($$) {
 			} else { # Unsupported
 				$notes .= "\n/* Error: Unhandled var type '$current' */";
 				print "Error: Unhandled var type '$current'\n";
-				push(@args, {$current});
+				push(@args, { var => $current });
 				next;
 			}
 		}
@@ -217,6 +217,8 @@ sub parse($$) {
 			$rtinit = ' = BL_NUL';
 		} elsif ($x =~ /^enum\s+homun_type$/) { # Known enum homun_type
 			$rtinit = ' = HT_INVALID';
+		} elsif ($x =~ /^enum\s+bg_queue_types$/) { # Known enum bg_queue_types
+			$rtinit = ' = BGQT_INVALID';
 		} elsif ($x =~ /^struct\s+.*$/ or $x eq 'DBData') { # Structs
 			$rtinit = '';
 			$rtmemset = 1;

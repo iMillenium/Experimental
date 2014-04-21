@@ -116,15 +116,13 @@ struct ers_instance_t {
 	/* for data analysis [Ind/Hercules] */
 	unsigned int Peak;
 #endif
-
 	struct ers_instance_t *Next, *Prev;
-
 };
+
 
 // Array containing a pointer for all ers_cache structures
 static ers_cache_t *CacheList = NULL;
-
-	static struct ers_instance_t *InstanceList = NULL;
+static struct ers_instance_t *InstanceList = NULL;
 
 /**
  * @param Options the options from the instance seeking a cache, we use it to give it a cache with matching configuration
@@ -179,7 +177,7 @@ static void ers_free_cache(ers_cache_t *cache, bool remove)
 		CacheList = cache->Next;
 
 	aFree(cache->Blocks);
-
+	
 	aFree(cache);
 }
 
@@ -390,13 +388,12 @@ void ers_report(void) {
 }
 
 /**
-* Call on shutdown to clear remaining entries
-**/
-
+ * Call on shutdown to clear remaining entries
+ **/
 void ers_final(void) {
 	struct ers_instance_t *instance = InstanceList, *next;
-
-	while (instance) {
+	
+	while( instance ) {
 		next = instance->Next;
 		ers_obj_destroy((ERS)instance);
 		instance = next;

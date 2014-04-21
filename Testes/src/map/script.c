@@ -3217,6 +3217,8 @@ void script_free_vars(struct DBMap* var_storage) {
 
 void script_free_code(struct script_code* code)
 {
+	nullpo_retv(code);
+
 	if( code->instances )
 		script->stop_instances(code);
 	else {
@@ -13273,22 +13275,22 @@ BUILDIN(getmapxy)
 		script_pushint(st,-1);
 		return false;
 	}
-
-	if (!is_string_variable(reference_getname(script_getdata(st, 2)))) {
-		ShowWarning("script: buildin_getmapxy: %s is not a string variable\n", reference_getname(script_getdata(st, 2)));
-		script_pushint(st, -1);
+	
+	if( !is_string_variable(reference_getname(script_getdata(st, 2))) ) {
+		ShowWarning("script: buildin_getmapxy: %s is not a string variable\n",reference_getname(script_getdata(st, 2)));
+		script_pushint(st,-1);
+		return false;
+	}
+	
+	if( is_string_variable(reference_getname(script_getdata(st, 3))) ) {
+		ShowWarning("script: buildin_getmapxy: %s is a string variable, should be int\n",reference_getname(script_getdata(st, 3)));
+		script_pushint(st,-1);
 		return false;
 	}
 
-	if (is_string_variable(reference_getname(script_getdata(st, 3)))) {
-		ShowWarning("script: buildin_getmapxy: %s is a string variable, should be int\n", reference_getname(script_getdata(st, 3)));
-		script_pushint(st, -1);
-		return false;
-	}
-
-	if (is_string_variable(reference_getname(script_getdata(st, 4)))) {
-		ShowWarning("script: buildin_getmapxy: %s is a string variable, should be int\n", reference_getname(script_getdata(st, 4)));
-		script_pushint(st, -1);
+	if( is_string_variable(reference_getname(script_getdata(st, 4))) ) {
+		ShowWarning("script: buildin_getmapxy: %s is a string variable, should be int\n",reference_getname(script_getdata(st, 4)));
+		script_pushint(st,-1);
 		return false;
 	}
 
@@ -13371,7 +13373,7 @@ BUILDIN(getmapxy)
 	num=st->stack->stack_data[st->start+2].u.num;
 	name=script->get_str(script_getvarid(num));
 	prefix=*name;
-
+	
 	if(not_server_variable(prefix))
 		sd=script->rid2sd(st);
 	else

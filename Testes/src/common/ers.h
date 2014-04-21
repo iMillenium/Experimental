@@ -169,9 +169,10 @@ ERS ers_new(uint32 size, char *name, enum ERSOptions options);
  */
 void ers_report(void);
 
-/* Clears the remainder of the manangers */
+/**
+ * Clears the remainder of the manangers
+ **/
 void ers_final(void);
-
 #endif /* DISABLE_ERS / not DISABLE_ERS */
 
 #endif /* _COMMON_ERS_H_ */

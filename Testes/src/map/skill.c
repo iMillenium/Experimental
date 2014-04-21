@@ -2200,12 +2200,13 @@ int skill_attack(int attack_type, struct block_list* src, struct block_list *dsr
 		 * Official Magic Reflection Behavior : damage reflected depends on gears caster wears, not target
 		 **/
 		#if MAGIC_REFLECTION_TYPE
+
 		#ifdef RENEWAL
-			if (dmg.dmg_lv != ATK_MISS) //Wiz SL cancelled and consumed fragment
+			if( dmg.dmg_lv != ATK_MISS ) //Wiz SL cancelled and consumed fragment
 		#else
 			// issue:6415 in pre-renewal Kaite reflected the entire damage received
 			// regardless of caster's equipament (Aegis 11.1)
-			if (dmg.dmg_lv != ATK_MISS && type == 1) //Wiz SL cancelled and consumed fragment
+			if( dmg.dmg_lv != ATK_MISS && type == 1 ) //Wiz SL cancelled and consumed fragment
 		#endif
 			{
 				short s_ele = skill->get_ele(skill_id, skill_lv);
@@ -2228,8 +2229,7 @@ int skill_attack(int attack_type, struct block_list* src, struct block_list *dsr
 						status_change_end(bl, SC_ENERGYCOAT, INVALID_TIMER);
 					//Reduction: 6% + 6% every 20%
 					dmg.damage -= dmg.damage * (6 * (1+per)) / 100;
-				}
-				
+				}	
 			}
 		#endif /* MAGIC_REFLECTION_TYPE */
 		}
@@ -9076,23 +9076,24 @@ int skill_castend_nodamage_id(struct block_list *src, struct block_list *bl, uin
 		case SO_EL_ACTION:
 			if( sd ) {
 				int duration = 3000;
-				if (!sd->ed)
+				if( !sd->ed )
 					break;
-				switch (sd->ed->db->class_) {
-				case 2115:case 2124:
-				case 2118:case 2121:
-					duration = 6000;
-					break;
-				case 2116:case 2119:
-				case 2122:case 2125:
-					duration = 9000;
-					break;
+				
+				switch(sd->ed->db->class_){
+					case 2115:case 2124:
+					case 2118:case 2121:
+						duration = 6000;
+						break;
+					case 2116:case 2119:
+					case 2122:case 2125:
+						duration = 9000;
+						break;
 				}
-
+				
 				sd->skill_id_old = skill_id;
 				elemental->action(sd->ed, bl, tick);
 				clif->skill_nodamage(src,bl,skill_id,skill_lv,1);
-
+												
 				skill->blockpc_start(sd, skill_id, duration);
 			}
 			break;
@@ -9495,7 +9496,7 @@ int skill_castend_nodamage_id(struct block_list *src, struct block_list *bl, uin
 				skill->blockhomun_start(hd, skill_id, skill->get_cooldown(skill_id, skill_lv));
 		}
 			break;
-		case SO_ELEMENTAL_SHIELD: /* somehow its handled outside this switch, so we need a empty case otherwise default would be triggered. */
+		case SO_ELEMENTAL_SHIELD:/* somehow its handled outside this switch, so we need a empty case otherwise default would be triggered. */
 			break;
 		default:
 			ShowWarning("skill_castend_nodamage_id: Unknown skill used:%d\n",skill_id);
@@ -9758,10 +9759,15 @@ int skill_castend_map (struct map_session_data *sd, uint16 skill_id, const char 
 
 	switch(skill_id) {
 		case AL_TELEPORT:
+			// The storage window is closed automatically by the client when there's
+			// any kind of map change, so we need to restore it automatically
+			// issue: 8027
 			if(strcmp(mapname,"Random")==0)
 				pc->randomwarp(sd,CLR_TELEPORT);
 			else if (sd->menuskill_val > 1) //Need lv2 to be able to warp here.
 				pc->setpos(sd,sd->status.save_point.map,sd->status.save_point.x,sd->status.save_point.y,CLR_TELEPORT);
+
+			clif->refresh_storagewindow(sd);
 			break;
 
 		case AL_WARP:
@@ -10421,7 +10427,7 @@ int skill_castend_pos2(struct block_list* src, int x, int y, uint16 skill_id, ui
 		case SC_FEINTBOMB:
 			skill->unitsetting(src, skill_id, skill_lv, x, y, 0); // Set bomb on current Position
 			clif->skill_nodamage(src, src, skill_id, skill_lv, 1);
-			if (skill->blown(src, src, 3 * skill_lv, unit->getdir(src), 0) && sc) {
+			if( skill->blown(src, src, 3 * skill_lv, unit->getdir(src), 0) && sc) {
 				sc_start(src, src, SC__FEINTBOMB_MASTER, 100, 0, skill->get_unit_interval(SC_FEINTBOMB));
 			}
 			break;
@@ -12514,30 +12520,30 @@ int skill_isammotype (struct map_session_data *sd, int skill_id)
 }
 
 /**
-* Checks whether a skill can be used in combos or not
-**/
-bool skill_is_combo(int skill_id)
+ * Checks whether a skill can be used in combos or not
+ **/
+bool skill_is_combo( int skill_id )
 {
-	switch (skill_id)
+	switch( skill_id )
 	{
-	case MO_CHAINCOMBO:
-	case MO_COMBOFINISH:
-	case CH_TIGERFIST:
-	case CH_CHAINCRUSH:
-	case MO_EXTREMITYFIST:
-	case TK_TURNKICK:
-	case TK_STORMKICK:
-	case TK_DOWNKICK:
-	case TK_COUNTER:
-	case TK_JUMPKICK:
-	case HT_POWER:
-	case GC_COUNTERSLASH:
-	case GC_WEAPONCRUSH:
-	case SR_FALLENEMPIRE:
-	case SR_DRAGONCOMBO:
-	case SR_TIGERCANNON:
-	case SR_GATEOFHELL:
-		return true;
+		case MO_CHAINCOMBO:
+		case MO_COMBOFINISH:
+		case CH_TIGERFIST:
+		case CH_CHAINCRUSH:
+		case MO_EXTREMITYFIST:
+		case TK_TURNKICK:
+		case TK_STORMKICK:
+		case TK_DOWNKICK:
+		case TK_COUNTER:
+		case TK_JUMPKICK:
+		case HT_POWER:
+		case GC_COUNTERSLASH:
+		case GC_WEAPONCRUSH:
+		case SR_FALLENEMPIRE:
+		case SR_DRAGONCOMBO:
+		case SR_TIGERCANNON:
+		case SR_GATEOFHELL:
+			return true;
 	}
 	return false;
 }

@@ -3204,12 +3204,11 @@ void clif_changelook(struct block_list *bl,int type,int val)
 			break;
 			case LOOK_BASE:
 				if( !sd ) break;
-
 				// We shouldn't update LOOK_BASE if the player is disguised
 				// if we do so the client will think that the player class
 				// is really a mob and issues like 7725 will happen in every
 				// SC_ that alters class_ in any way [Panikon]
-				if (sd->disguise != -1)
+				if( sd->disguise != -1 )
 					return;
 
 				if( sd->sc.option&OPTION_COSTUME )
@@ -8421,6 +8420,34 @@ void clif_message(struct block_list* bl, const char* msg) {
 	clif->send(buf, WBUFW(buf,2), bl, AREA_CHAT_WOC);
 }
 
+/**
+ * Notifies the client that the storage window is still open
+ *
+ * Should only be used in cases where the client closed the 
+ * storage window without server's consent
+ **/
+void clif_refresh_storagewindow( struct map_session_data *sd ) {
+	// Notify the client that the storage is open
+	if( sd->state.storage_flag == 1 ) {
+		storage->sortitem(sd->status.storage.items, ARRAYLENGTH(sd->status.storage.items));
+		clif->storagelist(sd, sd->status.storage.items, ARRAYLENGTH(sd->status.storage.items));
+		clif->updatestorageamount(sd, sd->status.storage.storage_amount, MAX_STORAGE);
+	}
+	// Notify the client that the gstorage is open otherwise it will
+	// remain locked forever and nobody will be able to access it
+	if( sd->state.storage_flag == 2 ) {
+		struct guild_storage *gstor;
+		if( (gstor = gstorage->id2storage2(sd->status.guild_id)) == NULL) {
+			// Shouldn't happen... The information should already be at the map-server
+			intif->request_guild_storage(sd->status.account_id,sd->status.guild_id);
+		} else {
+			storage->sortitem(gstor->items, ARRAYLENGTH(gstor->items));
+			clif->storagelist(sd, gstor->items, ARRAYLENGTH(gstor->items));
+			clif->updatestorageamount(sd, gstor->storage_amount, MAX_GUILD_STORAGE);
+		}
+	}
+}
+
 // refresh the client's screen, getting rid of any effects
 void clif_refresh(struct map_session_data *sd)
 {
@@ -8481,6 +8508,7 @@ void clif_refresh(struct map_session_data *sd)
 		pc->disguise(sd, disguise);
 	}
 
+	clif->refresh_storagewindow(sd);
 }
 
 
@@ -9238,7 +9266,6 @@ void clif_parse_LoadEndAck(int fd,struct map_session_data *sd) {
 #if PACKETVER >= 20090218
 	int i;
 #endif
-
 	bool first_time = false;
 
 	if(sd->bl.prev != NULL)
@@ -9413,7 +9440,7 @@ void clif_parse_LoadEndAck(int fd,struct map_session_data *sd) {
 
 		if (sd->sc.option&OPTION_FALCON)
 			clif->status_change(&sd->bl, SI_FALCON, 1, 0, 0, 0, 0);
-		if (sd->sc.option&(OPTION_RIDING | OPTION_DRAGON))
+		if (sd->sc.option&(OPTION_RIDING|OPTION_DRAGON))
 			clif->status_change(&sd->bl, SI_RIDING, 1, 0, 0, 0, 0);
 		else if (sd->sc.option&OPTION_WUGRIDER)
 			clif->status_change(&sd->bl, SI_WUGRIDER, 1, 0, 0, 0, 0);
@@ -9542,7 +9569,7 @@ void clif_parse_LoadEndAck(int fd,struct map_session_data *sd) {
 	clif->weather_check(sd);
 
 	// This should be displayed last
-	if (sd->guild && first_time)
+	if( sd->guild && first_time )
 		clif->guild_notice(sd, sd->guild);
 
 	// For automatic triggering of NPCs after map loading (so you don't need to walk 1 step first)
@@ -10103,7 +10130,7 @@ void clif_parse_ActionRequest_sub(struct map_session_data *sd, int action_type, 
 				return;
 			}
 			
-			if (pc_cant_act(sd) || pc_issit(sd) || sd->sc.option&OPTION_HIDE)
+			if( pc_cant_act(sd) || pc_issit(sd) || sd->sc.option&OPTION_HIDE )
 				return;
 
 			if( sd->sc.option&OPTION_COSTUME )
@@ -10854,7 +10881,7 @@ void clif_parse_NpcBuyListSend(int fd, struct map_session_data* sd)
 	unsigned short* item_list = (unsigned short*)RFIFOP(fd,4);
 	int result;
 
-	if (sd->state.trading || !sd->npc_shopid || pc_has_permission(sd,PC_PERM_DISABLE_STORE))
+	if( sd->state.trading || !sd->npc_shopid || pc_has_permission(sd,PC_PERM_DISABLE_STORE) )
 		result = 1;
 	else
 		result = npc->buylist(sd,n,item_list);
@@ -10890,7 +10917,7 @@ void clif_parse_NpcSellListSend(int fd,struct map_session_data *sd)
 	n = (RFIFOW(fd,2)-4) /4;
 	item_list = (unsigned short*)RFIFOP(fd,4);
 
-	if (sd->state.trading || !sd->npc_shopid || pc_has_permission(sd,PC_PERM_DISABLE_STORE))
+	if (sd->state.trading || !sd->npc_shopid || pc_has_permission(sd, PC_PERM_DISABLE_STORE))
 		fail = 1;
 	else
 		fail = npc->selllist(sd,n,item_list);
@@ -11335,16 +11362,13 @@ void clif_parse_UseSkillToId(int fd, struct map_session_data *sd)
 #endif
 		return;
 	}
-	if (pc_cant_act(sd)
-		&& skill_id != RK_REFRESH
-		&& !(skill_id == SR_GENTLETOUCH_CURE && (sd->sc.opt1 == OPT1_STONE || sd->sc.opt1 == OPT1_FREEZE || sd->sc.opt1 == OPT1_STUN))
-		&& (sd->state.storage_flag && !(tmp&INF_SELF_SKILL)) // SELF skills can be used with the storage open, issue: 8027
-		)
-		return;
 
-	// Some self skills need to close the storage to work properly
-	if (skill_id == AL_TELEPORT && sd->state.storage_flag)
-		storage->close(sd);
+	if( pc_cant_act(sd)
+	&& skill_id != RK_REFRESH
+	&& !(skill_id == SR_GENTLETOUCH_CURE && (sd->sc.opt1 == OPT1_STONE || sd->sc.opt1 == OPT1_FREEZE || sd->sc.opt1 == OPT1_STUN))
+	&& ( sd->state.storage_flag && !(tmp&INF_SELF_SKILL) ) // SELF skills can be used with the storage open, issue: 8027
+	)
+		return;
 
 	if( pc_issit(sd) )
 		return;
@@ -11546,7 +11570,8 @@ void clif_parse_UseSkillMap(int fd, struct map_session_data* sd)
 	if(skill_id != sd->menuskill_id)
 		return;
 
-	if( pc_cant_act(sd) ) {
+	// It is possible to use teleport with the storage window open issue:8027
+	if( pc_cant_act(sd) && (!sd->state.storage_flag && skill_id != AL_TELEPORT) ) {
 		clif_menuskill_clear(sd);
 		return;
 	}
@@ -12866,11 +12891,11 @@ void clif_parse_OpenVending(int fd, struct map_session_data* sd) {
 
 	if( sd->sc.data[SC_NOCHAT] && sd->sc.data[SC_NOCHAT]->val1&MANNER_NOROOM )
 		return;
-	if (map->list[sd->bl.m].flag.novending || pc_has_permission(sd, PC_PERM_DISABLE_STORE)) {
+	if( map->list[sd->bl.m].flag.novending || pc_has_permission(sd, PC_PERM_DISABLE_STORE) ) {
 		clif->message (sd->fd, msg_txt(276)); // "You can't open a shop on this map"
 		return;
 	}
-	if( map->getcell(sd->bl.m,sd->bl.x,sd->bl.y,CELL_CHKNOVENDING) ) {
+	if( map->getcell(sd->bl.m,sd->bl.x,sd->bl.y,CELL_CHKNOVENDING || pc_has_permission(sd, PC_PERM_DISABLE_STORE)) ) {
 		clif->message (sd->fd, msg_txt(204)); // "You can't open a shop on this cell."
 		return;
 	}
@@ -15065,7 +15090,7 @@ void clif_parse_Mail_send(int fd, struct map_session_data *sd)
 		return;
 	}
 
-	if (DIFF_TICK(sd->cansendmail_tick, timer->gettick()) > 0 || pc_has_permission(sd, PC_PERM_DISABLE_STORE)) {
+	if( DIFF_TICK(sd->cansendmail_tick, timer->gettick()) > 0 || pc_has_permission(sd, PC_PERM_DISABLE_STORE) ) {
 		clif->message(sd->fd,msg_txt(875)); //"Cannot send mails too fast!!."
 		clif->mail_send(fd, true); // fail
 		return;
@@ -15317,7 +15342,7 @@ void clif_parse_Auction_register(int fd, struct map_session_data *sd)
 		return;
 	}
 
-	if (sd->status.zeny < (auction.hours * battle_config.auction_feeperhour) || pc_has_permission(sd, PC_PERM_DISABLE_STORE)) {
+	if (sd->status.zeny < (auction.hours * battle_config.auction_feeperhour || pc_has_permission(sd, PC_PERM_DISABLE_STORE))) {
 		clif_Auction_message(fd, 5); // You do not have enough zeny to pay the Auction Fee.
 		return;
 	}
@@ -15572,7 +15597,7 @@ void clif_parse_cashshop_buy(int fd, struct map_session_data *sd)
     int fail = 0;
     nullpo_retv(sd);
 
-    if (sd->state.trading || !sd->npc_shopid || pc_has_permission(sd,PC_PERM_DISABLE_STORE))
+    if( sd->state.trading || !sd->npc_shopid || pc_has_permission(sd,PC_PERM_DISABLE_STORE) )
         fail = 1;
     else {
 #if PACKETVER < 20101116
@@ -18647,6 +18672,7 @@ void clif_defaults(void) {
 	clif->sitting = clif_sitting;
 	clif->standing = clif_standing;
 	clif->arrow_create_list = clif_arrow_create_list;
+	clif->refresh_storagewindow = clif_refresh_storagewindow;
 	clif->refresh = clif_refresh;
 	clif->fame_blacksmith = clif_fame_blacksmith;
 	clif->fame_alchemist = clif_fame_alchemist;

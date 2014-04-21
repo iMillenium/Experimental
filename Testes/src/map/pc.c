@@ -1149,7 +1149,7 @@ bool pc_authok(struct map_session_data *sd, int login_id2, time_t expiration_tim
 
 		if (battle_config.display_version == 1) {
 			char buf[256];
-			sprintf(buf, msg_txt(1295), sysinfo->vcstype(), sysinfo->vcsrevision_src(), sysinfo->vcsrevision_scripts()); // %s revisão '%s' (src) / '%s' (scripts)
+			sprintf(buf, msg_txt(1295), sysinfo->vcstype(), sysinfo->vcsrevision_src(), sysinfo->vcsrevision_scripts()); // %s revision '%s' (src) / '%s' (scripts)
 			clif->message(sd->fd, buf);
 		}
 		
@@ -1752,13 +1752,12 @@ int pc_disguise(struct map_session_data *sd, int class_) {
 
 	status->set_viewdata(&sd->bl, class_);
 	clif->changeoption(&sd->bl);
-
 	// We need to update the client so it knows that a costume is being used
-	if (sd->sc.option&OPTION_COSTUME) {
-		clif->changelook(&sd->bl, LOOK_BASE, sd->vd.class_);
-		clif->changelook(&sd->bl, LOOK_WEAPON, 0);
-		clif->changelook(&sd->bl, LOOK_SHIELD, 0);
-		clif->changelook(&sd->bl, LOOK_CLOTHES_COLOR, sd->vd.cloth_color);
+	if( sd->sc.option&OPTION_COSTUME ) {
+		clif->changelook(&sd->bl,LOOK_BASE,sd->vd.class_);
+		clif->changelook(&sd->bl,LOOK_WEAPON,0);
+		clif->changelook(&sd->bl,LOOK_SHIELD,0);
+		clif->changelook(&sd->bl,LOOK_CLOTHES_COLOR,sd->vd.cloth_color);
 	}
 
 	if (sd->bl.prev != NULL) {
@@ -2698,6 +2697,7 @@ int pc_bonus(struct map_session_data *sd,int type,int val) {
 		case SP_ADD_FIXEDCAST:
 			if(sd->state.lr_flag != 2)
 				sd->bonus.add_fixcast += val;
+
 			break;
 	#ifdef RENEWAL_CAST
 		case SP_VARCASTRATE:
@@ -3992,10 +3992,10 @@ int pc_additem(struct map_session_data *sd,struct item *item_data,int amount,e_l
 		sd->inventory_data[i] = data;
 		clif->additem(sd,i,amount,0);
 	}
-#ifdef NSI_UNIQUE_ID
+
 	if( !itemdb->isstackable2(data) && !item_data->unique_id )
-		sd->status.inventory[i].unique_id = itemdb->unique_id(0,0);
-#endif
+		sd->status.inventory[i].unique_id = itemdb->unique_id(sd);
+
 	logs->pick_pc(sd, log_type, amount, &sd->status.inventory[i],sd->inventory_data[i]);
 
 	sd->weight += w;
@@ -4077,7 +4077,7 @@ int pc_dropitem(struct map_session_data *sd,int n,int amount)
 		)
 		return 0;
 
-	if (map->list[sd->bl.m].flag.nodrop || pc_has_permission(sd, PC_PERM_DISABLE_DROPS)) {
+	if( map->list[sd->bl.m].flag.nodrop || pc_has_permission(sd, PC_PERM_DISABLE_DROPS) ) {
 		clif->message (sd->fd, msg_txt(271));
 		return 0; //Can't drop items in nodrop mapflag maps.
 	}
@@ -4115,7 +4115,7 @@ int pc_takeitem(struct map_session_data *sd,struct flooritem_data *fitem)
 	if(!check_distance_bl(&fitem->bl, &sd->bl, 2) && sd->ud.skill_id!=BS_GREED)
 		return 0;	// Distance is too far
 
-	if (pc_has_permission(sd, PC_PERM_DISABLE_PICK_UP))
+	if( pc_has_permission(sd, PC_PERM_DISABLE_PICK_UP) )
 		return 0;
 
 	if (sd->status.party_id)
@@ -5988,7 +5988,7 @@ int pc_gainexp(struct map_session_data *sd, struct block_list *src, unsigned int
 	if(!battle_config.pvp_exp && map->list[sd->bl.m].flag.pvp)  // [MouseJstr]
 		return 0; // no exp on pvp maps
 
-	if (pc_has_permission(sd, PC_PERM_DISABLE_EXP))
+	if( pc_has_permission(sd, PC_PERM_DISABLE_EXP) )
 		return 0;
 
 	if(sd->status.guild_id>0)
@@ -6225,17 +6225,17 @@ int pc_maxparameterincrease(struct map_session_data* sd, int type) {
 }
 
 /**
-* Raises a stat by the specified amount.
-*
-* Obeys max_parameter limits.
-* Subtracts status points according to the cost of the increased stat points.
-*
-* @param sd       The target character.
-* @param type     The stat to change (see enum _sp)
-* @param increase The stat increase (strictly positive) amount.
-* @retval true  if the stat was increased by any amount.
-* @retval false if there were no changes.
-*/
+ * Raises a stat by the specified amount.
+ *
+ * Obeys max_parameter limits.
+ * Subtracts status points according to the cost of the increased stat points.
+ *
+ * @param sd       The target character.
+ * @param type     The stat to change (see enum _sp)
+ * @param increase The stat increase (strictly positive) amount.
+ * @retval true  if the stat was increased by any amount.
+ * @retval false if there were no changes.
+ */
 bool pc_statusup(struct map_session_data* sd, int type, int increase) {
 	int max_increase = 0, current = 0, needed_points = 0, final_value = 0;
 
@@ -6284,17 +6284,17 @@ bool pc_statusup(struct map_session_data* sd, int type, int increase) {
 }
 
 /**
-* Raises a stat by the specified amount.
-*
-* Obeys max_parameter limits.
-* Does not subtract status points for the cost of the modified stat points.
-*
-* @param sd   The target character.
-* @param type The stat to change (see enum _sp)
-* @param val  The stat increase (or decrease) amount.
-* @return the stat increase amount.
-* @retval 0 if no changes were made.
-*/
+ * Raises a stat by the specified amount.
+ *
+ * Obeys max_parameter limits.
+ * Does not subtract status points for the cost of the modified stat points.
+ *
+ * @param sd   The target character.
+ * @param type The stat to change (see enum _sp)
+ * @param val  The stat increase (or decrease) amount.
+ * @return the stat increase amount.
+ * @retval 0 if no changes were made.
+ */
 int pc_statusup2(struct map_session_data* sd, int type, int val)
 {
 	int max, need;
@@ -6839,13 +6839,14 @@ int pc_dead(struct map_session_data *sd,struct block_list *src) {
 	int i=0,j=0;
 	int64 tick = timer->gettick();
 
-	for(j = 0; j < 5; j++)
+	for(j = 0; j < 5; j++) {
 		if (sd->devotion[j]){
 			struct map_session_data *devsd = map->id2sd(sd->devotion[j]);
 			if (devsd)
 				status_change_end(&devsd->bl, SC_DEVOTION, INVALID_TIMER);
 			sd->devotion[j] = 0;
 		}
+	}
 
 	if(sd->status.pet_id > 0 && sd->pd) {
 		struct pet_data *pd = sd->pd;
@@ -7143,6 +7144,17 @@ int pc_dead(struct map_session_data *sd,struct block_list *src) {
 			}
 		}
 	}
+
+	// Remove autotrade to prevent autotrading from save point
+	if( (sd->state.standalone || sd->state.autotrade)
+	 && (map->list[sd->bl.m].flag.pvp || map->list[sd->bl.m].flag.gvg)
+	  ) {
+		sd->state.autotrade = 0;
+		sd->state.standalone = 0;
+		pc->autotrade_update(sd,PAUC_REMOVE);
+		map->quit(sd);
+	}
+
 	// pvp
 	// disable certain pvp functions on pk_mode [Valaris]
 	if( map->list[sd->bl.m].flag.pvp && !battle_config.pk_mode && !map->list[sd->bl.m].flag.pvp_nocalcrank ) {
@@ -7172,10 +7184,10 @@ int pc_dead(struct map_session_data *sd,struct block_list *src) {
 		}
 	}
 
-
 	//Reset "can log out" tick.
 	if( battle_config.prevent_logout )
 		sd->canlog_tick = timer->gettick() - battle_config.prevent_logout;
+
 	return 1;
 }
 
@@ -7473,7 +7485,7 @@ int pc_setparam(struct map_session_data *sd,int type,int val)
 		break;
 	case SP_MANNER:
 		sd->status.manner = val;
-		if (val < 0)
+		if( val < 0 )
 			sc_start(NULL, &sd->bl, SC_NOCHAT, 100, 0, 0);
 		else {
 			status_change_end(&sd->bl, SC_NOCHAT, INVALID_TIMER);

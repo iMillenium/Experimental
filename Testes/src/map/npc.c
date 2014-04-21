@@ -1146,7 +1146,6 @@ int npc_click(struct map_session_data* sd, struct npc_data* nd)
 {
 	nullpo_retr(1, sd);
 
-
 	// This usually happens when the player clicked on a NPC that has the view id
 	// of a mob, to activate this kind of npc it's needed to be in a 2,2 range
 	// from it. If the OnTouch area of a npc, coincides with the 2,2 range of 
@@ -1158,12 +1157,13 @@ int npc_click(struct map_session_data* sd, struct npc_data* nd)
 		// The player clicked a npc after entering an OnTouch area
 		if( sd->areanpc_id != sd->npc_id )
 			ShowError("npc_click: npc_id != 0\n");
+
 		return 1;
 	}
 
 	if( !nd )
 		return 1;
-	
+
 	if ((nd = npc->checknear(sd,&nd->bl)) == NULL)
 		return 1;
 	
@@ -2366,21 +2366,21 @@ void npc_parsename(struct npc_data* nd, const char* name, const char* start, con
 	p = strstr(name,"::");
 	if( p ) { // <Display name>::<Unique name>
 		size_t len = p-name;
-		if (len > MAX_NPC_NAME_LENGTH) {
-			ShowWarning("npc_parsename: Display name of '%s' is too long (len=%u) in file '%s', line '%d'. Truncating to %u characters.\n", name, (unsigned int)len, filepath, strline(buffer, start - buffer), MAX_NPC_NAME_LENGTH);
+		if( len > MAX_NPC_NAME_LENGTH ) {
+			ShowWarning("npc_parsename: Display name of '%s' is too long (len=%u) in file '%s', line '%d'. Truncating to %u characters.\n", name, (unsigned int)len, filepath, strline(buffer,start-buffer), MAX_NPC_NAME_LENGTH);
 			safestrncpy(nd->name, name, sizeof(nd->name));
 		} else {
 			memcpy(nd->name, name, len);
 			memset(nd->name+len, 0, sizeof(nd->name)-len);
 		}
 		len = strlen(p+2);
-		if (len > MAX_NPC_NAME_LENGTH)
-			ShowWarning("npc_parsename: Unique name of '%s' is too long (len=%u) in file '%s', line '%d'. Truncating to %u characters.\n", name, (unsigned int)len, filepath, strline(buffer, start - buffer), MAX_NPC_NAME_LENGTH);
+		if( len > MAX_NPC_NAME_LENGTH )
+			ShowWarning("npc_parsename: Unique name of '%s' is too long (len=%u) in file '%s', line '%d'. Truncating to %u characters.\n", name, (unsigned int)len, filepath, strline(buffer,start-buffer), MAX_NPC_NAME_LENGTH);
 		safestrncpy(nd->exname, p+2, sizeof(nd->exname));
 	} else {// <Display name>
 		size_t len = strlen(name);
-		if (len > MAX_NPC_NAME_LENGTH)
-			ShowWarning("npc_parsename: Name '%s' is too long (len=%u) in file '%s', line '%d'. Truncating to %u characters.\n", name, (unsigned int)len, filepath, strline(buffer, start - buffer), MAX_NPC_NAME_LENGTH);
+		if( len > MAX_NPC_NAME_LENGTH )
+			ShowWarning("npc_parsename: Name '%s' is too long (len=%u) in file '%s', line '%d'. Truncating to %u characters.\n", name, (unsigned int)len, filepath, strline(buffer,start-buffer), MAX_NPC_NAME_LENGTH);
 		safestrncpy(nd->name, name, sizeof(nd->name));
 		safestrncpy(nd->exname, name, sizeof(nd->exname));
 	}
@@ -4312,7 +4312,7 @@ int npc_reload(void) {
 
 	map->zone_init();
 	
-	npc->motd = npc->name2id("CronusMOTD"); /* [Ind/Hercules] */
+	npc->motd = npc->name2id("HerculesMOTD"); /* [Ind/Hercules] */
 	
 	//Re-read the NPC Script Events cache.
 	npc->read_event_script();
@@ -4434,7 +4434,7 @@ int do_init_npc(bool minimal) {
 		npc_viewdb2[i - MAX_NPC_CLASS2_START].class_ = i;
 
 	npc->ev_db = strdb_alloc(DB_OPT_DUP_KEY|DB_OPT_RELEASE_DATA, EVENT_NAME_LENGTH);
-	npc->ev_label_db = strdb_alloc(DB_OPT_DUP_KEY | DB_OPT_RELEASE_DATA, MAX_NPC_NAME_LENGTH);
+	npc->ev_label_db = strdb_alloc(DB_OPT_DUP_KEY|DB_OPT_RELEASE_DATA, MAX_NPC_NAME_LENGTH);
 	npc->name_db = strdb_alloc(DB_OPT_BASE, MAX_NPC_NAME_LENGTH);
 	npc->path_db = strdb_alloc(DB_OPT_DUP_KEY|DB_OPT_RELEASE_DATA, 0);
 

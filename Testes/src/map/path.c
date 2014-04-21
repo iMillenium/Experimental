@@ -82,8 +82,8 @@ int path_blownpos(int16 m,int16 x0,int16 y0,int16 dx,int16 dy,int count)
 		dy=(dy>0)?1:((dy<0)?-1:0);
 	}
 
-	while (count > 0 && (dx != 0 || dy != 0)) {
-		if (!md->getcellp(md, x0 + dx, y0 + dy, CELL_CHKPASS)) {
+	while( count > 0 && (dx != 0 || dy != 0) ) {
+		if( !md->getcellp(md,x0+dx,y0+dy,CELL_CHKPASS) ) {
 			break;
 		}
 
@@ -92,8 +92,7 @@ int path_blownpos(int16 m,int16 x0,int16 y0,int16 dx,int16 dy,int count)
 		count--;
 	}
 
-	return (x0 << 16) | y0; //TODO: use 'struct point' here instead?
-
+	return (x0<<16)|y0; //TODO: use 'struct point' here instead?
 }
 
 /*==========================================
