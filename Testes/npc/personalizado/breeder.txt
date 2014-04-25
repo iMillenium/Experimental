@@ -8,16 +8,17 @@
 //= One-click automatic mount rentals.
 //= Replaced 'close' with 'end' [Streusel]
 //= Fixed 'close' issues. [Joseph]
+//= Tradução [Millenium]
 //============================================================
 
-prontera,124,201,1	script	Universal Rental NPC	4_F_JOB_BLACKSMITH,{
+prontera,124,201,1	script	Negociadora Global	4_F_JOB_BLACKSMITH,{
 	if (ismounting()) {
-		message strcharinfo(0),"You must first remove your mount.";
+		message strcharinfo(0)," Primeiro, você precisa retirar sua montaria.";
 		end;
 	}
 	else if ((eaclass()&EAJ_THIRDMASK) == EAJ_RANGER && !countitem(6124)) {
 		if (!checkfalcon() && getskilllv("HT_FALCON") && !checkoption(Option_Wug) && !checkoption(Option_Wugrider)) {
-			if(select(" ~ Falcon: ~ Warg")==1) setfalcon;
+			if(select(" ~ Falcão: ~ Warg")==1) setfalcon;
 			else getitem 6124,1;
 			specialeffect2 EF_TEIHIT3;
 			close;
@@ -26,7 +27,7 @@ prontera,124,201,1	script	Universal Rental NPC	4_F_JOB_BLACKSMITH,{
 	}
 	else if ((eaclass()&EAJ_THIRDMASK) == EAJ_MECHANIC && !checkcart() && getskilllv("MC_PUSHCART")) {
 		if (!checkmadogear() && getskilllv("NC_MADOLICENCE")) {
-			if(select(" ~ Cart: ~ Mado")==1) setcart;
+			if(select(" ~ Carrinho: ~ Mecha")==1) setcart;
 			else setmadogear;
 			specialeffect2 EF_TEIHIT3;
 			close;
@@ -41,7 +42,7 @@ prontera,124,201,1	script	Universal Rental NPC	4_F_JOB_BLACKSMITH,{
 	}
 	else if (!checkmadogear() && getskilllv("NC_MADOLICENCE")) setmadogear;
 	else {
-		message strcharinfo(0),"You do not meet requirements to rent.";
+		message strcharinfo(0),"Você não tem o que é necessario para alugar.";
 		end;
 	}
 	specialeffect2 EF_TEIHIT3;
