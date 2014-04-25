@@ -6,6 +6,7 @@
 //= 2.8
 //===== Description: =========================================
 //= Single NPC that assigns quests skills for all classes
+//= Tradução [Millenium]
 //===== Additional Comments: =================================
 //= 2.0 Added advanced classes by ShadowLady.
 //= 2.1 Added baby clases by Midas
@@ -18,14 +19,14 @@
 //= 2.8 Clustered conditionals replaced with switch to include all Upper types. [Euphy]
 //============================================================
 
-prontera,128,200,6	script	Platinum Skill NPC	4_F_MAID,{
-	mes "[Platinum Skill NPC]";
-	mes "I can give you the special skills available to your job.";
-	mes "Would you like these skills now?";
+prontera,128,200,6	script	Habilidades de Platina	4_F_MAID,{
+	mes "[Habilidades de Platina]";
+	mes "Eu posso dar habilidades especiais disponíveis para a sua classe";
+	mes "Você gostaria de ganhar essas habilidades agora?";
 	next;
-	if (select("Yes Please:No") == 2) {
-		mes "[Platinum Skill NPC]";
-		mes "Have a nice day... >.>";
+	if (select("Sim, Por favor:Não") == 2) {
+		mes "[Habilidades de Platina]";
+		mes "Tenha um bom dia... >.>";
 		close;
 	}
 	skill 142,1,0;
@@ -55,7 +56,7 @@ prontera,128,200,6	script	Platinum Skill NPC	4_F_MAID,{
 		case 20: skill 1011,1,0; break;
 		default: break;
 	}
-	mes "[Platinum Skill NPC]";
-	mes "There you go!";
+	mes "[Habilidades de Platina]";
+	mes "Pode ir!";
 	close;
 }
