@@ -220,3 +220,6 @@
 
 2014.04.21 » Portalcake
 	- Atualizações do Hercules aplicadas até o commit: '2f1d136'.
+
+2014.04.27 » Portalcake
+	- Atualizações do Hercules aplicadas até o commit: '9cc80b1'.
