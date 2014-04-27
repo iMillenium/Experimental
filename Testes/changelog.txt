@@ -223,3 +223,4 @@
 
 2014.04.27 » Portalcake
 	- Atualizações do Hercules aplicadas até o commit: '9cc80b1'.
+	- Correções na pasta db e na pasta 'npc/re/guias'.
