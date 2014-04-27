@@ -6,7 +6,7 @@
 //= 1.2
 //===== Description: =========================================
 //= Basic Curandeira script.
-//= TraduÃ§Ã£o [Millenium]
+//= Tradução [Millenium]
 //===== Additional Comments: =================================
 //= 1.0 Initial script.
 //= 1.1 Aligned coordinates with @go.

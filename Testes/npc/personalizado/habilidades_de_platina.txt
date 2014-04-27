@@ -6,7 +6,7 @@
 //= 2.8
 //===== Description: =========================================
 //= Single NPC that assigns quests skills for all classes
-//= TraduÃ§Ã£o [Millenium]
+//= Tradução [Millenium]
 //===== Additional Comments: =================================
 //= 2.0 Added advanced classes by ShadowLady.
 //= 2.1 Added baby clases by Midas
@@ -21,10 +21,10 @@
 
 prontera,128,200,6	script	Habilidades de Platina	4_F_MAID,{
 	mes "[Habilidades de Platina]";
-	mes "Eu posso dar habilidades especiais disponÃ­veis para a sua classe";
-	mes "VocÃª gostaria de ganhar essas habilidades agora?";
+	mes "Eu posso dar habilidades especiais disponíveis para a sua classe.";
+	mes "Você gostaria de ganhar essas habilidades agora?";
 	next;
-	if (select("Sim, Por favor:NÃ£o") == 2) {
+	if (select("Sim, Por favor:Não") == 2) {
 		mes "[Habilidades de Platina]";
 		mes "Tenha um bom dia... >.>";
 		close;
@@ -57,6 +57,6 @@ prontera,128,200,6	script	Habilidades de Platina	4_F_MAID,{
 		default: break;
 	}
 	mes "[Habilidades de Platina]";
-	mes "Pode ir!";
+	mes "Aqui estão suas habilidades, tenha um bom dia!";
 	close;
 }
