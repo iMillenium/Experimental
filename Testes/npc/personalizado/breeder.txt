@@ -11,7 +11,7 @@
 //= Tradução [Millenium]
 //============================================================
 
-prontera,124,201,1	script	Negociadora Global	4_F_JOB_BLACKSMITH,{
+prontera,124,201,1	script	Garota Negociante	4_F_JOB_BLACKSMITH,{
 	if (ismounting()) {
 		message strcharinfo(0)," Primeiro, você precisa retirar sua montaria.";
 		end;

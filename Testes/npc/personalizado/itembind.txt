@@ -9,30 +9,31 @@
 //= Item Bind Script
 //= Allows users to pay a price to make an item bound to
 //= Account, Character, or Guild
+//= Tradução [Millenium]
 //============================================================
 
-prontera,144,174,4	script	Bound Items	4_M_JP_MID,{
+prontera,144,174,4	script	Vinculador de Itens	4_M_JP_MID,{
 
-	mes "I can bind your items to your account, guild, or character"+((.bindprice)?" for a ^0000FF"+.bindprice+"^000000 zeny fee":"")+".";
+	mes "Eu posso vincular seus itens a sua conta, guilda ou personagem"+((.bindprice)?" por apenas ^0000FF"+.bindprice+"^000000 ":"")+".";
 	next;
-	mes "With this, you can rest assured your items are safe.";
+	mes "Com isso, você pode ter certeza que seus itens ficarão seguros.";
 	next;
-	mes "What would you like to do?";
-	if(select("Bind:Unbind") == 1) {
+	mes "O que você gostaria de fazer?";
+	if(select("Vincular:Desvincular") == 1) {
 		if(Zeny < .bindprice) {
-			mes "You don't have enough zeny to bind an item.";
+			mes "Você não tem zeny o suficiente para vincular este item.";
 			close;
 		}
-		mes "What kind of bind?";
-		.@boundtype = 1 << (select("Account:Guild:Character")-1);
+		mes "Que tipo de vinculo?";
+		.@boundtype = 1 << (select("Conta:Guilda:Personagem")-1);
 		if(.@boundtype == 2 && (!getcharid(2) || getguildmaster(getcharid(2)) != strcharinfo(0))) {
-			mes "In order for me to bind an item to a guild you must be the master of one.";
+			mes "Para vincular um item a aguilda, você deve ser a o mestre dela.";
 			close;
 		}
 		getinventorylist();
 		for(.@i = 0; .@i < @inventorylist_count; .@i++) {
-			//We only show the items that you allow to be bound
-			//Allows equipment (default)
+			//Nos so mostramos os itens que podem ser vinculados
+			//todos os equipamentos (padrao)
 			if(@inventorylist_bound[.@i])
 				continue;
 			if(((.allowbind & 1) && (getiteminfo(@inventorylist_id[.@i],2) == (4|5))) || 
@@ -46,32 +47,32 @@ prontera,144,174,4	script	Bound Items	4_M_JP_MID,{
 		}
 		.@item = .@bindlist[select(.@bindlist$)-2];
 		next;
-		mes "Before I continue, I want you to know I can't tell the difference between multiple items.  If you have a specific item you want bounded, please remove any duplicates from inventory.";
-		if(select("I understand, continue:Wait a minute") == 2) {
+		mes "Antes de continuar, eu preciso que você saiba que eu não consigo dizer a diferença entre varios itens iguais. Se você tem um item especifico que deseja vincular, por favor remova todas as duplicatas do seu inventario.";
+		if(select("Eu entendi, continue:Espere um minuto") == 2) {
 			next;
-			mes "I'll be here when you're ready.";
+			mes "Eu vou estar aqui quando você estiver pronto.";
 			close;
 		}
 		next;
-		mes "Are you sure you'd like to bind your "+ getitemname(@inventorylist_id[.@item]) +" to your "+.boundtypes$[.@boundtype]+"?";
-		if(select("Yes:No") == 1) {
+		mes "Tem certeza que vai vincular sua"+ getitemname(@inventorylist_id[.@item]) +" para o seu "+.boundtypes$[.@boundtype]+"?";
+		if(select("Sim:Não") == 1) {
 			Zeny -= .bindprice;
 			delitem2 @inventorylist_id[.@item],@inventorylist_amount[.@item],@inventorylist_identify[.@item],@inventorylist_refine[.@item],@inventorylist_attribute[.@item],@inventorylist_card1[.@item],@inventorylist_card2[.@item],@inventorylist_card3[.@item],@inventorylist_card4[.@item];
 			getitembound2 @inventorylist_id[.@item],@inventorylist_amount[.@item],@inventorylist_identify[.@item],@inventorylist_refine[.@item],@inventorylist_attribute[.@item],@inventorylist_card1[.@item],@inventorylist_card2[.@item],@inventorylist_card3[.@item],@inventorylist_card4[.@item],.@boundtype;
-			mes "All done!";
+			mes "Tudo Pronto!";
 			if(.logbinds)
-				logmes "Bound "+ @inventorylist_amount[.@item]+" "+@inventorylist_id[.@item]+" as "+.boundtypes$[.@boundtype]+" type.";
+				logmes "Vinculado "+ @inventorylist_amount[.@item]+" "+@inventorylist_id[.@item]+" como "+.boundtypes$[.@boundtype]+" tipo.";
 		}
 	} else {
 		if(!countbound()) {
-			mes "You don't have any bound items in your inventory.  Not much I can do here.";
+			mes "Não tem nenhum intem vinculado em seu inventário. Não há muito que eu possa fazer aqui.";
 			close;
 		}
 		countbound(2);
 		if(.unbindprice) {
-			mes "Unbinding an item has a fee of ^0000FF"+.unbindprice+"^000000 zeny.";
+			mes "Desvincular um item tem uma taxa de ^0000FF"+.unbindprice+"^000000 zeny.";
 			if(Zeny < .unbindprice) {
-				mes "You don't have enough to unbind an item.";
+				mes "Você não tem zeny o suficiente para desvincular um item";
 				close;
 			}
 		}
@@ -89,19 +90,19 @@ prontera,144,174,4	script	Bound Items	4_M_JP_MID,{
 			if(@inventorylist_id[.@item] == @bound_items[.@i] &&
 				(!getcharid(2) || getguildmaster(getcharid(2)) != strcharinfo(0))
 			) {
-				mes "I will only unbind guild bound items that the guild master requests.";
+				mes "Só desvinculo o item de uma guilda a pedido do mestre da guilda, obrigado.";
 				close;
 			}
 		}
-		mes "Before I continue, I want you to know I can't tell the difference between multiple items.  If you have a specific item you want unbounded, please remove any duplicates from inventory.";
-		if(select("I understand, continue:Wait a minute") == 2) {
+		mes "Antes de continuar, eu preciso que você saiba que eu não consigo dizer a diferença entre varios itens iguais. Se você tem um item especifico para meu trabalho, por favor remova todas as duplicatas do seu inventario.";
+		if(select("Eu entendo, continue:Espere um minuto") == 2) {
 			next;
-			mes "I'll be here when you're ready.";
+			mes "Eu estarei aqui quando você estiver pronto";
 			close;
 		}
 		next;
-		mes "Are you sure you'd like to unbind your "+ getitemname(@inventorylist_id[.@item]) +"?";
-		if(select("Yes:No") == 1) {
+		mes "Você tem certeza que deseja desvincular o seu "+ getitemname(@inventorylist_id[.@item]) +"?";
+		if(select("Sim:Não") == 1) {
 			Zeny -= .unbindprice;
 			delitem2 @inventorylist_id[.@item],@inventorylist_amount[.@item],@inventorylist_identify[.@item],@inventorylist_refine[.@item],@inventorylist_attribute[.@item],@inventorylist_card1[.@item],@inventorylist_card2[.@item],@inventorylist_card3[.@item],@inventorylist_card4[.@item];
 			getitem2 @inventorylist_id[.@item],@inventorylist_amount[.@item],@inventorylist_identify[.@item],@inventorylist_refine[.@item],@inventorylist_attribute[.@item],@inventorylist_card1[.@item],@inventorylist_card2[.@item],@inventorylist_card3[.@item],@inventorylist_card4[.@item];
@@ -113,7 +114,7 @@ prontera,144,174,4	script	Bound Items	4_M_JP_MID,{
 	close;
 
 OnInit:
-	//* Configuration *\\
+	//* Configurações *\\
 	//Price
 	.bindprice = 0;
 	.unbindprice = 100000;

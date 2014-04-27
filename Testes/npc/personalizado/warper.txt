@@ -1,4 +1,4 @@
-//===== Hercules Script ======================================
+﻿//===== Hercules Script ======================================
 //= Warper
 //===== By: ==================================================
 //= Euphy
@@ -16,7 +16,7 @@
 //= 1.4 Added new Guild Dungeons.
 //============================================================
 
--	script	Warper	-1,{
+-	script	Teletransportador	-1,{
 function Go; function Disp; function Pick; function Restrict;
 
 // --------------------------------------------------
@@ -24,12 +24,12 @@ function Go; function Disp; function Pick; function Restrict;
 // --------------------------------------------------
 
 menu	"Last Warp ^777777["+lastwarp$+"]^000000",-,
-	" ~ Towns",Towns, " ~ Fields",Fields, " ~ Dungeons",Dungeons,
-	" ~ Guild Castles",Castles, " ~ Guild Dungeons",Guild_Dungeons,
-	" ~ Instances",Instances, " ~ Special Areas",Special;
+	" ~ Cidades,Cidades, " ~ Feudos",Feudos, " ~ Calabouços",Calabouços,
+	" ~ Castelos",Castelos, " ~ Guilda Calabouços",Guilda_Calabouços,
+	" ~ Instancias",Instancias, " ~ Especial",Especial;
 
 	if (lastwarp$ == "")
-		message strcharinfo(0),"You haven't warped anywhere yet.";
+		message strcharinfo(0),"Você ainda não foi para nenhum lugar.";
 	else
 		warp lastwarp$,lastwarpx,lastwarpy;
 	close;
@@ -108,7 +108,7 @@ function Restrict {
 }
 
 // --------------------------------------------------
-	Towns:
+	Cidades:
 // --------------------------------------------------
 menu	"Prontera",T1, "Alberta",T2, "Aldebaran",T3, "Amatsu",T4, "Ayothaya",T5,
 	"Brasilis",T6, "Comodo",T7, "Dewata",T8, "Eclage",T9, "Einbech",T10, 
@@ -164,7 +164,7 @@ T35: Go("veins",216,123);
 T36: Go("yuno",157,51);
 
 // --------------------------------------------------
-	Fields:
+	Feudos:
 // --------------------------------------------------
 menu	"Amatsu Fields",F1, "Ayothaya Fields",F2, "Bifrost Fields", F3,
 	"Brasilis Fields",F4, "Comodo Fields",F5, "Dewata Fields",F6,
@@ -250,7 +250,7 @@ F28: Restrict("Pre-RE",5,10);
 	Disp("Yuno Field",1,12); Pick("yuno_fild");
 
 // --------------------------------------------------
-	Dungeons:
+	Calabouços:
 // --------------------------------------------------
 menu	"Abyss Lakes",D1, "Amatsu Dungeon",D2, "Anthell",D3,
 	"Ayothaya Dungeon",D4, "Beach Dungeon",D5, "Bio Labs",D6,
@@ -358,7 +358,7 @@ D40: Restrict("Pre-RE",1,2);
 	Pick("","um_dun01","um_dun02","yggdrasil01");
 
 // --------------------------------------------------
-	Castles:
+	Castelos:
 // --------------------------------------------------
 menu	"Aldebaran Castles",C1, "Geffen Castles",C2, "Payon Castles",C3,
 	"Prontera Castles",C4, "Arunafeltz Castles",C5, "Schwaltzvalt Castles",C6;
@@ -383,7 +383,7 @@ C6: setarray @c[2],293,100,288,252,97,196,137,90,71,315;
 	Pick("","sch_gld","sch_gld","sch_gld","sch_gld","sch_gld");
 
 // --------------------------------------------------
-	Guild_Dungeons:
+	Guilda_Calabouços:
 // --------------------------------------------------
 menu	"Baldur",G1, "Luina",G2, "Valkyrie",G3, "Britoniah",G4,
 	"Arunafeltz",G5, "Schwaltzvalt",G6;
@@ -408,7 +408,7 @@ G5: Go("arug_dun01",199,195);
 G6: Go("schg_dun01",200,124);
 
 // --------------------------------------------------
-	Instances:
+	Instancias:
 // --------------------------------------------------
 
 menu	"Endless Tower",I1, "Hazy Forest",I2, "Malangdo Culvert",I3,
@@ -426,7 +426,7 @@ I6: Go("gef_fild10",240,198);
 I7: Go("monk_test",306,143);
 
 // --------------------------------------------------
-	Special:
+	Especial:
 // --------------------------------------------------
 menu	"Auction Hall",S1, "Battlegrounds",S2, "Casino",S3, "Eden Group Headquarters",S4,
 	"Gonryun Arena",S5, "Izlude Arena",S6, "Monster Race Arena",S7, "Turbo Track",S8;
