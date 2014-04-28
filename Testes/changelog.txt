@@ -228,3 +228,8 @@
 		1. Correções na codificação dos arquivos de script.
 		2. Revisões na tradução dos arquivos.
 		3. Nomes dos arquivos traduzidos.
+
+2014.04.28 » Portalcake
+	- Follow up: 7e1b989
+		battle.c : 6839
+		Pequeno problema corrigido em: 'config |= C_PACKETVER_RE'
