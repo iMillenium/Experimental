@@ -9,25 +9,25 @@
 //= Item Bind Script
 //= Allows users to pay a price to make an item bound to
 //= Account, Character, or Guild
-//= TraduÃ§Ã£o [Millenium]
+//= Tradução [Millenium]
 //============================================================
 
 prontera,144,174,4	script	Vinculador de Itens	4_M_JP_MID,{
 
 	mes "Eu posso vincular seus itens a sua conta, guilda ou personagem"+((.bindprice)?" por apenas ^0000FF"+.bindprice+"^000000 ":"")+".";
 	next;
-	mes "Com isso, vocÃª pode ter certeza que seus itens ficarÃ£o seguros.";
+	mes "Com isso, você pode ter certeza que seus itens ficarão seguros.";
 	next;
-	mes "O que vocÃª gostaria de fazer?";
+	mes "O que você gostaria de fazer?";
 	if(select("Vincular:Desvincular") == 1) {
 		if(Zeny < .bindprice) {
-			mes "VocÃª nÃ£o tem zeny o suficiente para vincular este item.";
+			mes "Você não tem zeny o suficiente para vincular este item.";
 			close;
 		}
 		mes "Que tipo de vinculo?";
 		.@boundtype = 1 << (select("Conta:Guilda:Personagem")-1);
 		if(.@boundtype == 2 && (!getcharid(2) || getguildmaster(getcharid(2)) != strcharinfo(0))) {
-			mes "Para vincular um item a aguilda, vocÃª deve ser a o mestre dela.";
+			mes "Para vincular um item a aguilda, você deve ser a o mestre dela.";
 			close;
 		}
 		getinventorylist();
@@ -47,15 +47,15 @@ prontera,144,174,4	script	Vinculador de Itens	4_M_JP_MID,{
 		}
 		.@item = .@bindlist[select(.@bindlist$)-2];
 		next;
-		mes "Antes de continuar, eu preciso que vocÃª saiba que eu nÃ£o consigo dizer a diferenÃ§a entre varios itens iguais. Se vocÃª tem um item especifico que deseja vincular, por favor remova todas as duplicatas do seu inventario.";
+		mes "Antes de continuar, eu preciso que você saiba que eu não consigo dizer a diferença entre varios itens iguais. Se você tem um item especifico que deseja vincular, por favor remova todas as duplicatas do seu inventario.";
 		if(select("Eu entendi, continue:Espere um minuto") == 2) {
 			next;
-			mes "Eu vou estar aqui quando vocÃª estiver pronto.";
+			mes "Eu vou estar aqui quando você estiver pronto.";
 			close;
 		}
 		next;
 		mes "Tem certeza que vai vincular sua"+ getitemname(@inventorylist_id[.@item]) +" para o seu "+.boundtypes$[.@boundtype]+"?";
-		if(select("Sim:NÃ£o") == 1) {
+		if(select("Sim:Não") == 1) {
 			Zeny -= .bindprice;
 			delitem2 @inventorylist_id[.@item],@inventorylist_amount[.@item],@inventorylist_identify[.@item],@inventorylist_refine[.@item],@inventorylist_attribute[.@item],@inventorylist_card1[.@item],@inventorylist_card2[.@item],@inventorylist_card3[.@item],@inventorylist_card4[.@item];
 			getitembound2 @inventorylist_id[.@item],@inventorylist_amount[.@item],@inventorylist_identify[.@item],@inventorylist_refine[.@item],@inventorylist_attribute[.@item],@inventorylist_card1[.@item],@inventorylist_card2[.@item],@inventorylist_card3[.@item],@inventorylist_card4[.@item],.@boundtype;
@@ -65,14 +65,14 @@ prontera,144,174,4	script	Vinculador de Itens	4_M_JP_MID,{
 		}
 	} else {
 		if(!countbound()) {
-			mes "NÃ£o tem nenhum intem vinculado em seu inventÃ¡rio. NÃ£o hÃ¡ muito que eu possa fazer aqui.";
+			mes "Não tem nenhum intem vinculado em seu inventário. Não há muito que eu possa fazer aqui.";
 			close;
 		}
 		countbound(2);
 		if(.unbindprice) {
 			mes "Desvincular um item tem uma taxa de ^0000FF"+.unbindprice+"^000000 zeny.";
 			if(Zeny < .unbindprice) {
-				mes "VocÃª nÃ£o tem zeny o suficiente para desvincular um item";
+				mes "Você não tem zeny o suficiente para desvincular um item";
 				close;
 			}
 		}
@@ -90,19 +90,19 @@ prontera,144,174,4	script	Vinculador de Itens	4_M_JP_MID,{
 			if(@inventorylist_id[.@item] == @bound_items[.@i] &&
 				(!getcharid(2) || getguildmaster(getcharid(2)) != strcharinfo(0))
 			) {
-				mes "SÃ³ desvinculo o item de uma guilda a pedido do mestre da guilda, obrigado.";
+				mes "Só desvinculo o item de uma guilda a pedido do mestre da guilda, obrigado.";
 				close;
 			}
 		}
-		mes "Antes de continuar, eu preciso que vocÃª saiba que eu nÃ£o consigo dizer a diferenÃ§a entre varios itens iguais. Se vocÃª tem um item especifico para meu trabalho, por favor remova todas as duplicatas do seu inventario.";
+		mes "Antes de continuar, eu preciso que você saiba que eu não consigo dizer a diferença entre varios itens iguais. Se você tem um item especifico para meu trabalho, por favor remova todas as duplicatas do seu inventario.";
 		if(select("Eu entendo, continue:Espere um minuto") == 2) {
 			next;
-			mes "Eu estarei aqui quando vocÃª estiver pronto";
+			mes "Eu estarei aqui quando você estiver pronto";
 			close;
 		}
 		next;
-		mes "VocÃª tem certeza que deseja desvincular o seu "+ getitemname(@inventorylist_id[.@item]) +"?";
-		if(select("Sim:NÃ£o") == 1) {
+		mes "Você tem certeza que deseja desvincular o seu "+ getitemname(@inventorylist_id[.@item]) +"?";
+		if(select("Sim:Não") == 1) {
 			Zeny -= .unbindprice;
 			delitem2 @inventorylist_id[.@item],@inventorylist_amount[.@item],@inventorylist_identify[.@item],@inventorylist_refine[.@item],@inventorylist_attribute[.@item],@inventorylist_card1[.@item],@inventorylist_card2[.@item],@inventorylist_card3[.@item],@inventorylist_card4[.@item];
 			getitem2 @inventorylist_id[.@item],@inventorylist_amount[.@item],@inventorylist_identify[.@item],@inventorylist_refine[.@item],@inventorylist_attribute[.@item],@inventorylist_card1[.@item],@inventorylist_card2[.@item],@inventorylist_card3[.@item],@inventorylist_card4[.@item];
@@ -114,7 +114,7 @@ prontera,144,174,4	script	Vinculador de Itens	4_M_JP_MID,{
 	close;
 
 OnInit:
-	//* ConfiguraÃ§Ãµes *\\
+	//* Configurações *\\
 	//Price
 	.bindprice = 0;
 	.unbindprice = 100000;

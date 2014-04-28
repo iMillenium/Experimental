@@ -24,41 +24,41 @@ prontera,150,193,4	script	Resetadora	4_F_TELEPORTER,{
 	mes "Reseto Status: "+ .@ResetStat +"z";
 	mes "Reseto Habilidades: "+ .@ResetSkill +"z";
 	mes "Reseto Ambos: "+ .@ResetBoth +"z";
-	mes "Please select the service you want:";
+	mes "Por favor, selecione o que deseja:";
 	next;
-	switch(select("^FF3355Resetar Habilidades:Resetar Status:Resetar Ambos^000000:Cancel")) {
+	switch(select("^FF3355Resetar Habilidades:Resetar Atributos:Resetar Ambos^000000:Cancel")) {
 	case 1:
 		mes "[Resetadora]";
 		if (Zeny < .@ResetSkill) {
-			mes "Desculpe, vocÃª nÃ£o tem dinheiro para isso.";
+			mes "Desculpe, você não tem dinheiro suficiente.";
 			close;
 		}
 		Zeny -= .@ResetSkill;
 		sc_end SC_ALL;
 		resetskill;
-		mes "Pode ir!";
+		mes "Seus atributos e habilidades foram resetados.";
 		close;
 	case 2:
 		mes "[Resetadora]";
 		if (Zeny < .@ResetStat) {
-			mes "Desculpe, vocÃª nÃ£o tem dinheiro para isso.";
+			mes "Desculpe, você não tem dinheiro suficiente.";
 			close;
 		}
 		Zeny -= .@ResetStat;
 		resetstatus;
-		mes "Pode Ir!";
+		mes "Seus atributos e habilidades foram resetados.";
 		close;
 	case 3:
 		mes "[Resetadora]";
 		if (Zeny < .@ResetBoth) {
-			mes "Desculpe, vocÃª nÃ£o tem dinheiro para isso.";
+			mes "Desculpe, você não tem dinheiro suficiente.";
 			close;
 		}
 		Zeny -= .@ResetBoth;
 		sc_end SC_ALL;
 		resetskill;
 		resetstatus;
-		mes "Pode Ir!";
+		mes "Seus atributos e habilidades foram resetados.";
 		close;
 	case 4:
 		close;
