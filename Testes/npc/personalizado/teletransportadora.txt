@@ -3,7 +3,7 @@
 //===== Por: =================================================
 //= Euphy
 //===== Versão atual: ========================================
-//= 1.4
+//= 1.4a
 //===== Descrição: ===========================================
 //= A complete - but very condensed - warper script.
 //= Algumas coordenadas foram escritas por Tekno-Kanix e ToastOfDoom.
