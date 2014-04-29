@@ -1,16 +1,16 @@
-//===== Hercules Script ======================================
+//===== Cronus Script ========================================
 //= Mestra das Classes
-//===== By: ==================================================
+//===== Por: =================================================
 //= Euphy
-//===== Current Version: =====================================
-//= 1.3
-//===== Description: =========================================
+//===== Versão atual: ========================================
+//= 1.3a
+//===== Descrição: ===========================================
 //= A fully functional job changer.
-//= Tradução [Millenium]
 //===== Additional Comments: =================================
 //= 1.1 Fixed reset on Baby job change. [Euphy]
 //= 1.2 Added Expanded Super Novice support and initial Kagerou/Oboro support. [Euphy]
 //= 1.3 Kagerou/Oboro added. [Euphy]
+//= 1.3a Tradução [Millenium]
 //============================================================
 
 prontera,153,193,6	script	Mestra das Classes	2_F_MAGICMASTER,{

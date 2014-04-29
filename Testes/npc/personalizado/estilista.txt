@@ -1,14 +1,14 @@
-//===== Hercules Script ======================================
+//===== Cronus Script ========================================
 //= Estilista
-//===== By: ==================================================
+//===== Por: =================================================
 //= Euphy
-//===== Current Version: =====================================
-//= 1.1
-//===== Description: =========================================
-//= Changes your hair style, hair color, and cloth color.
-//= Tradução [ Millenium ]
-//===== Additional Comments: =================================
+//===== Versão atual: ========================================
+//= 1.1a
+//===== Descrição: ===========================================
+//= Altera seu estilo de cabelo, cor do cabelo e cor de roupa.
+//===== Comentários adicionais:===============================
 //= 1.1 Switched to 'getbattleflag', credits to Saithis. [Euphy]
+//= 1.1a Tradução [ Millenium ]
 //============================================================
 
 prontera,170,180,1	script	Estilista#custom_Estilista	2_M_DYEINGER,{
@@ -21,7 +21,7 @@ prontera,170,180,1	script	Estilista#custom_Estilista	2_M_DYEINGER,{
 	while(1) {
 		setlook .@Look[.@s], .@style;
 		message strcharinfo(0),"Este é o estilo #"+.@style+".";
-		set .@menu$, " ~ Proximo (^0055FF"+((.@style!=.@styles[.@s])?.@style+1:1)+"^000000): ~ Anterior (^0055FF"+((.@style!=1)?.@style-1:.@styles[.@s])+"^000000): ~ Va para...: ~ Voltar para original (^0055FF"+.@Revert+"^000000)";
+		set .@menu$, " ~ Próximo (^0055FF"+((.@style!=.@styles[.@s])?.@style+1:1)+"^000000): ~ Anterior (^0055FF"+((.@style!=1)?.@style-1:.@styles[.@s])+"^000000): ~ Vá para...: ~ Voltar para original (^0055FF"+.@Revert+"^000000)";
 		switch(select(.@menu$)) {
 			case 1: set .@style, ((.@style!=.@styles[.@s])?.@style+1:1); break;
 			case 2: set .@style, ((.@style!=1)?.@style-1:.@styles[.@s]); break;

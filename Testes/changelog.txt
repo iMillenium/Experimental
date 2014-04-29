@@ -230,6 +230,11 @@
 		3. Nomes dos arquivos traduzidos.
 
 2014.04.28 » Portalcake
-	- Follow up: 7e1b989
+	- Follow up: '7e1b989'
 		battle.c : 6839
 		Pequeno problema corrigido em: 'config |= C_PACKETVER_RE'
+
+2014.04.29 » Portalcake
+	- Follow up: '34d6ddb'
+		1. Revisões e correções nos scripts personalizados.
+		2. Script da Teletransportadora traduzido (parcial).

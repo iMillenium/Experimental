@@ -1,20 +1,20 @@
-//===== Hercules Script ======================================
-//= Sign Your Items
-//===== By: ==================================================
+//===== Cronus Script ========================================
+//= Assine seus itens.
+//===== Por: =================================================
 //= Lupus
-//===== Current Version: =====================================
-//= 1.1a
-//===== Description: =========================================
-//= Write you name on your rare equipment or weapon ^_-
-//= Tradução [Millenium]
-//===== Additional Comments: =================================
+//===== Versão atual: ========================================
+//= 1.1b
+//===== Descrição: ===========================================
+//= Escreva seu nome em seu equipamento raro ou arma. ^_-
+//===== Comentários adicionais: ==============================
 //= 1.1 Cleaned and edited for general use. [Euphy]
 //= 1.1a Added 'disable_items' command. [Euphy]
+//= 1.1b Tradução [Millenium]
 //============================================================
 
 prt_in,24,61,7	script	Perchik	1_M_01,{
 	
-	setarray .@item[0],644,3;	// Item requerido: <ID>,<quantidade>{,...} (0 to disable)
+	setarray .@item[0],644,3;	// Item requerido: <ID>,<quantidade>{,...} (0: desativa)
 	setarray .@cost[0],0,5000;	// Zeny requerido: <preço base>,<preço por serviço>
 
 	disable_items;
@@ -34,7 +34,7 @@ prt_in,24,61,7	script	Perchik	1_M_01,{
 			if (.@cost[0]) mes " ~ "+.@cost[0]+" Zeny";
 			if (.@cost[1]) mes " ~ "+.@cost[1]+" Zeny por refino";
 		}
-		else mes "Eu posso trabalhar de graça, porem...";
+		else mes "Eu posso trabalhar de graça, porém...";
 		next;
 		emotion e_cry;
 		mes "[Perchik]";
@@ -50,7 +50,7 @@ prt_in,24,61,7	script	Perchik	1_M_01,{
 	mes "[Perchik]";
 	mes "Me mostre o item que deseja assinar...";
 	next;
-	setarray .@pos$[1],"Topo da cabeça","Armadura","Mão esquerda","Mão direita","Vestuario","Sapato","Acessorio da esquerta","Acessorio da direita","Meio da cabeça","Baixo da cabeça";
+	setarray .@pos$[1],"Cabeça (Topo)","Armadura","Mão Esquerda","Mão Direita","Armadura","Sapatos","Acessório (Esquerda)","Acessório (Direita)","Cabeça (Meio)","Cabeça (Baixo)";
 	set .@menu$,"";
 	for (set .@i,1; .@i<=10; set .@i,.@i+1) {
 		if (getequipisequiped(.@i))
@@ -62,7 +62,7 @@ prt_in,24,61,7	script	Perchik	1_M_01,{
 	set .@ref, getequiprefinerycnt(.@part);
 	mes "[Perchik]";
 	if (!getequipisequiped(.@part)) {
-		mes "Não ha nada equipado aqui!";
+		mes "Não há nada equipado aqui!";
 		emotion e_wah;
 		close;
 	}
@@ -76,7 +76,7 @@ prt_in,24,61,7	script	Perchik	1_M_01,{
 	}
 	if (.@slot[0]>4000 && .@slot[0]<5000) {
 		mes "Uma carta? Aqui?!";
-		mes "Como eu disse antes, eu não assino itens com carta.";
+		mes "Como eu disse antes, eu não assino itens com cartas.";
 		emotion e_hmm;
 		close;
 	}
@@ -94,7 +94,7 @@ prt_in,24,61,7	script	Perchik	1_M_01,{
 		}
 	set .@price, .@cost[0]+(.@cost[1]*.@ref);
 	if (getarraysize(.@item) || .@price) {
-		mes "Eu vou precisar:";
+		mes "Eu vou precisar de:";
 		if (getarraysize(.@item)) for(set .@i,0; .@i<getarraysize(.@item); set .@i,.@i+2) {
 			mes " ~ "+.@item[.@i+1]+"x "+getitemname(.@item[.@i]);
 			if (countitem(.@item[.@i]) < .@item[.@i+1]) set .@nr,1;
@@ -105,13 +105,13 @@ prt_in,24,61,7	script	Perchik	1_M_01,{
 	next;
 	if(select("Sim!:Não, mudei de idéia")==2) {
 		mes "[Perchik]";
-		mes "vejo você por ai...";
+		mes "Vejo você por ai...";
 		emotion e_yawn;
 		close;
 	}
 	mes "[Perchik]";
 	if (Zeny < .@price || .@nr) {
-		mes " Agradecimentos não pagam meu trabalho.";
+		mes " Agradecimentos não pagam pelo meu trabalho.";
 		emotion e_sry;
 		close;
 	}

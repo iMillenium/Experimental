@@ -1,13 +1,12 @@
-//===== Hercules Script ======================================
-//= Platinum Skills
-//===== By: ==================================================
+//===== Cronus Script ========================================
+//= Habilidades de Platina
+//===== Por: =================================================
 //= Keichii, DarkChild
-//===== Current Version: =====================================
-//= 2.8
-//===== Description: =========================================
+//===== Versão atual: ========================================
+//= 2.8a
+//===== Descrição: ===========================================
 //= Single NPC that assigns quests skills for all classes
-//= Tradução [Millenium]
-//===== Additional Comments: =================================
+//===== Comentários adicionais: ==============================
 //= 2.0 Added advanced classes by ShadowLady.
 //= 2.1 Added baby clases by Midas
 //= 2.2 Simplified Job Checks [Silentdragon]
@@ -17,6 +16,7 @@
 //= 2.6 Fixed 2nd advanced classes not being able to get their advanced skills. [Ancyker]
 //= 2.7 Rewrote to give all correct skills to all proper classes. [Paradox924X]
 //= 2.8 Clustered conditionals replaced with switch to include all Upper types. [Euphy]
+//= 2.8a Tradução [Millenium]
 //============================================================
 
 prontera,128,200,6	script	Habilidades de Platina	4_F_MAID,{

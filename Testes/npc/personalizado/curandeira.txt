@@ -1,27 +1,27 @@
-//===== Hercules Script ======================================
+//===== Cronus Script ========================================
 //= Curandeira
-//===== By: ==================================================
+//===== Por: =================================================
 //= Euphy
-//===== Current Version: =====================================
-//= 1.2
-//===== Description: =========================================
-//= Basic Curandeira script.
-//= Tradução [Millenium]
-//===== Additional Comments: =================================
+//===== Versão atual: ========================================
+//= 1.2a
+//===== Descrição: ===========================================
+//= Script básico da Curandeira.
+//===== Comentários adicionais: ==============================
 //= 1.0 Initial script.
 //= 1.1 Aligned coordinates with @go.
 //= 1.2 Fix variables and character stuck at healing
+//= 1.2a Tradução [Millenium]
 //============================================================
 
 -	script	Curandeira	-1,{
 
-	.@price = 0;	// Zeny requerido para curar
-	.@Buffs = 0;	// Tambem buffar jogador? (1: yes / 0: no)
-	.@Delay = 0;	// delay de cura, em segundos
+	.@price = 0;	// Zeny requerido para curar.
+	.@Buffs = 0;	// Aplicar buffs no jogador? (1: sim / 0: não)
+	.@Delay = 0;	// Delay para curar, em segundos.
 
 	if (@HD > gettimetick(2)) end;
 	if (.@price) {
-		message strcharinfo(0),"Custo da cura "+.@price+" Zeny.";
+		message strcharinfo(0),"O custo da cura é "+.@price+" Zeny.";
 		if (Zeny < .@price) end;
 		if(select("^0055FFCurar^000000:^777777Cancelar^000000") == 2) close;
 		Zeny -= .@price;
@@ -36,7 +36,7 @@
 }
 
 
-// Duplicates
+// Duplicatas
 //============================================================
 alberta,25,240,6	duplicate(Curandeira)	Curandeira#alb	4_PORING
 aldebaran,135,118,6	duplicate(Curandeira)	Curandeira#alde	4_PORING
@@ -68,7 +68,7 @@ veins,217,121,4	duplicate(Curandeira)	Curandeira#ve	4_PORING
 xmas,143,136,4	duplicate(Curandeira)	Curandeira#xmas	4_PORING
 yuno,164,45,4	duplicate(Curandeira)	Curandeira#yuno	4_PORING
 
-// Duplicates (Renewal)
+// Duplicatas (Renovação)
 //============================================================
 brasilis,194,221,6	duplicate(Curandeira)	Curandeira#bra	4_PORING
 dewata,195,187,4	duplicate(Curandeira)	Curandeira#dew	4_PORING

@@ -1,15 +1,15 @@
-//===== Hercules Script ======================================
-//= Euphy's WOE Controller
-//===== By: ==================================================
+//===== Cronus Script ========================================
+//= Gerenciador de Feudos
+//===== Por: =================================================
 //= Euphy
-//===== Current Version: =====================================
+//===== Versão atual: ========================================
 //= 1.5
-//===== Description: =========================================
+//===== Descrição: ===========================================
 //= A controller for War of Emperium designed for
 //= simplicity and ease of use.
 //= Many concepts taken from ToastOfDoom's script,
 //= and "rewards" function originally by Goddameit.
-//===== Additional Comments: =================================
+//===== Comentários adicionais: ==============================
 //= Be sure to disable the default agit controllers!
 //== npc\guild\agit_controller.txt
 //== npc\guild2\agit_start_se.txt

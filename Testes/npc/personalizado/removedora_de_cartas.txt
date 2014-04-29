@@ -1,35 +1,35 @@
-//===== Hercules Script ======================================
-//= Card Removal NPC
-//===== By: ==================================================
+//===== Cronus Script ========================================
+//= Removedora de Cartas
+//===== Por: =================================================
 //= TyrNemesis^
-//===== Current Version: =====================================
-//= 1.2a
-//===== Description: =========================================
-//= Removes cards from equipped items.
-//===== Additional Comments: =================================
+//===== Versão atual: ========================================
+//= 1.2b
+//===== Descrição: ===========================================
+//= Remove cartas dos itens equipados.
+//===== Comentários adicionais: ==============================
 //= 1.0 First version. [TyrNemesis^]
 //= 1.2 Optimized and fixed getequipname menu. [Kisuka]
 //= 1.2a Added 'disable_items' command. [Euphy]
-//= Tradução [Millenium]
+//= 1.2b Tradução [Millenium]
 //============================================================
 
 prt_in,28,73,4	script	Removedora	1_F_ORIENT_04,{
 
-	set .zenycost,200000; // Definir custo base em zeny do serviço de remoção da carta
-	set .percardcost,25000; // Definir o custo por carta do serviço de remoção de carta
-	set .faildestroy,1; // O removedor de cartas tem chance de fracasso? (destrói itens) 1 = Sim, 0 = Não.
+	set .zenycost,200000;	// Definir custo base em zeny do serviço de remoção da carta
+	set .percardcost,25000;	// Definir o custo por carta do serviço de remoção de carta
+	set .faildestroy,1;	// A removedora de cartas tem chance de fracasso? (os items podem ser destruídos) 1 = Sim, 0 = Não.
 
 	disable_items;
 	mes "[Velha Sábia]";
 	mes "Bom dia, meu jovem. Eu tenho o poder de remover cartas que você tenha combinado com seu equipamento. Isso pode ajudá-lo?";
 	next;
-	switch(select("Sim, ajudaria muito.:O que você quer em troca?:Não, Obriado.")) {
+	switch(select("Sim, ajudaria muito.:O que você quer em troca?:Não, Obrigado.")) {
 	case 1:
 		mes "[Velha Sábia]";
-		mes "Muito bem. Qual ítem devo examinar para você?";
+		mes "Muito bem. Qual item devo examinar para você?";
 		next;
 
-		setarray .@position$[1], "Cabeça","Corpo","Mão esquerda","Mão Direita","Manto","Sapatos","Acessorio 1","Acessorio 2","Cabeça 2","Cabeça 3";
+		setarray .@position$[1], "Cabeça","Armadura","Mão Esquerda","Mão Direita","Capa","Sapatos","Acessorio 1","Acessorio 2","Cabeça 2","Cabeça 3";
 		set .@menu$,"";
 		for( set .@i,1; .@i <= 10; set .@i,.@i+1 )
 		{
@@ -56,14 +56,14 @@ prt_in,28,73,4	script	Removedora	1_F_ORIENT_04,{
 			mes "Eu não posso oferecer meus";
 			mes "serviços a você pois está";
 			mes "com excesso de peso";
-			mes "ou itens no iventário";
+			mes "ou itens no inventário";
 			mes "utilize seu armazém e volte aqui~";
 			close;
 		}
 		mes "[Velha Sábia]";
-		mes "Esse ítem tem " + .@cardcount + " cartas equipadas nele. Para melhorar minha magia, eu preciso de  " + (.zenycost+(.@cardcount * .percardcost)) + " zeny, a ^0000FFFragmento Estelar^000000, and a ^0000FFGema Amarela^000000.";
+		mes "Esse item tem " + .@cardcount + " cartas equipadas nele. Para melhorar minha magia, eu preciso de  " + (.zenycost+(.@cardcount * .percardcost)) + " zeny, a ^0000FFFragmento Estelar^000000, e uma ^0000FFGema Amarela^000000.";
 		next;
-		if(select("Muito bem. Vamo lá.:Não faça isso!") == 2) {
+		if(select("Muito bem. Vamos lá.:Não faça isso!") == 2) {
 			mes "[Velha Sábia]";
 			mes "Muito bem, obrigado por utilizar os meus serviços!";
 			close;
@@ -74,7 +74,7 @@ prt_in,28,73,4	script	Removedora	1_F_ORIENT_04,{
 			close;
 		}
 		mes "[Velha Sábia]";
-		mes "Antes de começar, Eu devo lhe avisar que--Eu posso falhar. Se eu falhar posso destruir suas cartas, os itens ou ambos. Eu não posso lhe devolver nada. Então me diga, o que é mais importante para você? As cartas ou o item?";
+		mes "Antes de começar, Eu devo lhe avisar que eu posso falhar. Se eu falhar posso destruir suas cartas, os itens ou ambos. Eu não posso lhe devolver nada. Então me diga, o que é mais importante para você? As cartas ou o item?";
 		next;
 		switch(select("Mudei de idéias sobre isso.:O item.:As Cartas.")) {
 		case 1:
@@ -113,7 +113,7 @@ prt_in,28,73,4	script	Removedora	1_F_ORIENT_04,{
 					next;
 					failedremovecards .@part,1;
 					mes "[Velha Sábia]";
-					mes "Eu falhei tentando remover as cartas do seu ítem, suas cartas foram destruídas durante o processo. O item , no entanto, está okay.";
+					mes "Eu falhei tentando remover as cartas do seu item, suas cartas foram destruídas durante o processo. O item, no entanto, está salvo.";
 					close;
 				}
 
@@ -121,7 +121,7 @@ prt_in,28,73,4	script	Removedora	1_F_ORIENT_04,{
 					next;
 					failedremovecards .@part,2;
 					mes "[Velha Sábia]";
-					mes "Menos mal. Eu tive sucesso em remover as cartas, só que o ítem foi destruído no processo.";
+					mes "Menos mal. Eu tive sucesso em remover as cartas, só que o item foi destruído no processo.";
 					close;
 				}
 			}
@@ -137,7 +137,7 @@ prt_in,28,73,4	script	Removedora	1_F_ORIENT_04,{
 		next;
 		successremovecards .@part;
 		mes "[Velha Sábia]";
-		mes "O processo foi um grande sucesso. Tome suas cartas e seus ítens.";
+		mes "O processo foi um grande sucesso. Tome suas cartas e seu item.";
 		close;
 	case 2:
 		mes "[Velha Sábia]";
