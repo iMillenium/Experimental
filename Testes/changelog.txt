@@ -238,3 +238,10 @@
 	- Follow up: '34d6ddb'
 		1. Revisões e correções nos scripts personalizados.
 		2. Script da Teletransportadora traduzido (parcial).
+	- Padronização Pt.1
+		Padronização dos cabeçalhos nos arquivos de configuração de script.
+		Remoção dos scripts da pasta 'npc/classes/2-2a'.
+		Serão reenviados posteriormente com seus nomes em letras minúsculas.
+	- Padronização Pt.2, follow up: a99c2d2
+		Scripts da pasta 'npc/classes/2-2a' readicionados.
+		O cabeçalho dos mesmos também foi alterado para o padrão do emulador.
