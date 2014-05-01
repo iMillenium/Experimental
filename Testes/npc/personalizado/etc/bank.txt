@@ -1,81 +1,82 @@
-//===== Hercules Script ======================================
-//= Banker Script 
-//===== By: ==================================================
+//===== Cronus Script ========================================
+//= Banqueiro 
+//===== Por: =================================================
 //= Syrus22 (1.0)
-//===== Current Version: =====================================
-//= 2.0
-//===== Description: =========================================
-//= An account wide Banker to store Zeny
-//===== Additional Comments: =================================
+//===== Versão atual: ========================================
+//= 2.0a
+//===== Descrição: ===========================================
+//= Permite ao usuário depositar e sacar zenys.
+//===== Comentários adicionais: ==============================
 //= Syrus22 - There's an optional transaction fee at the top of
 //= the script. To use it simply change the first set command
 //= to set the cost variable to whatever you want the fee to be.
 //= Version 2.0: Optimized and brought the script up to standard. [Jguy]
+//= Versão 2.0a: Traduzido. [Portalcake]
 //============================================================
 
-prontera,132,217,5	script	Banker	4_M_MANAGER,{
-set @cost,500;
-mes "[Banker]";
-mes "Welcome to the First Bank of Prontera. How can I help you today?";
+prontera,132,217,5	script	Banqueiro	4_M_MANAGER,{
+set @cost,500;	// Taxa requerida para realizar uma transação.
+mes "[Banqueiro]";
+mes "Bem-vindo ao primeiro banco de Prontera. Como eu posso lhe ajudar?";
 next;
-switch(select("I'd like to make a deposit.:I'd like to make a withdrawl.:What's my current balance?:Cancel")) {
+switch(select("Eu quero fazer um depósito.:Eu quero fazer um saque.:Qual é o meu saldo?:Cancelar")) {
 	case 1:
-		mes "[Banker]";
-		mes "Very well... How much would you like to deposit? The maximum you can deposit at once is 999,999 Zeny.";
+		mes "[Banqueiro]";
+		mes "Muito bem… Qual é a quantia que você deseja depositar? O máximo que você pode depositar em uma única transação é 999,999 Zeny.";
 		next;
 		if (@cost > 0) {
-			mes "[Banker]";
-			mes "Oh, and do realize there is a " +@cost + " Zeny charge on all transactions!";
+			mes "[Banqueiro]";
+			mes "Devo dizer que há uma taxa de " +@cost + " para realizar transações.";
 			next;
 		}
 		input @deposit;
 		if (@deposit < 1) {
-			mes "Make sure you ask me to deposit a real amount.";
+			mes "Tenha certeza de que está depositando um valor real.";
 			close;
 		}
 		else if (@deposit > Zeny) {
-			mes "It does not appear like you have the amount of zeny you're trying to deposit!";
+			mes "Não me parece que você possuí toda essa quantia de zenys que deseja depositar.";
 			close;
 		}
 		else if (@deposit > (Zeny - @cost)) {
-			mes "You need " + @cost + " Zeny to cover the transaction fee!";
+			mes "Você precisa de " + @cost + " Zeny para pagar a taxa de transação!";
 			close;
 		}
 		else {
 		Zeny -= @deposit;
 		Zeny -= @cost;
 		set #bankstorage,#bankstorage + @deposit;
-		mes "[Banker]";
-		mes "Thank you very much... Your zeny is in good hands.";
+		mes "[Banqueiro]";
+		mes "Muito obrigado… Os seus zenys estão em boas mãos!";
 		close;
 		}
 
 	case 2:
-		mes "[Banker]";
-		mes "Very well... How much would you like to withdraw? The maximum you can withdraw at one time is 999,999 Zeny";
+		mes "[Banqueiro]";
+		mes "Muito bem… Qual é a quantia que você deseja sacar? O máximo que você pode sacar em uma única transação é 999,999 Zeny.";
 		next;
 		if (@cost > 0) {
-			mes "[Banker]";
-			mes "Oh, and do realize there is a " +@cost + " Zeny charge on all transactions!";
+			mes "[Banqueiro]";
+			mes "Devo dizer que há uma taxa de " +@cost + " para realizar transações.";
 			next;
 		}
 		input @withdrawl;
 		if (@withdrawl < 1) {
-			mes "Please don't play games. I need a real amount to withdraw.";
+			mes "Por favor, sem brincadeirinhas. Eu preciso de um valor real para ser sacado.";
 			close;
 		}
 		else if (@withdrawl > #bankstorage) {
-			mes "I show you only have ^00FF00" + #bankstorage +"^000000 zeny in your account!";
+			mes "Eu devo dizer que você tem apenas ^00FF00" + #bankstorage +"^000000 zeny em sua conta!";
 			close;
 		}
 		else if ((@cost > Zeny) && ((Zeny + @withdrawl) > @cost)) {
-			mes "[Banker]";
-			mes "You don't have the Zeny for the transaction fee right now. Would you like me to take the fee directly from your withdrawl?";
+			mes "[Banqueiro]";
+			mes "Você não tem zeny o bastante para pagar a taxa desta transação. Deseja que eu retire o valor da taxa diretamente do saque?";
 			next;
-			switch(select("Yes please.:No, Thanks")){
+			switch(select("Sim, por favor.:Não, obrigado.")){
 			case 1:
-				mes "[Banker]";
-				mes "Removing " + @cost + " from your withdrawl to cover the deposit fee...";
+				mes "[Banqueiro]";
+				mes "Removendo " + @cost + " de seu saque para pagar a taxa da transação.";
 				set @withdrawl,@withdrawl - @cost;
 				set #bankstorage,#bankstorage - @cost;
 				set @cost,0;
@@ -83,12 +84,12 @@ switch(select("I'd like to make a deposit.:I'd like to make a withdrawl.:What's 
 				Zeny -= @cost;
 				Zeny += @withdrawl;
 				set #bankstorage,#bankstorage - @withdrawl;
-				mes "[Banker]";
-				mes "There's your Zeny. Have a good day.";
+				mes "[Banqueiro]";
+				mes "Aqui estão os seus zenys, tenha um bom dia!";
 				close;
 			case 2:
-				mes "[Banker]";
-				mes "Very well... come again soon.";
+				mes "[Banqueiro]";
+				mes "Muito bem… Então retorne novamente mais tarde.";
 				close;
 			}
 		}
@@ -96,22 +97,22 @@ switch(select("I'd like to make a deposit.:I'd like to make a withdrawl.:What's 
 			Zeny -= @cost;
 			Zeny += @withdrawl;
 			set #bankstorage,#bankstorage - @withdrawl;
-			mes "[Banker]";
-			mes "There's your Zeny. Have a good day.";
+			mes "[Banqueiro]";
+			mes "Aqui estão os seus zenys, tenha um bom dia!";
 			close;
 		}
 	case 3:
-		mes "[Banker]";
-		mes "Hmmmm let me check some paper work.";
+		mes "[Banqueiro]";
+		mes "Hmmmm… Me deixe checar as papeladas.";
 		next;
-		mes "*Rustle, Rustle*";
+		mes "*Folheia, Folheia*";
 		next;
-		mes "[Banker]";
-		mes "You currently have " + #bankstorage + " Zeny in your account.";
+		mes "[Banqueiro]";
+		mes "O seu saldo é de " + #bankstorage + " Zeny em sua conta.";
 		close;
 	case 4:
-		mes "[Banker]";
-		mes "Very well... come again soon.";
+		mes "[Banqueiro]";
+		mes "Muito bem… Então retorne novamente mais tarde.";
 		close;
 	}
 }

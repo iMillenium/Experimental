@@ -245,3 +245,7 @@
 	- Padronização Pt.2, follow up: a99c2d2
 		Scripts da pasta 'npc/classes/2-2a' readicionados.
 		O cabeçalho dos mesmos também foi alterado para o padrão do emulador.
+
+2014.04.30 » Portalcake
+	- Pasta '…/npc/personalizado/etc'
+		Traduzido bank.txt & floating_rates.txt
