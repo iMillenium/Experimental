@@ -1,3 +1,6 @@
+2014.05.02 » Kyuke
+	- Aplicando traduções na pasta npc/pre-re/guias
+	- Aplicando traduções na pasta npc/pre-re/classes
 2014.02.25 » Portalcake
 	- 99% da pasta conf & conf/battle traduzidas.
 	- Tradução parcial da raíz da pasta db.
