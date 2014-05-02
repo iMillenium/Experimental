@@ -248,4 +248,9 @@
 
 2014.04.30 » Portalcake
 	- Pasta '…/npc/personalizado/etc'
-		Traduzido bank.txt & floating_rates.txt
+		Traduzido: bank.txt & floating_rates.txt
+
+2014.05.02 » Portalcake
+	- Atualizações do Hercules aplicadas: 'ced61a9' & '1bcbc57'.
+	- Pasta '…/npc/personalizado/etc'
+		Traduzido: bank_kafra.txt
