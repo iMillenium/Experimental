@@ -259,3 +259,5 @@
 		Traduzido: bank_kafra.txt
 	- Follow up: c43e718
 		bank.txt e bank_kafra.txt renomeados para banco.txt e banco_kafra.txt
+	- Follow up: 7e1b989
+		Corrigido erro de digitação que fazia o arquivo sysinfo.h ser ignorado.
