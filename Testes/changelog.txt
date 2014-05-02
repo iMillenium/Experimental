@@ -254,3 +254,5 @@
 	- Atualizações do Hercules aplicadas: 'ced61a9' & '1bcbc57'.
 	- Pasta '…/npc/personalizado/etc'
 		Traduzido: bank_kafra.txt
+	- Follow up: c43e718
+		bank.txt e bank_kafra.txt renomeados para banco.txt e banco_kafra.txt
