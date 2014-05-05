@@ -261,3 +261,7 @@
 		bank.txt e bank_kafra.txt renomeados para banco.txt e banco_kafra.txt
 	- Follow up: 7e1b989
 		Corrigido erro de digitação que fazia o arquivo sysinfo.h ser ignorado.
+
+2014.05.05 » Portalcake
+	- Tradução dos Aeroplano aplicada.
+	- Revisão no script 'banco.txt'

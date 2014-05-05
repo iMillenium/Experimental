@@ -15,18 +15,18 @@
 //============================================================
 
 prontera,132,217,5	script	Banqueiro	4_M_MANAGER,{
-set @cost,500;	// Taxa requerida para realizar uma transação.
+set @cost,0;	// Taxa requerida para realizar uma transação, padrão: 0.
 mes "[Banqueiro]";
 mes "Bem-vindo ao primeiro banco de Prontera. Como eu posso lhe ajudar?";
 next;
 switch(select("Eu quero fazer um depósito.:Eu quero fazer um saque.:Qual é o meu saldo?:Cancelar")) {
 	case 1:
 		mes "[Banqueiro]";
-		mes "Muito bem… Qual é a quantia que você deseja depositar? O máximo que você pode depositar em uma única transação é 999,999 Zeny.";
+		mes "Muito bem… Qual é a quantia que você deseja depositar? O máximo que você pode depositar em uma única transação é 999.999 Zeny.";
 		next;
 		if (@cost > 0) {
 			mes "[Banqueiro]";
-			mes "Devo dizer que há uma taxa de " +@cost + " para realizar transações.";
+			mes "Devo avisar lhe que há uma taxa de " +@cost + " para realizar transações.";
 			next;
 		}
 		input @deposit;
@@ -53,11 +53,11 @@ switch(select("Eu quero fazer um depósito.:Eu quero fazer um saque.:Qual é o meu
 
 	case 2:
 		mes "[Banqueiro]";
-		mes "Muito bem… Qual é a quantia que você deseja sacar? O máximo que você pode sacar em uma única transação é 999,999 Zeny.";
+		mes "Muito bem… Qual é a quantia que você deseja sacar? O máximo que você pode sacar em uma única transação é 999.999 Zeny.";
 		next;
 		if (@cost > 0) {
 			mes "[Banqueiro]";
-			mes "Devo dizer que há uma taxa de " +@cost + " para realizar transações.";
+			mes "Devo avisar lhe que há uma taxa de " +@cost + " para realizar transações.";
 			next;
 		}
 		input @withdrawl;
@@ -66,7 +66,7 @@ switch(select("Eu quero fazer um depósito.:Eu quero fazer um saque.:Qual é o meu
 			close;
 		}
 		else if (@withdrawl > #bankstorage) {
-			mes "Eu devo dizer que você tem apenas ^00FF00" + #bankstorage +"^000000 zeny em sua conta!";
+			mes "Você tem apenas ^00FF00" + #bankstorage +"^000000 zeny em sua conta!";
 			close;
 		}
 		else if ((@cost > Zeny) && ((Zeny + @withdrawl) > @cost)) {
@@ -105,10 +105,10 @@ switch(select("Eu quero fazer um depósito.:Eu quero fazer um saque.:Qual é o meu
 		mes "[Banqueiro]";
 		mes "Hmmmm… Me deixe checar as papeladas.";
 		next;
-		mes "*Folheia, Folheia*";
+		mes "* Folheia, Folheia *";
 		next;
 		mes "[Banqueiro]";
-		mes "O seu saldo é de " + #bankstorage + " Zeny em sua conta.";
+		mes "O seu saldo é de " + #bankstorage + " Zeny.";
 		close;
 	case 4:
 		mes "[Banqueiro]";
