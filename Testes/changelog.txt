@@ -1,6 +1,3 @@
-2014.05.02 » Kyuke
-	- Aplicando traduções na pasta npc/pre-re/guias
-	- Aplicando traduções na pasta npc/pre-re/classes
 2014.02.25 » Portalcake
 	- 99% da pasta conf & conf/battle traduzidas.
 	- Tradução parcial da raíz da pasta db.
@@ -253,6 +250,10 @@
 	- Pasta '…/npc/personalizado/etc'
 		Traduzido: bank.txt & floating_rates.txt
 
+2014.05.02 » Kyuke
+	- Aplicando traduções na pasta npc/pre-re/guias
+	- Aplicando traduções na pasta npc/pre-re/classes
+
 2014.05.02 » Portalcake
 	- Atualizações do Hercules aplicadas: 'ced61a9' & '1bcbc57'.
 	- Pasta '…/npc/personalizado/etc'
@@ -265,3 +266,7 @@
 2014.05.05 » Portalcake
 	- Tradução dos Aeroplano aplicada.
 	- Revisão no script 'banco.txt'
+
+2014.05.07 » Portalcake
+	- Atualizações do Hercules aplicadas: '9cf6b36' & '9a425c1'.
+	- A correção de posição dos NPCs de Izlude será feita em breve.
