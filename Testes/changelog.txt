@@ -286,3 +286,4 @@
 	- item_db.conf atualizado para coincidir com o AEGIS item_db.
 		Hercules: ae289d6
 	- Atualizações do Hercules aplicadas: 'c4603a0', '6d0eb4f' & '474fda9'.
+	- Atualizações do Hercules aplicadas: '4432b10' & '2721590'.
