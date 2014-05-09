@@ -278,3 +278,5 @@
 		Hercules: acf4079
 	- Follow up: 5a75b98
 		Hercules: 095c47f
+	- Valores de retorno adicionados á função *delequip.
+		Hercules: db42e06
