@@ -296,3 +296,5 @@
 	- Follow up: c08c973
 		Atualizações do Hercules aplicadas: 'a168c78' & '1c4e382'.
 		O commit 'b6b3f58' ainda deve ser aplicado.
+	- Follow up: 5c2bafd / ad9ea0d / 34a450c
+		Correções no item_db.conf, item_db_re.sql e item_packages.conf

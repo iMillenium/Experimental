@@ -1,4 +1,4 @@
-﻿#
+#
 # Table structure for table `item_db_re`
 #
 
@@ -8342,4 +8342,3 @@ REPLACE INTO `item_db_re` VALUES ('28201','South_Cross','Southern Cross','5','28
 REPLACE INTO `item_db_re` VALUES ('28202','Southern_Cross_','Southern Cross','5','2800000','1400000','2000','480','0','0','9','1','1073741824','63','2','34','4','141',NULL,'1','21','0','bonus3 bAutoSpell,\"GC_CROSSIMPACT\",1,50;','','');
 REPLACE INTO `item_db_re` VALUES ('28203','Half_BF_Rifle1','Half BF Rifle1','5','0','0','0','50','0','0','9','0','1090519040','63','2','34','3','80',NULL,'1','18','0','bonus bDex,2; bonus bHit,8; bonus bCritical,8; bonus2 bAddRace,RC_DemiHuman,30; bonus2 bAddRace,RC_Player,30; bonus2 bVariableCastrate,\"GS_TRACKING\",-20; bonus2 bIgnoreDefRaceRate,RC_DemiHuman,10; bonus2 bIgnoreDefRaceRate,RC_Player,10; bonus bUnbreakableWeapon,0;','','');
 REPLACE INTO `item_db_re` VALUES ('28204','Half_BF_Shotgun1','Half BF Shotgun1','5','0','0','0','100','0','0','9','0','1090519040','63','2','34','3','80',NULL,'1','20','0','bonus bDex,2; bonus bSplashRange,1; bonus2 bAddRace,RC_DemiHuman,30; bonus2 bAddRace,RC_Player,30; bonus2 bIgnoreDefRaceRate,RC_DemiHuman,10; bonus2 bIgnoreDefRaceRate,RC_Player,10; autobonus \"{ bonus bBaseAtk,80; bonus2 bHPLossRate,100,1000; }\",30,6000,BF_WEAPON,\"{ specialeffect2 EF_BASH3D; }\"; bonus bUnbreakableWeapon,0;','','');
-
