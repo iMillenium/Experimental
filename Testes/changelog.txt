@@ -280,3 +280,6 @@
 		Hercules: 095c47f
 	- Valores de retorno adicionados á função *delequip.
 		Hercules: db42e06
+	- Skills do homunculo Eira corrigidas e atualizadas de acordo com as oficiais.
+	- Correção na habilidade 'Crush Strike'.
+		Hercules: f4f4b33
