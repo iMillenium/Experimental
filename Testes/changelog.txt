@@ -283,3 +283,5 @@
 	- Skills do homunculo Eira corrigidas e atualizadas de acordo com as oficiais.
 	- Correção na habilidade 'Crush Strike'.
 		Hercules: f4f4b33
+	- item_db.conf atualizado para coincidir com o AEGIS item_db.
+		Hercules: ae289d6
