@@ -292,3 +292,4 @@
 	- Script de auto-teste melhorado.
 		Hercules: 84c1d0d
 	- Atualização do Hercules aplicada: '581ff22'
+	- Atualizações do Hercules aplicadas: '5f15290', 'ffdd963' & '77a62f8'.

@@ -2242,8 +2242,7 @@ void script_warning(const char* src, const char* file, int start_line, const cha
 /*==========================================
  * Analysis of the script
  *------------------------------------------*/
-struct script_code* parse_script(const char *src,const char *file,int line,int options)
-{
+struct script_code* parse_script(const char *src,const char *file,int line,int options, int *retval) {
 	const char *p,*tmpp;
 	int i;
 	struct script_code* code = NULL;
@@ -2289,6 +2288,7 @@ struct script_code* parse_script(const char *src,const char *file,int line,int o
 		script->parser_current_file = NULL;
 		script->parser_current_line = 0;
 #endif // ENABLE_CASE_CHECK
+		if (retval) *retval = EXIT_FAILURE;
 		return NULL;
 	}
 
@@ -2315,8 +2315,10 @@ struct script_code* parse_script(const char *src,const char *file,int line,int o
 	}
 	else
 	{// requires brackets around the script
-		if( *p != '{' )
+		if( *p != '{' ) {
 			disp_error_message("not found '{'",p);
+			if (retval) *retval = EXIT_FAILURE;
+		}
 		p = script->skip_space(p+1);
 		if( *p == '}' && !(options&SCRIPT_RETURN_EMPTY_SCRIPT) )
 		{// empty script and can return NULL
@@ -2391,13 +2393,14 @@ struct script_code* parse_script(const char *src,const char *file,int line,int o
 		else if( script->str_data[i].type == C_USERFUNC )
 		{// 'function name;' without follow-up code
 			ShowError("parse_script: function '%s' declared but not defined.\n", script->str_buf+script->str_data[i].str);
+			if (retval) *retval = EXIT_FAILURE;
 			unresolved_names = true;
 		}
 	}
 
-	if( unresolved_names )
-	{
+	if( unresolved_names ) {
 		disp_error_message("parse_script: unresolved function references", p);
+		if (retval) *retval = EXIT_FAILURE;
 	}
 
 #ifdef SCRIPT_DEBUG_DISP
@@ -4203,7 +4206,7 @@ void script_run_autobonus(const char *autobonus, int id, int pos)
 void script_add_autobonus(const char *autobonus)
 {
 	if( strdb_get(script->autobonus_db, autobonus) == NULL ) {
-		struct script_code *scriptroot = script->parse(autobonus, "autobonus", 0, 0);
+		struct script_code *scriptroot = script->parse(autobonus, "autobonus", 0, 0, NULL);
 
 		if( scriptroot )
 			strdb_put(script->autobonus_db, autobonus, scriptroot);
@@ -7969,9 +7972,9 @@ BUILDIN(delequip)
 	if(i >= 0) {
 		pc->unequipitem(sd,i,3); //recalculate bonus
 		pc->delitem(sd,i,1,0,2,LOG_TYPE_SCRIPT);
-		script_pushint(st, 1);
+		script_pushint(st,1);
 	} else {
-		script_pushint(st, 0);
+		script_pushint(st,0);
 	}
 
 	return true;
@@ -11041,7 +11044,7 @@ BUILDIN(setmapflag) {
 					char empty[1] = "\0";
 					char params[MAP_ZONE_MAPFLAG_LENGTH];
 					memcpy(params, val2, MAP_ZONE_MAPFLAG_LENGTH);
-					npc->parse_mapflag(map->list[m].name, empty, zone, params, empty, empty, empty);
+					npc->parse_mapflag(map->list[m].name, empty, zone, params, empty, empty, empty, NULL);
 				}
 				break;
 			case MF_NOCOMMAND:          map->list[m].nocommand = (val <= 0) ? 100 : val; break;
@@ -13125,7 +13128,7 @@ BUILDIN(message) {
  *------------------------------------------*/
 BUILDIN(npctalk) {
 	const char* str;
-	char name[NAME_LENGTH], message[256];
+	char name[MAX_NPC_NAME_LENGTH], message[256];
 
 	struct npc_data* nd = (struct npc_data *)map->id2bl(st->oid);
 	str = script_getstr(st,2);
@@ -15100,7 +15103,7 @@ BUILDIN(setitemscript)
 	if(*dstscript)
 		script->free_code(*dstscript);
 
-	*dstscript = new_bonus_script[0] ? script->parse(new_bonus_script, "script_setitemscript", 0, 0) : NULL;
+	*dstscript = new_bonus_script[0] ? script->parse(new_bonus_script, "script_setitemscript", 0, 0, NULL) : NULL;
 	script_pushint(st,1);
 	return true;
 }
@@ -16759,7 +16762,7 @@ BUILDIN(instance_npcname) {
 		instance_id = st->instance_id;
 
 	if( instance_id >= 0 && (nd = npc->name2id(str)) != NULL ) {
-		static char npcname[NAME_LENGTH];
+		static char npcname[MAX_NPC_NAME_LENGTH];
 		snprintf(npcname, sizeof(npcname), "dup_%d_%d", instance_id, nd->bl.id);
 		script_pushconststr(st,npcname);
 	} else {
@@ -19612,4 +19615,3 @@ void script_defaults(void) {
 	script->mapindexname2id = script_mapindexname2id;
 	
 }
-
