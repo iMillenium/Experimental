@@ -293,3 +293,6 @@
 		Hercules: 84c1d0d
 	- Atualização do Hercules aplicada: '581ff22'
 	- Atualizações do Hercules aplicadas: '5f15290', 'ffdd963' & '77a62f8'.
+	- Follow up: c08c973
+		Atualizações do Hercules aplicadas: 'a168c78' & '1c4e382'.
+		O commit 'b6b3f58' ainda deve ser aplicado.

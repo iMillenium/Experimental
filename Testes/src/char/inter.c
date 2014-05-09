@@ -29,10 +29,8 @@
 
 #include <sys/stat.h> // for stat/lstat/fstat - [Dekamaster/Ultimate GM Tool]
 
-
 #define WISDATA_TTL (60*1000)	//Wis data Time To Live (60 seconds)
 #define WISDELLIST_MAX 256		// Number of elements in the list Delete data Wis
-
 
 Sql* sql_handle = NULL;
 
@@ -453,14 +451,15 @@ const char* geoip_getcountry(uint32 ipnum){
  * Disables GeoIP
  * frees geoip.cache
  **/
-void geoip_final( void ) {
-	if( geoip.cache ) {
+void geoip_final(bool shutdown) {
+	if (geoip.cache) {
 		aFree(geoip.cache);
 		geoip.cache = NULL;
 	}
 
-	if( geoip.active ) {
-		ShowStatus("GeoIP "CL_RED"disabled"CL_RESET".\n");
+	if (geoip.active) {
+		if (!shutdown)
+			ShowStatus("GeoIP "CL_RED"disabled"CL_RESET".\n");
 		geoip.active = false;
 	}
 }
@@ -482,20 +481,20 @@ void geoip_init(void) {
 	db = fopen("./db/GeoIP.dat","rb");
 	if( db == NULL ) {
 		ShowError("geoip_readdb: Error reading GeoIP.dat!\n");
-		geoip_final();
+		geoip_final(false);
 		return;
 	}
 	fno = fileno(db);
 	if( fstat(fno, &bufa) < 0 ) {
 		ShowError("geoip_readdb: Error stating GeoIP.dat! Error %d\n", errno);
-		geoip_final();
+		geoip_final(false);
 		return;
 	}
 	geoip.cache = aMalloc( (sizeof(geoip.cache) * bufa.st_size) );
 	if( fread(geoip.cache, sizeof(unsigned char), bufa.st_size, db) != bufa.st_size ) {
 		ShowError("geoip_cache: Couldn't read all elements!\n");
 		fclose(db);
-		geoip_final();
+		geoip_final(false);
 		return;
 	}
 
@@ -519,7 +518,7 @@ void geoip_init(void) {
 		else
 			ShowError("geoip_init(): GeoIP is corrupted!\n");
 
-		geoip_final();
+		geoip_final(false);
 		return;
 	}
 	ShowStatus("Finished Reading "CL_GREEN"GeoIP"CL_RESET" Database.\n");
@@ -1043,7 +1042,7 @@ void inter_final(void)
 	inter_mail_sql_final();
 	inter_auction_sql_final();
 
-	geoip_final();
+	geoip_final(true);
 	do_final_msg();
 	return;
 }
@@ -1461,6 +1460,3 @@ int inter_parse_frommap(int fd)
 	RFIFOSKIP(fd, len);
 	return 1;
 }
-
-
-
