@@ -270,3 +270,9 @@
 2014.05.07 » Portalcake
 	- Atualizações do Hercules aplicadas: '9cf6b36' & '9a425c1'.
 	- A correção de posição dos NPCs de Izlude será feita em breve.
+
+2014.05.09 » Portalcake
+	- Correções na fórmula das skills:
+		SC_ENERVATION, SC_GROOMY, SC_IGNORANCE,
+		SC_LAZINESS, SC_UNLUCKY & SC_WEAKNESS
+		Hercules: acf4079
