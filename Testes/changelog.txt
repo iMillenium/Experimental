@@ -289,3 +289,5 @@
 	- Atualizações do Hercules aplicadas: '4432b10' & '2721590'.
 	- Removida a mensagem extra de alerta sobre o map cache estar corrompido.
 		Hercules: 237cb68
+	- Script de auto-teste melhorado.
+		Hercules: 84c1d0d
