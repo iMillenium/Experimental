@@ -8133,7 +8133,7 @@ void clif_disp_message(struct block_list* src, const char* mes, size_t len, enum
 /// result:
 ///     0 = failure
 ///     1 = success
-void clif_GM_kickack(struct map_session_data *sd, int id)
+void clif_GM_kickack(struct map_session_data *sd, int result)
 {
 	int fd;
 
@@ -8142,7 +8142,7 @@ void clif_GM_kickack(struct map_session_data *sd, int id)
 	fd = sd->fd;
 	WFIFOHEAD(fd,packet_len(0xcd));
 	WFIFOW(fd,0) = 0xcd;
-	WFIFOB(fd,2) = id;  // FIXME: this is not account id
+	WFIFOB(fd, 2) = result;
 	WFIFOSET(fd, packet_len(0xcd));
 }
 
@@ -8156,7 +8156,7 @@ void clif_GM_kick(struct map_session_data *sd,struct map_session_data *tsd) {
 		map->quit(tsd);
 
 	if( sd )
-		clif->GM_kickack(sd,tsd->status.account_id);
+		clif->GM_kickack(sd, 1);
 }
 
 
@@ -15558,19 +15558,7 @@ void clif_cashshop_show(struct map_session_data *sd, struct npc_data *nd) {
 }
 
 
-/// Cashshop Buy Ack (ZC_PC_CASH_POINT_UPDATE).
-/// 0289 <cash point>.L <error>.W
-/// 0289 <cash point>.L <kafra point>.L <error>.W (PACKETVER >= 20070711)
-/// error:
-///     0 = The deal has successfully completed. (ERROR_TYPE_NONE)
-///     1 = The Purchase has failed because the NPC does not exist. (ERROR_TYPE_NPC)
-///     2 = The Purchase has failed because the Kafra Shop System is not working correctly. (ERROR_TYPE_SYSTEM)
-///     3 = You are over your Weight Limit. (ERROR_TYPE_INVENTORY_WEIGHT)
-///     4 = You cannot purchase items while you are in a trade. (ERROR_TYPE_EXCHANGE)
-///     5 = The Purchase has failed because the Item Information was incorrect. (ERROR_TYPE_ITEM_ID)
-///     6 = You do not have enough Kafra Credit Points. (ERROR_TYPE_MONEY)
-///     7 = You can purchase up to 10 items.
-///     8 = Some items could not be purchased.
+/// For error return codes see enum cashshop_error@clif.h
 void clif_cashshop_ack(struct map_session_data* sd, int error) {
 	struct npc_data *nd;
     int fd = sd->fd;

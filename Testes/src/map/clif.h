@@ -350,6 +350,22 @@ enum clif_messages {
 };
 
 /**
+* Used to answer CZ_PC_BUY_CASH_POINT_ITEM (clif_parse_cashshop_buy)
+**/
+enum cashshop_error {
+	ERROR_TYPE_NONE = 0,			// The deal has successfully completed. (ERROR_TYPE_NONE)
+	ERROR_TYPE_NPC,					// The Purchase has failed because the NPC does not exist. (ERROR_TYPE_NPC)
+	ERROR_TYPE_SYSTEM,				// The Purchase has failed because the Kafra Shop System is not working correctly. (ERROR_TYPE_SYSTEM)
+	ERROR_TYPE_INVENTORY_WEIGHT,	// You are over your Weight Limit. (ERROR_TYPE_INVENTORY_WEIGHT)
+	ERROR_TYPE_EXCHANGE,			// You cannot purchase items while you are in a trade. (ERROR_TYPE_EXCHANGE)
+	ERROR_TYPE_ITEM_ID,				// The Purchase has failed because the Item Information was incorrect. (ERROR_TYPE_ITEM_ID)
+	ERROR_TYPE_MONEY,				// You do not have enough Kafra Credit Points. (ERROR_TYPE_MONEY)
+	// Unofficial type names
+	ERROR_TYPE_QUANTITY,			// You can purchase up to 10 items. (ERROR_TYPE_QUANTITY)
+	ERROR_TYPE_NOT_ALL,				// Some items could not be purchased. (ERROR_TYPE_NOT_ALL)
+};
+
+/**
  * Color Table
  **/
 enum clif_colors {
@@ -911,7 +927,7 @@ struct clif_interface {
 	void (*friendslist_toggle) (struct map_session_data *sd,int account_id, int char_id, int online);
 	void (*friendlist_req) (struct map_session_data* sd, int account_id, int char_id, const char* name);
 	/* gm-related */
-	void (*GM_kickack) (struct map_session_data *sd, int id);
+	void (*GM_kickack) (struct map_session_data *sd, int result);
 	void (*GM_kick) (struct map_session_data *sd,struct map_session_data *tsd);
 	void (*manner_message) (struct map_session_data* sd, uint32 type);
 	void (*GM_silence) (struct map_session_data* sd, struct map_session_data* tsd, uint8 type);

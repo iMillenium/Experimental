@@ -3653,6 +3653,8 @@ int inter_config_read(char *cfgName) {
 			strcpy(map->autotrade_merchants_db, w2);
 		else if(strcmpi(w1,"autotrade_data_db")==0)
 			strcpy(map->autotrade_data_db, w2);
+		else if (strcmpi(w1, "npc_market_data_db") == 0)
+			strcpy(map->npc_market_data_db, w2);
 		/* sql log db */
 		else if(strcmpi(w1,"log_db_ip")==0)
 			strcpy(logs->db_ip, w2);
@@ -5828,8 +5830,8 @@ int do_init(int argc, char *argv[])
 		exit(EXIT_SUCCESS);
 	}
 	
-	npc->event_do_oninit();	// Init npcs (OnInit)
-	npc->market_fromsql(); /* after OnInit */
+	npc->event_do_oninit(false);	// Init npcs (OnInit)
+	npc->market_fromsql();			// After OnInit
 	
 	if (battle_config.pk_mode)
 		ShowNotice("Server is running on '"CL_WHITE"PK Mode"CL_RESET"'.\n");

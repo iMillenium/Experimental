@@ -295,6 +295,9 @@
 	- Atualizações do Hercules aplicadas: '5f15290', 'ffdd963' & '77a62f8'.
 	- Follow up: c08c973
 		Atualizações do Hercules aplicadas: 'a168c78' & '1c4e382'.
-		O commit 'b6b3f58' ainda deve ser aplicado.
 	- Follow up: 5c2bafd / ad9ea0d / 34a450c
 		Correções no item_db.conf, item_db_re.sql e item_packages.conf
+
+2014.05.10 » Portalcake
+	- Atualizações do Hercules aplicadas:
+		'6d4ae76', 'a2dec94', '508d9cb', '90c8d73' & 'a1eba2e'.
