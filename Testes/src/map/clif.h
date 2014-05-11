@@ -5,13 +5,13 @@
 #ifndef _MAP_CLIF_H_
 #define _MAP_CLIF_H_
 
+#include <stdarg.h>
+
+#include "map.h"
+#include "packets_struct.h"
 #include "../common/cbasetypes.h"
 #include "../common/db.h"
 #include "../common/mmo.h"
-#include "../common/socket.h"
-#include "../map/map.h"
-#include "../map/packets_struct.h"
-#include <stdarg.h>
 
 /**
  * Declarations
@@ -20,7 +20,6 @@ struct item;
 struct item_data;
 struct storage_data;
 struct guild_storage;
-struct block_list;
 struct unit_data;
 struct map_session_data;
 struct homun_data;
@@ -350,8 +349,8 @@ enum clif_messages {
 };
 
 /**
-* Used to answer CZ_PC_BUY_CASH_POINT_ITEM (clif_parse_cashshop_buy)
-**/
+ * Used to answer CZ_PC_BUY_CASH_POINT_ITEM (clif_parse_cashshop_buy)
+ **/
 enum cashshop_error {
 	ERROR_TYPE_NONE = 0,			// The deal has successfully completed. (ERROR_TYPE_NONE)
 	ERROR_TYPE_NPC,					// The Purchase has failed because the NPC does not exist. (ERROR_TYPE_NPC)

@@ -2,21 +2,16 @@
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
 
-#include "../common/cbasetypes.h"
-#include "../common/core.h" // get_svn_revision()
-#include "../common/malloc.h"
-#include "../common/nullpo.h"
-#include "../common/random.h"
-#include "../common/showmsg.h"
-#include "../common/socket.h" // session[]
-#include "../common/strlib.h" // safestrncpy()
-#include "../common/timer.h"
-#include "../common/utils.h"
-#include "../common/conf.h"
-#include "../common/mmo.h" //NAME_LENGTH
-#include "../common/sysinfo.h"
+#define CRONUS_CORE
 
+#include "../config/core.h" // DBPATH, GP_BOUND_ITEMS, MAX_SPIRITBALL, RENEWAL, RENEWAL_ASPD, RENEWAL_CAST, RENEWAL_DROP, RENEWAL_EXP, SECURE_NPCTIMEOUT
 #include "pc.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
 #include "atcommand.h" // get_atcommand_level()
 #include "battle.h" // battle_config
 #include "battleground.h"
@@ -25,32 +20,40 @@
 #include "clif.h"
 #include "date.h" // is_day_of_*()
 #include "duel.h"
+#include "elemental.h"
+#include "guild.h" // guild->search(), guild_request_info()
+#include "homunculus.h"
+#include "instance.h"
 #include "intif.h"
 #include "itemdb.h"
 #include "log.h"
 #include "mail.h"
 #include "map.h"
-#include "path.h"
-#include "homunculus.h"
-#include "instance.h"
 #include "mercenary.h"
-#include "elemental.h"
+#include "mob.h" // struct mob_data
 #include "npc.h" // fake_nd
-#include "pet.h" // pet_unlocktarget()
 #include "party.h" // party->search()
-#include "guild.h" // guild->search(), guild_request_info()
+#include "path.h"
+#include "pc_groups.h"
+#include "pet.h" // pet_unlocktarget()
+#include "quest.h"
 #include "script.h" // script_config
 #include "skill.h"
 #include "status.h" // struct status_data
 #include "storage.h"
-#include "pc_groups.h"
-#include "quest.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-
+#include "../common/cbasetypes.h"
+#include "../common/conf.h"
+#include "../common/core.h" // get_svn_revision()
+#include "../common/malloc.h"
+#include "../common/mmo.h" // NAME_LENGTH, MAX_CARTS, NEW_CARTS
+#include "../common/nullpo.h"
+#include "../common/random.h"
+#include "../common/showmsg.h"
+#include "../common/socket.h" // session[]
+#include "../common/strlib.h" // safestrncpy()
+#include "../common/sysinfo.h"
+#include "../common/timer.h"
+#include "../common/utils.h"
 
 struct pc_interface pc_s;
 
@@ -4077,7 +4080,7 @@ int pc_dropitem(struct map_session_data *sd,int n,int amount)
 		)
 		return 0;
 
-	if( map->list[sd->bl.m].flag.nodrop || pc_has_permission(sd, PC_PERM_DISABLE_DROPS) ) {
+	if (map->list[sd->bl.m].flag.nodrop || pc_has_permission(sd, PC_PERM_DISABLE_DROPS)) {
 		clif->message (sd->fd, msg_txt(271));
 		return 0; //Can't drop items in nodrop mapflag maps.
 	}
@@ -4115,7 +4118,7 @@ int pc_takeitem(struct map_session_data *sd,struct flooritem_data *fitem)
 	if(!check_distance_bl(&fitem->bl, &sd->bl, 2) && sd->ud.skill_id!=BS_GREED)
 		return 0;	// Distance is too far
 
-	if( pc_has_permission(sd, PC_PERM_DISABLE_PICK_UP) )
+	if (pc_has_permission(sd, PC_PERM_DISABLE_PICK_UP))
 		return 0;
 
 	if (sd->status.party_id)
@@ -5988,7 +5991,7 @@ int pc_gainexp(struct map_session_data *sd, struct block_list *src, unsigned int
 	if(!battle_config.pvp_exp && map->list[sd->bl.m].flag.pvp)  // [MouseJstr]
 		return 0; // no exp on pvp maps
 
-	if( pc_has_permission(sd, PC_PERM_DISABLE_EXP) )
+	if (pc_has_permission(sd, PC_PERM_DISABLE_EXP))
 		return 0;
 
 	if(sd->status.guild_id>0)
@@ -8042,7 +8045,7 @@ int pc_setoption(struct map_session_data *sd,int type)
  *------------------------------------------*/
 int pc_setcart(struct map_session_data *sd,int type) {
 #ifndef NEW_CARTS
-	int cart[6] = {0x0000,OPTION_CART1,OPTION_CART2,OPTION_CART3,OPTION_CART4,OPTION_CART5};
+	int cart[6] = {OPTION_NOTHING,OPTION_CART1,OPTION_CART2,OPTION_CART3,OPTION_CART4,OPTION_CART5};
 	int option;
 #endif
 	nullpo_ret(sd);
@@ -10657,9 +10660,7 @@ void pc_defaults(void) {
 	memset(pc->exp_table, 0, sizeof(pc->exp_table)
 		   + sizeof(pc->max_level)
 		   + sizeof(pc->statp)
-#if defined(RENEWAL_DROP) || defined(RENEWAL_EXP)
 		   + sizeof(pc->level_penalty)
-#endif
 		   + sizeof(pc->skill_tree)
 		   + sizeof(pc->smith_fame_list)
 		   + sizeof(pc->chemist_fame_list)

@@ -5,9 +5,10 @@
 #ifndef _COMMON_MMO_H_
 #define _COMMON_MMO_H_
 
-#include "cbasetypes.h"
-#include "../common/db.h"
 #include <time.h>
+
+#include "../common/cbasetypes.h"
+#include "../common/db.h"
 
 // server->client protocol version
 //        0 - pre-?
@@ -83,6 +84,14 @@
 #endif // 20090603
 #endif // 20070227
 
+/* Feb 1st 2012 */
+#if PACKETVER >= 20120201
+#	define NEW_CARTS
+#	define MAX_CARTS 9
+#else
+#	define MAX_CARTS 5
+#endif
+
 #define MAX_INVENTORY 100
 //Max number of characters per account. Note that changing this setting alone is not enough if the client is not hexed to support more characters as well.
 #define MAX_CHARS 9
@@ -95,6 +104,16 @@
 
 //Official Limit: 2.1b ( the var that stores the money doesn't go much higher than this by default )
 #define MAX_BANK_ZENY 2100000000
+
+// [Portalcake/Cronus-Emulator]
+// O Padrão do bRO é '150', mas fora mantido como '175' no código-fonte em referência ao kRO.
+// É provavel que em atualizações futuras do bRO o nível máximo também venha a ser '175'.
+// Desta forma, eliminando a necessidade futura de alterar este valor.
+#define MAX_LEVEL 175
+
+// [Raizen/Cronus-Emulator]
+// Limite para o nome de NPCs.
+#define MAX_NPC_NAME_LENGTH 37
 
 #define MAX_FAME 1000000000
 #define MAX_CART 100
@@ -117,7 +136,6 @@
 #define MAX_GUILDLEVEL 50
 #define MAX_GUARDIANS 8         // Local max per castle. [Skotlex]
 #define MAX_QUEST_OBJECTIVES 3  // Max quest objectives for a quest
-#define MAX_NPC_NAME_LENGTH 37	// Tamanho Máximo do nome de NPCs [Raizen]
 #define MAX_START_ITEMS 32      // Max number of items allowed to be given to a char whenever it's created. [mkbu95]
 
 // for produce
@@ -634,19 +652,19 @@ enum fame_list_type {
 };
 
 /**
-* Guild Basic Information
-* It is used to request changes via intif_guild_change_basicinfo in map-server and to
-* signalize changes made in char-server via mapif_parse_GuildMemberInfoChange
-**/
+ * Guild Basic Information
+ * It is used to request changes via intif_guild_change_basicinfo in map-server and to
+ * signalize changes made in char-server via mapif_parse_GuildMemberInfoChange
+ **/
 enum guild_basic_info {
 	GBI_EXP = 1,    ///< Guild Experience (EXP)
 	GBI_GUILDLV,    ///< Guild level
 	GBI_SKILLPOINT, ///< Guild skillpoints
 
 	/**
-	* Changes a skill level, struct guild_skill should be sent.
-	* All checks regarding max skill level should be done in _map-server_
-	**/
+	 * Changes a skill level, struct guild_skill should be sent.
+	 * All checks regarding max skill level should be done in _map-server_
+	 **/
 	GBI_SKILLLV,    ///< Guild skill_lv
 };
 

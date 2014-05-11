@@ -2,41 +2,44 @@
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
 
-#include "../common/cbasetypes.h"
-#include "../common/timer.h"
-#include "../common/nullpo.h"
-#include "../common/malloc.h"
-#include "../common/showmsg.h"
-#include "../common/strlib.h"
-#include "../common/utils.h"
-#include "../common/ers.h"
-#include "../common/db.h"
-#include "../common/socket.h"
-#include "../common/HPM.h"
+#define CRONUS_CORE
 
-#include "map.h"
-#include "log.h"
-#include "clif.h"
-#include "intif.h"
-#include "pc.h"
-#include "status.h"
-#include "itemdb.h"
-#include "script.h"
-#include "mob.h"
-#include "pet.h"
-#include "instance.h"
-#include "battle.h"
-#include "skill.h"
-#include "unit.h"
+#include "../config/core.h" // NPC_SECURE_TIMEOUT_INPUT, NPC_SECURE_TIMEOUT_MENU, NPC_SECURE_TIMEOUT_NEXT, SECURE_NPCTIMEOUT, SECURE_NPCTIMEOUT_INTERVAL
 #include "npc.h"
-#include "chat.h"
 
+#include <errno.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 #include <time.h>
-#include <errno.h>
+
+#include "battle.h"
+#include "chat.h"
+#include "clif.h"
+#include "instance.h"
+#include "intif.h"
+#include "itemdb.h"
+#include "log.h"
+#include "map.h"
+#include "mob.h"
+#include "pc.h"
+#include "pet.h"
+#include "script.h"
+#include "skill.h"
+#include "status.h"
+#include "unit.h"
+#include "../common/HPM.h"
+#include "../common/cbasetypes.h"
+#include "../common/db.h"
+#include "../common/ers.h"
+#include "../common/malloc.h"
+#include "../common/nullpo.h"
+#include "../common/showmsg.h"
+#include "../common/socket.h"
+#include "../common/strlib.h"
+#include "../common/timer.h"
+#include "../common/utils.h"
 
 struct npc_interface npc_s;
 
@@ -1423,7 +1426,7 @@ void npc_market_fromsql(void) {
 	int itemid;
 	int amount;
 	
-	if (SQL_ERROR == SQL->StmtPrepare(stmt, "SELECT `name`, `itemid`, `amount` FROM `%s`", map->npc_market_data_db)
+	if ( SQL_ERROR == SQL->StmtPrepare(stmt, "SELECT `name`, `itemid`, `amount` FROM `%s`", map->npc_market_data_db)
 		|| SQL_ERROR == SQL->StmtExecute(stmt)
 		) {
 		SqlStmt_ShowDebug(stmt);
@@ -1470,8 +1473,8 @@ void npc_market_fromsql(void) {
  * Saves persistent NPC Market Data into SQL
  **/
 void npc_market_tosql(struct npc_data *nd, unsigned short index) {
-	if (SQL_ERROR == SQL->Query(map->mysql_handle, "REPLACE INTO `%s` VALUES ('%s','%d','%d')",
-		map->npc_market_data_db, nd->exname, nd->u.scr.shop->item[index].nameid, nd->u.scr.shop->item[index].qty))
+	if( SQL_ERROR == SQL->Query(map->mysql_handle, "REPLACE INTO `%s` VALUES ('%s','%d','%d')",
+		map->npc_market_data_db, nd->exname, nd->u.scr.shop->item[index].nameid, nd->u.scr.shop->item[index].qty) )
 		Sql_ShowDebug(map->mysql_handle);
 }
 /**
@@ -1479,11 +1482,11 @@ void npc_market_tosql(struct npc_data *nd, unsigned short index) {
  */
 void npc_market_delfromsql_sub(const char *npcname, unsigned short index) {
 	if( index == USHRT_MAX ) {
-		if (SQL_ERROR == SQL->Query(map->mysql_handle, "DELETE FROM `%s` WHERE `name`='%s'", map->npc_market_data_db, npcname))
+		if( SQL_ERROR == SQL->Query(map->mysql_handle, "DELETE FROM `%s` WHERE `name`='%s'", map->npc_market_data_db, npcname) )
 			Sql_ShowDebug(map->mysql_handle);
 	} else {
-		if (SQL_ERROR == SQL->Query(map->mysql_handle, "DELETE FROM `%s` WHERE `name`='%s' AND `itemid`='%d' LIMIT 1",
-			map->npc_market_data_db, npcname, index))
+		if( SQL_ERROR == SQL->Query(map->mysql_handle, "DELETE FROM `%s` WHERE `name`='%s' AND `itemid`='%d' LIMIT 1",
+			map->npc_market_data_db, npcname, index) )
 			Sql_ShowDebug(map->mysql_handle);
 	}
 }
@@ -1516,7 +1519,7 @@ bool npc_trader_open(struct map_session_data *sd, struct npc_data *nd) {
 			
 				/* nothing to display, no items available */
 				if( i == nd->u.scr.shop->items ) {
-					clif->colormes(sd->fd, COLOR_RED, msg_txt(881));
+					clif->colormes(sd->fd,COLOR_RED, msg_txt(881));
 					return false;
 				}
 
@@ -4303,7 +4306,8 @@ void npc_process_files( int npc_min ) {
 	ShowStatus("Loading NPCs...\r");
 	for( file = npc->src_files; file != NULL; file = file->next ) {
 		ShowStatus("Loading NPC file: %s"CL_CLL"\r", file->name);
-		npc->parsesrcfile(file->name, false);
+		if (npc->parsesrcfile(file->name, false) != EXIT_SUCCESS)
+			map->retval = EXIT_FAILURE;
 	}
 	ShowInfo ("Done loading '"CL_WHITE"%d"CL_RESET"' NPCs:"CL_CLL"\n"
 		"\t-'"CL_WHITE"%d"CL_RESET"' Warps\n"
@@ -4321,6 +4325,9 @@ int npc_reload(void) {
 	int npc_new_min = npc_id;
 	struct s_mapiterator* iter;
 	struct block_list* bl;
+
+	if (map->retval == EXIT_FAILURE)
+		map->retval = EXIT_SUCCESS; // Clear return status in case something failed before.
 
 	/* clear guild flag cache */
 	guild->flags_clear();

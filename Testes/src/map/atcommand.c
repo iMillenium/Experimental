@@ -2,56 +2,59 @@
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
 
-#include "../common/cbasetypes.h"
-#include "../common/mmo.h"
-#include "../common/timer.h"
-#include "../common/nullpo.h"
-#include "../common/core.h"
-#include "../common/showmsg.h"
-#include "../common/malloc.h"
-#include "../common/random.h"
-#include "../common/socket.h"
-#include "../common/strlib.h"
-#include "../common/utils.h"
-#include "../common/conf.h"
-#include "../common/sysinfo.h"
+#define CRONUS_CORE
 
+#include "../config/core.h" // AUTOLOOTITEM_SIZE, AUTOTRADE_PERSISTENCY, MAX_SUGGESTIONS, MOB_FLEE(), MOB_HIT(), RENEWAL, RENEWAL_DROP, RENEWAL_EXP
 #include "atcommand.h"
-#include "battle.h"
-#include "chat.h"
-#include "clif.h"
-#include "chrif.h"
-#include "duel.h"
-#include "intif.h"
-#include "itemdb.h"
-#include "log.h"
-#include "map.h"
-#include "pc.h"
-#include "pc_groups.h" // groupid2name
-#include "status.h"
-#include "skill.h"
-#include "mob.h"
-#include "npc.h"
-#include "pet.h"
-#include "homunculus.h"
-#include "mail.h"
-#include "mercenary.h"
-#include "elemental.h"
-#include "party.h"
-#include "guild.h"
-#include "script.h"
-#include "storage.h"
-#include "trade.h"
-#include "unit.h"
-#include "mapreg.h"
-#include "quest.h"
-#include "searchstore.h"
-#include "HPMmap.h"
 
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
+
+#include "battle.h"
+#include "chat.h"
+#include "chrif.h"
+#include "clif.h"
+#include "duel.h"
+#include "elemental.h"
+#include "guild.h"
+#include "homunculus.h"
+#include "intif.h"
+#include "itemdb.h"
+#include "log.h"
+#include "mail.h"
+#include "map.h"
+#include "mapreg.h"
+#include "mercenary.h"
+#include "mob.h"
+#include "npc.h"
+#include "party.h"
+#include "pc.h"
+#include "pc_groups.h" // groupid2name
+#include "pet.h"
+#include "quest.h"
+#include "script.h"
+#include "searchstore.h"
+#include "skill.h"
+#include "status.h"
+#include "storage.h"
+#include "trade.h"
+#include "unit.h"
+#include "../common/cbasetypes.h"
+#include "../common/conf.h"
+#include "../common/core.h"
+#include "../common/malloc.h"
+#include "../common/mmo.h" // MAX_CARTS
+#include "../common/nullpo.h"
+#include "../common/random.h"
+#include "../common/showmsg.h"
+#include "../common/socket.h"
+#include "../common/strlib.h"
+#include "../common/sysinfo.h"
+#include "../common/timer.h"
+#include "../common/utils.h"
+#include "HPMmap.h"
 
 struct atcommand_interface atcommand_s;
 
@@ -406,7 +409,7 @@ ACMD(mapmove) {
 	}
 
 	if( sd->bl.m == m && sd->bl.x == x && sd->bl.y == y ) {
-		clif->message(fd, msg_txt(253)); // Você já está em seu destino.
+		clif->message(fd, msg_txt(253)); // You already are at your destination!
 		return false;
 	}
 	
@@ -7242,7 +7245,7 @@ ACMD(whereis)
 }
 
 ACMD(version) {
-	sprintf(atcmd_output, msg_txt(1296), sysinfo->is64bit() ? 64 : 32, sysinfo->platform()); // Cronus %d-bit para %s
+	sprintf(atcmd_output, msg_txt(1296), sysinfo->is64bit() ? 64 : 32, sysinfo->platform()); // Hercules %d-bit for %s
 	clif->message(fd, atcmd_output);
 	sprintf(atcmd_output, msg_txt(1295), sysinfo->vcstype(), sysinfo->vcsrevision_src(), sysinfo->vcsrevision_scripts()); // %s revision '%s' (src) / '%s' (scripts)
 	clif->message(fd, atcmd_output);

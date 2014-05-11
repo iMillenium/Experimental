@@ -301,3 +301,7 @@
 2014.05.10 ùª Portalcake
 	- AtualizaÁıes do Hercules aplicadas:
 		'6d4ae76', 'a2dec94', '508d9cb', '90c8d73' & 'a1eba2e'.
+
+2014.05.11 ª Portalcake
+	- AtualizaÁıes do Hercules aplicadas:
+		'0ab52ac', '65e43c2', '7fc4d0c', 'd689201', '3a5f394' & '3959b35'.

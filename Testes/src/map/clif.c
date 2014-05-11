@@ -2,56 +2,60 @@
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
 
-#include "../common/cbasetypes.h"
-#include "../common/socket.h"
-#include "../common/timer.h"
-#include "../common/grfio.h"
-#include "../common/malloc.h"
-#include "../common/nullpo.h"
-#include "../common/random.h"
-#include "../common/showmsg.h"
-#include "../common/strlib.h"
-#include "../common/utils.h"
-#include "../common/ers.h"
-#include "../common/conf.h"
-#include "../common/HPM.h"
+#define CRONUS_CORE
 
-#include "map.h"
-#include "chrif.h"
-#include "pc.h"
-#include "status.h"
-#include "npc.h"
-#include "itemdb.h"
-#include "chat.h"
-#include "trade.h"
-#include "storage.h"
-#include "script.h"
-#include "skill.h"
-#include "atcommand.h"
-#include "intif.h"
-#include "battle.h"
-#include "battleground.h"
-#include "mob.h"
-#include "party.h"
-#include "unit.h"
-#include "guild.h"
-#include "vending.h"
-#include "pet.h"
-#include "homunculus.h"
-#include "instance.h"
-#include "mercenary.h"
-#include "elemental.h"
-#include "log.h"
+#include "../config/core.h" // ANTI_MAYAP_CHEAT, RENEWAL, SECURE_NPCTIMEOUT
 #include "clif.h"
-#include "mail.h"
-#include "quest.h"
-#include "irc-bot.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
 #include <time.h>
+
+#include "atcommand.h"
+#include "battle.h"
+#include "battleground.h"
+#include "chat.h"
+#include "chrif.h"
+#include "elemental.h"
+#include "guild.h"
+#include "homunculus.h"
+#include "instance.h"
+#include "intif.h"
+#include "irc-bot.h"
+#include "itemdb.h"
+#include "log.h"
+#include "mail.h"
+#include "map.h"
+#include "mercenary.h"
+#include "mob.h"
+#include "npc.h"
+#include "party.h"
+#include "pc.h"
+#include "pet.h"
+#include "quest.h"
+#include "script.h"
+#include "skill.h"
+#include "status.h"
+#include "storage.h"
+#include "trade.h"
+#include "unit.h"
+#include "vending.h"
+#include "../common/HPM.h"
+#include "../common/cbasetypes.h"
+#include "../common/conf.h"
+#include "../common/ers.h"
+#include "../common/grfio.h"
+#include "../common/malloc.h"
+#include "../common/mmo.h" // NEW_CARTS
+#include "../common/nullpo.h"
+#include "../common/random.h"
+#include "../common/showmsg.h"
+#include "../common/socket.h"
+#include "../common/strlib.h"
+#include "../common/timer.h"
+#include "../common/utils.h"
 
 struct clif_interface clif_s;
 
@@ -8142,7 +8146,7 @@ void clif_GM_kickack(struct map_session_data *sd, int result)
 	fd = sd->fd;
 	WFIFOHEAD(fd,packet_len(0xcd));
 	WFIFOW(fd,0) = 0xcd;
-	WFIFOB(fd, 2) = result;
+	WFIFOB(fd,2) = result;
 	WFIFOSET(fd, packet_len(0xcd));
 }
 
@@ -10564,7 +10568,7 @@ void clif_parse_TakeItem(int fd, struct map_session_data *sd) {
 			) )
 			break;
 
-		if (pc_cant_act(sd) || pc_has_permission(sd, PC_PERM_DISABLE_PICK_UP))
+		if (pc_cant_act(sd) || pc_has_permission(sd, PC_PERM_DISABLE_PICK_UP))if (pc_cant_act(sd))
 			break;
 
 		if (!pc->takeitem(sd, fitem))
@@ -10883,7 +10887,7 @@ void clif_parse_NpcBuyListSend(int fd, struct map_session_data* sd)
 	unsigned short* item_list = (unsigned short*)RFIFOP(fd,4);
 	int result;
 
-	if( sd->state.trading || !sd->npc_shopid || pc_has_permission(sd,PC_PERM_DISABLE_STORE) )
+	if (sd->state.trading || !sd->npc_shopid || pc_has_permission(sd, PC_PERM_DISABLE_STORE))
 		result = 1;
 	else
 		result = npc->buylist(sd,n,item_list);
@@ -12893,11 +12897,11 @@ void clif_parse_OpenVending(int fd, struct map_session_data* sd) {
 
 	if( sd->sc.data[SC_NOCHAT] && sd->sc.data[SC_NOCHAT]->val1&MANNER_NOROOM )
 		return;
-	if( map->list[sd->bl.m].flag.novending || pc_has_permission(sd, PC_PERM_DISABLE_STORE) ) {
+	if (map->list[sd->bl.m].flag.novending || pc_has_permission(sd, PC_PERM_DISABLE_STORE)) {
 		clif->message (sd->fd, msg_txt(276)); // "You can't open a shop on this map"
 		return;
 	}
-	if( map->getcell(sd->bl.m,sd->bl.x,sd->bl.y,CELL_CHKNOVENDING || pc_has_permission(sd, PC_PERM_DISABLE_STORE)) ) {
+	if( map->getcell(sd->bl.m,sd->bl.x,sd->bl.y,CELL_CHKNOVENDING) ) {
 		clif->message (sd->fd, msg_txt(204)); // "You can't open a shop on this cell."
 		return;
 	}
@@ -14610,6 +14614,7 @@ void clif_parse_HomMenu(int fd, struct map_session_data *sd) { //[orn]
 void clif_parse_AutoRevive(int fd, struct map_session_data *sd) {
 	int item_position = pc->search_inventory(sd, ITEMID_TOKEN_OF_SIEGFRIED);
 	int hpsp = 100;
+
 	if (item_position < 0){
 		if (sd->sc.data[SC_LIGHT_OF_REGENE])
 			hpsp = 20 * sd->sc.data[SC_LIGHT_OF_REGENE]->val1;
@@ -14623,10 +14628,10 @@ void clif_parse_AutoRevive(int fd, struct map_session_data *sd) {
 	if (!status->revive(&sd->bl, hpsp, hpsp))
 		return;
 
-	if (item_position > 0)
+	if ( item_position > 0)
 		pc->delitem(sd, item_position, 1, 0, 1, LOG_TYPE_CONSUME);
 	else
-		status_change_end(&sd->bl, SC_LIGHT_OF_REGENE, INVALID_TIMER);
+		status_change_end(&sd->bl,SC_LIGHT_OF_REGENE,INVALID_TIMER);
 
 	clif->skill_nodamage(&sd->bl,&sd->bl,ALL_RESURRECTION,4,1);
 }
@@ -15100,7 +15105,7 @@ void clif_parse_Mail_send(int fd, struct map_session_data *sd)
 		return;
 	}
 
-	if( DIFF_TICK(sd->cansendmail_tick, timer->gettick()) > 0 || pc_has_permission(sd, PC_PERM_DISABLE_STORE) ) {
+	if (DIFF_TICK(sd->cansendmail_tick, timer->gettick()) > 0 || pc_has_permission(sd, PC_PERM_DISABLE_STORE)) {
 		clif->message(sd->fd,msg_txt(875)); //"Cannot send mails too fast!!."
 		clif->mail_send(fd, true); // fail
 		return;
@@ -15352,7 +15357,7 @@ void clif_parse_Auction_register(int fd, struct map_session_data *sd)
 		return;
 	}
 
-	if (sd->status.zeny < (auction.hours * battle_config.auction_feeperhour || pc_has_permission(sd, PC_PERM_DISABLE_STORE))) {
+	if (sd->status.zeny < (auction.hours * battle_config.auction_feeperhour) || pc_has_permission(sd, PC_PERM_DISABLE_STORE)) {
 		clif_Auction_message(fd, 5); // You do not have enough zeny to pay the Auction Fee.
 		return;
 	}
@@ -15557,7 +15562,9 @@ void clif_cashshop_show(struct map_session_data *sd, struct npc_data *nd) {
 	WFIFOSET(fd,WFIFOW(fd,2));
 }
 
-
+/// Cashshop Buy Ack (ZC_PC_CASH_POINT_UPDATE).
+/// 0289 <cash point>.L <error>.W
+/// 0289 <cash point>.L <kafra point>.L <error>.W (PACKETVER >= 20070711)
 /// For error return codes see enum cashshop_error@clif.h
 void clif_cashshop_ack(struct map_session_data* sd, int error) {
 	struct npc_data *nd;
@@ -15595,7 +15602,7 @@ void clif_parse_cashshop_buy(int fd, struct map_session_data *sd)
     int fail = 0;
     nullpo_retv(sd);
 
-    if( sd->state.trading || !sd->npc_shopid || pc_has_permission(sd,PC_PERM_DISABLE_STORE) )
+	if (sd->state.trading || !sd->npc_shopid || pc_has_permission(sd, PC_PERM_DISABLE_STORE))
         fail = 1;
     else {
 #if PACKETVER < 20101116

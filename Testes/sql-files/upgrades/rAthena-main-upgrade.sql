@@ -1,4 +1,4 @@
-﻿-- rAthena to Hercules main database upgrade query.
+-- rAthena to Hercules main database upgrade query.
 -- This upgrades a FULLY UPGRADED rAthena to a FULLY UPGRADED Hercules
 -- Please don't use if either rAthena or Hercules launched a SQL update after last revision date of this file.
 -- Remember to make a backup before applying.
@@ -297,4 +297,3 @@ INSERT INTO `global_acc_reg_str_db` (`account_id`, `key`, `index`, `value`) SELE
 
 -- Dropping now useless table
 DROP TABLE `global_reg_value`;
-

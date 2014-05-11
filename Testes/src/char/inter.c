@@ -2,35 +2,38 @@
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
 
-#include "../common/mmo.h"
+#define CRONUS_CORE
+
+#include "inter.h"
+
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h> // for stat/lstat/fstat - [Dekamaster/Ultimate GM Tool]
+
+#include "char.h"
+#include "int_auction.h"
+#include "int_elemental.h"
+#include "int_guild.h"
+#include "int_homun.h"
+#include "int_mail.h"
+#include "int_mercenary.h"
+#include "int_party.h"
+#include "int_pet.h"
+#include "int_quest.h"
+#include "int_storage.h"
 #include "../common/db.h"
 #include "../common/malloc.h"
-#include "../common/strlib.h"
+#include "../common/mmo.h"
 #include "../common/showmsg.h"
 #include "../common/socket.h"
+#include "../common/strlib.h"
 #include "../common/timer.h"
-#include "char.h"
-#include "inter.h"
-#include "int_party.h"
-#include "int_guild.h"
-#include "int_storage.h"
-#include "int_pet.h"
-#include "int_homun.h"
-#include "int_mercenary.h"
-#include "int_mail.h"
-#include "int_auction.h"
-#include "int_quest.h"
-#include "int_elemental.h"
-
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <errno.h>
-
-#include <sys/stat.h> // for stat/lstat/fstat - [Dekamaster/Ultimate GM Tool]
 
 #define WISDATA_TTL (60*1000)	//Wis data Time To Live (60 seconds)
 #define WISDELLIST_MAX 256		// Number of elements in the list Delete data Wis
+
 
 Sql* sql_handle = NULL;
 
@@ -1460,3 +1463,5 @@ int inter_parse_frommap(int fd)
 	RFIFOSKIP(fd, len);
 	return 1;
 }
+
+
