@@ -305,3 +305,7 @@
 2014.05.11 » Portalcake
 	- Atualizações do Hercules aplicadas:
 		'0ab52ac', '65e43c2', '7fc4d0c', 'd689201', '3a5f394' & '3959b35'.
+
+2014.05.16 » Portalcake
+	- Atualizações do Hercules aplicadas:
+		'1a477c4', 'ddc16a0', '00d9001', '3bd57cf' & 'fddd0a6'.

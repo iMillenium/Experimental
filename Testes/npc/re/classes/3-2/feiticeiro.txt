@@ -412,6 +412,7 @@ gef_tower,113,161,5	script	Karacas	4_M_SAGE_A,{
 	}
 	close;
 }
+
 thor_v01,64,252,0	duplicate(Spirit Detecting Staff#0)	Spirit Detecting Staff#1	2_BOARD2
 ice_dun01,274,274,0	duplicate(Spirit Detecting Staff#0)	Spirit Detecting Staff#2	2_BOARD2
 mjo_dun03,200,141,0	duplicate(Spirit Detecting Staff#0)	Spirit Detecting Staff#3	2_BOARD2

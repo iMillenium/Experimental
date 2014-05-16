@@ -1,34 +1,36 @@
-// ===== Script Hércules ======================================
-// = quest Sacerdote
-// ===== Por: ========================================= =========
-// = Traduzido por : PGRO Team ( ownage ) ( Aegis )
-// = Convertido por: kobra_k88 .
-// = Além disso bugfixed e testado por lúpus
-// ===== Versão Atual: =====================================
-// = 2,6
-// ===== Descrição: =========================================
-// = [ Conversão Oficial]
-// = Job Alterar busca da classe Priest .
-// ===== Comentários Adicionais: =================================
-// = Totalmente funcional. Mudou a maneira Sacerdotes entrar na sala de teste para ajudar a Acos .
-// = Deve usar isso com a busca Acolyte incluído trabalhar properely .
-// = 1.3 Adicionado suporte Bebê Classe , 3 fixos erradas constantes erros [ Lupus ]
-// = 1.5 Corrigido um possível abuso EXP [ Lupus ]
-// = 1.6 Adicionado uma função que impedem classes avançadas que passam
-// = 2 Quests trabalho novamente. Ele também orienta aulas  onde
-// = Ir. [ Lupus ]
-// = 2.0 Mudou números constantes. [ Vicious ]
-// = 2.1 mesclado JFunc [ Lupus ]
-// = 2.1a Corrigido o erro [ KarLaeda ]
-// = 2.2 , reescritos a égide 10,3 padrões . [ L0ne_W0lf ]
-// = 2.3 Várias correções de bugs com a ajuda de Barron -Monster . [ L0ne_W0lf ]
-// = 2.3a Mais correções de bugs. [ L0ne_W0lf ]
-// = 2.4 Mudou Matilda para Mathilda . [ L0ne_W0llf ]
-// = 2.4a Excluídos variáveis ??não utilizadas . [ Samuray22 ]
-// = 2.4b Corrigido um erro de digitação "; ; " . [ Samuray22 ]
-// = 2.5 Adicionado comandos Quest Log . [ Kisuka ]
-// = 2.6 Removido a necessidade de uso de 'Goto '. [ L0ne_W0lf ]
-//==========================================================
+//===== Cronus Script ===========================================
+//= Quest de mudança de classe para Sacerdote
+//===== Por: ====================================================
+//= Traduzido por : PGRO Team ( ownage ) ( Aegis )
+//= Convertido por: kobra_k88 .
+//= Além disso bugfixed e testado por lúpus
+//===== Versão atual: ===========================================
+//= 2.6
+//===== Codificação =============================================
+//= CP-949 (EUC-KR compatible). Não salve/abra-o como UTF-8.
+//===== Descrição: ==============================================
+//= [Conversão Oficial]
+//= Job Alterar busca da classe Priest .
+//===== Comentários Adicionais: =================================
+//= Totalmente funcional. Mudou a maneira Sacerdotes entrar na sala de teste para ajudar a Acos .
+//= Deve usar isso com a busca Acolyte incluído trabalhar properely .
+//= 1.3 Adicionado suporte Bebê Classe , 3 fixos erradas constantes erros [ Lupus ]
+//= 1.5 Corrigido um possível abuso EXP [ Lupus ]
+//= 1.6 Adicionado uma função que impedem classes avançadas que passam
+//= 2 Quests trabalho novamente. Ele também orienta aulas  onde
+//= Ir. [ Lupus ]
+//= 2.0 Mudou números constantes. [Vicious]
+//= 2.1 Mesclado JFunc [Lupus]
+//= 2.1a Corrigido o erro [KarLaeda]
+//= 2.2 Reescritos aos padrões do Aegis 10.3. [L0ne_W0lf]
+//= 2.3 Várias correções de bugs com a ajuda de Barron-Monster. [L0ne_W0lf]
+//= 2.3a Mais correções de bugs. [L0ne_W0lf]
+//= 2.4 Mudou Matilda para Mathilda. [L0ne_W0llf]
+//= 2.4a Excluídos variáveis ??não utilizadas. [Samuray22]
+//= 2.4b Corrigido um erro de digitação";;". [Samuray22]
+//= 2.5 Adicionado comandos Quest Log. [ Kisuka ]
+//= 2.6 Removido a necessidade de uso de 'Goto'. [L0ne_W0lf]
+//===============================================================
 
 prt_church,16,41,4	script	Bispo#prst	1_M_PASTOR,{
 	// Uncomment the following 'if' statement to allow High Priests to assist Acolytes with the job change quest.

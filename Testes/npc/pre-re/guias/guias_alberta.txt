@@ -1,5 +1,5 @@
 //===== Cronus Script ========================================
-//= Guida de Alberta (Oficial do bRo)
+//= Guida de Alberta (Oficial do bRO)
 //===== Por: =================================================
 //= kobra_k88; L0ne_W0lf
 //===== Versão Atual: ========================================
@@ -16,7 +16,7 @@
 //= 1.5 Rescripted to Aegis 10.3 standards. [L0ne_W0lf]
 //= 1.5a Fixed some errors with the loop[Samuray22]
 //	-Thanks to $ephiroth.
-//= 1.5b Traduzido o script de acordo com o bRo [Asus]
+//= 1.5b Traduzido o script de acordo com o bRO [Asus]
 //= 1.5c Revisado. [RoM]
 //= 1.5d Revisado. [KyukE]
 //============================================================
@@ -26,7 +26,7 @@ alberta,23,238,4	script	Guia#alb::AlbGuide	8W_SOLDIER,{
 	mes "[Guia de Alberta]";
 	mes "Bem-Vindo a Alberta, a cidade portuária.";
 	mes "Nós estamos aqui para ajudar os visitantes da cidade. Se você tem alguma dúvida, consulte-nos.";
-	mes "Se esta é a sua primeira utilizado um guia, por favor selecione 'Tutorial'.";
+	mes "Se esta é a sua primeira utilização um guia, por favor selecione 'Tutorial'.";
 	set .@loop1,1;
 	while (.@loop1) {
 		next;
@@ -113,4 +113,5 @@ alberta,23,238,4	script	Guia#alb::AlbGuide	8W_SOLDIER,{
 	end;
 }
 
+//= Duplicatas
 alberta,120,60,3	duplicate(AlbGuide)	Guia#2alb	8W_SOLDIER

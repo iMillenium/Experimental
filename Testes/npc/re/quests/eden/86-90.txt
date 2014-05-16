@@ -4,6 +4,8 @@
 //= Chilly
 //===== Current Version: =====================================
 //= 1.3
+//===== Codificação ==========================================
+//= CP-949 (EUC-KR compatible). Não salve/abra-o como UTF-8.
 //===== Description: =========================================
 //= Repetable Quests for Players between Baselevel 86 - 90.
 //===== Additional Comments: =================================

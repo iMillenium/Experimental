@@ -1,9 +1,11 @@
-//===== Hercules Script ======================================
+﻿//===== Hercules Script ======================================
 //= Assassin Skills Quests
 //===== By: ==================================================
 //= Lupus, Reddozen
 //===== Current Version: =====================================
 //= 1.5
+//===== Codificação ==========================================
+//= CP-949 (EUC-KR compatible). Não salve/abra-o como UTF-8.
 //===== Description: =========================================
 //= [Official Conversion]
 //= Quests for skills: Venom Knife, Sonic Acceleration

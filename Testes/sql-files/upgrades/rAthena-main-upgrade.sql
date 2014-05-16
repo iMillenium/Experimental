@@ -1,4 +1,4 @@
--- rAthena to Hercules main database upgrade query.
+﻿-- rAthena to Hercules main database upgrade query.
 -- This upgrades a FULLY UPGRADED rAthena to a FULLY UPGRADED Hercules
 -- Please don't use if either rAthena or Hercules launched a SQL update after last revision date of this file.
 -- Remember to make a backup before applying.
@@ -6,7 +6,7 @@
 -- Apply in the same database you applied your main.sql
 -- Last revised: April 26, 2014 12:29 GMT
 
--- Drop table contents from ´sc_data´ since we use a different status order than rAthena
+-- Drop table contents from `sc_data` since we use a different status order than rAthena
 -- /!\ WARNING /!\ This will remove _ALL_ of the status effects active on the server
 -- You can disable this, but this is a SECURITY MEASURE
 -- This will remove even jailed status from users!

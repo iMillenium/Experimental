@@ -1026,6 +1026,7 @@ OnInit:
 	disablenpc strnpcinfo(0);
 	end;
 }
+
 xmas,149,135,3	duplicate(#wander_xmas)	Guitar Song#xmas	4_M_MINSTREL
 xmas,142,130,7	duplicate(#wander_xmas)	Spectator#xmas1	4_F_05
 xmas,145,127,7	duplicate(#wander_xmas)	Spectator#xmas2	4_M_05

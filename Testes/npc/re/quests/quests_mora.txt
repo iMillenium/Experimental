@@ -4,6 +4,8 @@
 //= Euphy
 //===== Current Version: =====================================
 //= 1.1
+//===== Codificação ==========================================
+//= CP-949 (EUC-KR compatible). Não salve/abra-o como UTF-8.
 //===== Description: =========================================
 //= [Official Conversion]
 //= Quest NPCs related to Mora:
